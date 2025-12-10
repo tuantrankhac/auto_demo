@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="CRM" verbose="1" parallel="false">
+  <parameter name="browser" value="chrome"/>
+  <test name="DangNhapTest">
+    <parameter name="url" value="https://stg-crm.smarthiz.vn/login"/>
+    <classes>
+      <class name="demo.testSuites.DangNhap"/>
+    </classes>
+  </test>
+</suite>
