@@ -16,7 +16,22 @@
         <appium.java.client.version>9.2.3</appium.java.client.version>
         <owner.version>1.0.12</owner.version>
         <jackson.version>2.17.1</jackson.version>
+        <allure.version>2.32.0</allure.version>        <!-- Check latest tại mvnrepository.com -->
+        <aspectj.version>1.9.22</aspectj.version>        <!-- Hoặc mới hơn, check compatibility -->
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-bom</artifactId>
+                <version>${allure.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
 
 
 
@@ -54,12 +69,19 @@
             <version>${testng.version}</version>
         </dependency>
 
+        <!-- Allure TestNG adapter -->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-testng</artifactId>
+            <version>${allure.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>${selenium.version}</version>
         </dependency>
+
 
         <!-- Appium Java Client -->
         <dependency>
@@ -101,6 +123,36 @@
 
 
     <build>
+        <!-- m2e: avoid "Plugin execution not covered" for antrun (IDE only) -->
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.apache.maven.plugins</groupId>
+                                        <artifactId>maven-antrun-plugin</artifactId>
+                                        <versionRange>[3.1.0,)</versionRange>
+                                        <goals>
+                                            <goal>run</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore/>
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
         <plugins>
             <!-- Ensure JDK 17 -->
             <plugin>
@@ -115,18 +167,94 @@
                 </configuration>
             </plugin>
 
+            <!-- Sinh timestamp cho tên report -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.5.0</version>
+                <executions>
+                    <execution>
+                        <id>add-timestamp</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>timestamp-property</goal>
+                        </goals>
+                        <configuration>
+                            <name>build.time</name>
+                            <pattern>HH-mm_yyyy-MM-dd</pattern>
+                            <timeZone>Asia/Ho_Chi_Minh</timeZone>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
 
             <!-- Surefire for TestNG -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.2.5</version>
+                <version>3.5.0</version>
                 <configuration>
+                    <!-- Để Maven vẫn chạy tới phase verify (generate Allure report) dù test FAIL -->
+                    <testFailureIgnore>true</testFailureIgnore>
+                    <systemPropertyVariables>
+                        <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
+                    </systemPropertyVariables>
                     <suiteXmlFiles>
                         <suiteXmlFile>src/test/resources/runTestCase.xml</suiteXmlFile>
                     </suiteXmlFiles>
+                    <argLine>
+                    -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                    </argLine>
                 </configuration>
             </plugin>
+
+            <!-- Allure Maven Plugin: Generate report sau khi test chạy xong -->
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>2.17.0</version>                <!-- hoặc phiên bản mới hơn nếu bạn muốn -->
+                <configuration>
+                    <reportVersion>${allure.version}</reportVersion>                    <!-- nếu bạn dùng property này -->
+                    <resultsDirectory>${project.build.directory}/allure-results</resultsDirectory>
+
+                    <!-- Tạo thư mục báo cáo riêng biệt với timestamp, KHÔNG ghi đè -->
+                    <reportDirectory>${project.basedir}/report/allure-report-${build.time}</reportDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+
+            <!-- Clear allure-results sau khi đã generate report xong -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>clean-test-artifacts</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <!-- <delete dir="${project.build.directory}/screenshots" quiet="true"/> -->
+                                <!-- <delete dir="${project.build.directory}/videos" quiet="true"/> -->
+                                <delete dir="${project.build.directory}/allure-results" quiet="true"/>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
 
@@ -151,3 +279,8 @@
         </profile>
     </profiles>
 </project>
+
+
+
+
+<!-- mở file log: allure open target/report/allure-report-2026-01-22 -->

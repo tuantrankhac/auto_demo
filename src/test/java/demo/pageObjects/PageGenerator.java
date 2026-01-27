@@ -10,8 +10,11 @@ public class PageGenerator {
 	public static TrangChuPO getTrangChuPage(WebDriver driver){
 		return new TrangChuPO(driver);
 	}
-
 	
+	public static SuVuPO getSuVuPage(WebDriver driver){
+		return new SuVuPO(driver);
+	}
+
 
 }
 

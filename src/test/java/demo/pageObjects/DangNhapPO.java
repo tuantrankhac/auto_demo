@@ -2,7 +2,6 @@ package demo.pageObjects;
 
 import commons.BasePage;
 import demo.pageUIs.DangNhapPageUI;
-
 import org.openqa.selenium.WebDriver;
 
 
@@ -13,6 +12,8 @@ public class DangNhapPO extends BasePage {
         this.driver = driver;
     }
     public void enterToUserTextbox(String user){
+        waitForElementVisible(driver, DangNhapPageUI.USERNAME_TEXTBOX);
+        sleepInMiliSecond(2000);
         sendkeyToElement(driver, DangNhapPageUI.USERNAME_TEXTBOX, user);
     }
 

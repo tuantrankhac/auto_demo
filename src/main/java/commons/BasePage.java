@@ -7,6 +7,7 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 
 import constant.GlobalConstants;
+import io.qameta.allure.Allure;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.Color;
@@ -21,15 +22,16 @@ public class BasePage {
 	}
 
 	public void openPageUrl(WebDriver driver, String pageUrl) {
+		Allure.step("Mở trang URL: " + pageUrl);
 		driver.get(pageUrl);
 	}
 
 	public String getPageTitle(WebDriver driver) {
-		return driver.getTitle();
+		return Allure.step("Lấy tiêu đề trang hiện tại", () -> driver.getTitle());
 	}
 
 	public String getPageUrl(WebDriver driver) {
-		return driver.getCurrentUrl();
+		return Allure.step("Lấy URL trang hiện tại", () -> driver.getCurrentUrl());
 	}
 
 	public String getPageSourceCode(WebDriver driver) {
@@ -37,14 +39,17 @@ public class BasePage {
 	}
 
 	public void backToPage(WebDriver driver) {
+		Allure.step("Quay lại trang trước");
 		driver.navigate().back();
 	}
 
 	public void forwardToPage(WebDriver driver) {
+		Allure.step("Chuyển đến trang tiếp theo");
 		driver.navigate().forward();
 	}
 
 	public void refreshCurrentPage(WebDriver driver) {
+		Allure.step("Làm mới trang hiện tại");
 		driver.navigate().refresh();
 	}
 
@@ -58,18 +63,21 @@ public class BasePage {
 		}
 	}
 
+
 	public Alert waitForAlertPresence(WebDriver driver) {
 		WebDriverWait explicitWait = new WebDriverWait(driver, Duration.ofSeconds(15));
 		return explicitWait.until(ExpectedConditions.alertIsPresent());
 	}
 
 	public void acceptAlert(WebDriver driver) {
+		Allure.step("Chấp nhận alert");
 //		Alert alert = waitForAlertPresence(driver);
 //		alert.accept();
 		waitForAlertPresence(driver).accept();
 	}
 
 	public void cancelAlert(WebDriver driver) {
+		Allure.step("Hủy alert");
 		waitForAlertPresence(driver).dismiss();
 	}
 
@@ -94,6 +102,7 @@ public class BasePage {
 	}
 
 	public void switchToWindowByTitle(WebDriver driver, String tabTitle) {
+		Allure.step("Chuyển sang cửa sổ có tiêu đề: " + tabTitle);
 		Set<String> allWindowIDs = driver.getWindowHandles();
 
 		for (String id : allWindowIDs) {
@@ -157,25 +166,30 @@ public class BasePage {
 	}
 
 	public void clickToElement(WebDriver driver, String xpathLocator) {
+		Allure.step("Click vào element: " + xpathLocator);
 		waitForElementClickable(driver, xpathLocator);
 		getWebElement(driver, xpathLocator).click();
 	}
 
 	public void clickToElement(WebDriver driver, String xpathLocator, String... params) {
+		Allure.step("Click vào element động với tham số");
 		waitForElementClickable(driver, xpathLocator, params);
 		getWebElement(driver, getDynamicLocator(xpathLocator, params)).click();
 	}
 
 	public void cleaDateEnteredToTextbox(WebDriver driver, String xpathLocator){
+		Allure.step("Clear dữ liệu trong textbox");
 		getWebElement(driver, xpathLocator).clear();
 	}
 
 	public void cleaDateEnteredToTextbox(WebDriver driver, String xpathLocator, String...params){
+		Allure.step("Clear dữ liệu trong textbox");
 		xpathLocator = getDynamicLocator(xpathLocator, params);
 		getWebElement(driver, xpathLocator).clear();
 	}
 
 	public void sendkeyToElement(WebDriver driver, String xpathLocator, String textValue) {
+		Allure.step("Nhập text vào element: " + xpathLocator + " với giá trị: " + textValue);
 		try {
 			waitForElementVisible(driver, xpathLocator);
 			getWebElement(driver, xpathLocator).clear();
@@ -208,6 +222,7 @@ public class BasePage {
 	}
 
 	public void sendkeyToElement(WebDriver driver, String xpathLocator, String textValue, String... params) {
+		Allure.step("Nhập text vào element động với giá trị: " + textValue);
 		try {
 			xpathLocator = getDynamicLocator(xpathLocator, params);
 			getWebElement(driver, xpathLocator, params).clear();
@@ -216,42 +231,52 @@ public class BasePage {
 	}
 
 	public String getElementText(WebDriver driver, String xpathLocator) {
-		waitForElementVisible(driver, xpathLocator);
-		if(getWebElement(driver, xpathLocator) != null) {
-			return getWebElement(driver, xpathLocator).getText();
-		}else {
-			return null;
-		}
+		return Allure.step("Lấy text từ element: " + xpathLocator, () -> {
+			waitForElementVisible(driver, xpathLocator);
+			if(getWebElement(driver, xpathLocator) != null) {
+				return getWebElement(driver, xpathLocator).getText();
+			}else {
+				return null;
+			}
+		});
 	}
 
 	public String getElementText(WebDriver driver, String xpathLocator, String... params) {
-		waitForElementVisible(driver, xpathLocator, params);
-		if(getWebElement(driver, xpathLocator, params) != null) {
-			return getWebElement(driver, xpathLocator, params).getText();
-		}else {
-			return null;
-		}
+		return Allure.step("Lấy text từ element động", () -> {
+			waitForElementVisible(driver, xpathLocator, params);
+			if(getWebElement(driver, xpathLocator, params) != null) {
+				return getWebElement(driver, xpathLocator, params).getText();
+			}else {
+				return null;
+			}
+		});
 	}
 
 	public void selectDropdownByText(WebDriver driver, String xpathLocator, String textItem) {
+		Allure.step("Chọn dropdown theo text: " + textItem);
 		Select select = new Select(getWebElement(driver, xpathLocator));
 		select.selectByVisibleText(textItem);
 	}
 
 	public void selectDropdownByText(WebDriver driver, String xpathLocator, String textItem, String... params) {
+		Allure.step("Chọn dropdown động theo text: " + textItem);
 		xpathLocator = getDynamicLocator(xpathLocator, params);
 		Select select = new Select(getWebElement(driver, xpathLocator));
 		select.selectByVisibleText(textItem);
 	}
 
 	public String getSelectedItemDefaultDropdown(WebDriver driver, String xpathLocator) {
-		Select select = new Select(getWebElement(driver, xpathLocator));
-		return select.getFirstSelectedOption().getText();
+		return Allure.step("Lấy item đã chọn trong dropdown mặc định", () -> {
+			Select select = new Select(getWebElement(driver, xpathLocator));
+			return select.getFirstSelectedOption().getText();
+		});
 	}
 
 	public String getSelectedItemDropdown(WebDriver driver, String xpathLocator) {
-		select = new Select(getWebElement(driver, xpathLocator));
-		return select.getFirstSelectedOption().getText();
+		return Allure.step("Lấy item đã chọn trong dropdown", () -> {
+			select = new Select(getWebElement(driver, xpathLocator));
+			return select.getFirstSelectedOption().getText();
+		});
 	}
 
 	public String getSelectedItemDropdown(WebDriver driver, String xpathLocator, String... params) {
@@ -332,6 +357,7 @@ public class BasePage {
 	}
 
 	public void checkToDefaultCheckboxRadio(WebDriver driver, String xpathLocator) {
+		Allure.step("Chọn checkbox/radio: " + xpathLocator);
 		WebElement element = getWebElement(driver, xpathLocator);
 		if (!element.isSelected()) {
 			element.click();
@@ -339,6 +365,7 @@ public class BasePage {
 	}
 
 	public void uncheckToDefaultCheckbox(WebDriver driver, String xpathLocator) {
+		Allure.step("Bỏ chọn checkbox: " + xpathLocator);
 		WebElement element = getWebElement(driver, xpathLocator);
 		if (element.isSelected()) {
 			element.click();
@@ -346,23 +373,27 @@ public class BasePage {
 	}
 
 	public boolean isElementDisplayed(WebDriver driver, String xpathLocator) {
-		waitForElementVisible(driver,xpathLocator);
-		try {
-			return getWebElement(driver, xpathLocator).isDisplayed();
-		} catch (Exception e) {
-			return false;
-		}
+		return Allure.step("Kiểm tra element có hiển thị: " + xpathLocator, () -> {
+			waitForElementVisible(driver,xpathLocator);
+			try {
+				return getWebElement(driver, xpathLocator).isDisplayed();
+			} catch (Exception e) {
+				return false;
+			}
+		});
 	}
 
 	public boolean isElementDisplayed(WebDriver driver, String xpathLocator, String... params) {
-		waitForElementVisible(driver,xpathLocator, params);
-		try {
-			return getWebElement(driver, getDynamicLocator(xpathLocator, params)).isDisplayed();
-		} catch (NoSuchElementException e){
-			return false;
-		}catch (Exception e){
-			return false;
-		}
+		return Allure.step("Kiểm tra element động có hiển thị", () -> {
+			waitForElementVisible(driver,xpathLocator, params);
+			try {
+				return getWebElement(driver, getDynamicLocator(xpathLocator, params)).isDisplayed();
+			} catch (NoSuchElementException e){
+				return false;
+			}catch (Exception e){
+				return false;
+			}
+		});
 	}
 
 	public boolean isElementUndisplayed(WebDriver driver, String xpathLocator) {
@@ -434,6 +465,7 @@ public class BasePage {
 	}
 
 	public void clickToElementByJS(WebDriver driver, String xpathLocator) {
+		Allure.step("Click vào element bằng JavaScript: " + xpathLocator);
 		jsExecutor = (JavascriptExecutor) driver;
 		jsExecutor.executeScript("arguments[0].click();", getWebElement(driver, xpathLocator));
 		sleepInMiliSecond(3000);
@@ -528,6 +560,7 @@ public class BasePage {
 	}
 
 	public void sleepInMiliSecond(long timeout) {
+		Allure.step("Đợi trong: " + timeout + " milisecond");
 		try {
 			Thread.sleep(timeout);
 		} catch (InterruptedException e) {
@@ -536,6 +569,7 @@ public class BasePage {
 	}
 
 	public void waitForElementVisible(WebDriver driver, String xpathLocator) {
+		Allure.step("Chờ element hiển thị: " + xpathLocator);
 		try {
 			explicitWait = new WebDriverWait(driver, Duration.ofSeconds(shortTimeout));
 			explicitWait.until(ExpectedConditions.visibilityOfElementLocated(getByXpath(xpathLocator)));
@@ -545,6 +579,7 @@ public class BasePage {
 	}
 
 	public void waitForElementVisible(WebDriver driver, String xpathLocator, String... params) {
+		Allure.step("Chờ element động hiển thị");
 		try {
 			explicitWait = new WebDriverWait(driver, Duration.ofSeconds(shortTimeout));
 			explicitWait.until(ExpectedConditions.visibilityOfElementLocated(getByXpath((getDynamicLocator(xpathLocator, params)))));
@@ -576,11 +611,13 @@ public class BasePage {
 	}
 
 	public void waitForElementClickable(WebDriver driver, String xpathLocator) {
+		Allure.step("Chờ element có thể click: " + xpathLocator);
 		explicitWait = new WebDriverWait(driver, Duration.ofSeconds(longTimeout));
 		explicitWait.until(ExpectedConditions.elementToBeClickable(getByXpath(xpathLocator)));
 	}
 
 	public void waitForElementClickable(WebDriver driver, String xpathLocator, String... params) {
+		Allure.step("Chờ element động có thể click");
 		explicitWait = new WebDriverWait(driver, Duration.ofSeconds(longTimeout));
 		explicitWait.until(ExpectedConditions.elementToBeClickable(getByXpath(getDynamicLocator(xpathLocator, params))));
 	}
@@ -623,6 +660,7 @@ public class BasePage {
 	}
 
 	public void uploadFile(WebDriver driver, String xpathLocator, String... fileNames) {
+		Allure.step("Upload file: " + String.join(", ", fileNames));
 		String filePath = GlobalConstants.UPLOAD_FILE_FOLDER;
 		String fullFileName = "";
 		for (String file : fileNames) {

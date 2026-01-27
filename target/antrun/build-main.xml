@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="maven-antrun-" default="main">
+  <target name="main">
+    <delete quiet="true" dir="C:\Users\Admin\Documents\Oxii\S-Office\Project_Hybrid\DEMO\target/allure-results" />
+  </target>
+</project>

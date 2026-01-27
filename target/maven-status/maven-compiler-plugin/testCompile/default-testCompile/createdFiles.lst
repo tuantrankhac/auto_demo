@@ -1,3 +1,11 @@
-demo\pageUIs\DangNhapPageUI.class
 demo\pageObjects\DangNhapPO.class
+report\ReportNGListener.class
 demo\pageObjects\PageGenerator.class
+report\ExtentManager.class
+demo\pageUIs\DangNhapPageUI.class
+demo\testSuites\DangNhapTest.class
+report\ExtentManager$1.class
+demo\pageUIs\TrangChuPageUI.class
+report\TestNGAppender.class
+report\MethodListener.class
+demo\pageObjects\TrangChuPO.class
