@@ -59,8 +59,10 @@
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
-            <version>5.5.3</version>
+            <version>5.9.2</version>
         </dependency>
+
+
 
         <!-- Test runner -->
         <dependency>
@@ -81,7 +83,6 @@
             <artifactId>selenium-java</artifactId>
             <version>${selenium.version}</version>
         </dependency>
-
 
         <!-- Appium Java Client -->
         <dependency>
@@ -119,7 +120,24 @@
             <artifactId>javafaker</artifactId>
             <version>1.0.2</version>
         </dependency>
+
+
+        <!-- MySQL Connector (nếu DB là MySQL) -->
+        <!-- <dependency>
+        <groupId>com.mysql</groupId>
+        <artifactId>mysql-connector-j</artifactId>
+        <version>8.4.0</version>
+    </dependency> -->
+
+        <!-- Nếu DB là PostgreSQL -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.7.4</version>
+        </dependency>
+
     </dependencies>
+
 
 
     <build>

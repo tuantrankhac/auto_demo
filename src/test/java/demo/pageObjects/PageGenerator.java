@@ -15,6 +15,21 @@ public class PageGenerator {
 		return new SuVuPO(driver);
 	}
 
+	public static IframePO getIframePO(WebDriver driver){
+		return new IframePO(driver);
+	}
+	
+	public static HandleAlertPO getHandleAlertPO(WebDriver driver){
+		return new HandleAlertPO(driver);
+	}
+
+	public static ActionsPagePO getActionsPagePO(WebDriver driver){
+		return new ActionsPagePO(driver);
+	}
+
+	public static SwitchTabPO getSwitchTabPO(WebDriver driver){
+		return new SwitchTabPO(driver);
+	}
 
 }
 

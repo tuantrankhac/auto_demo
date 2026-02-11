@@ -26,7 +26,9 @@ public class TaoMoiSuVu extends BrowserFactory {
     public void DangNhapThanhCong() {
         trangChuPO = dangNhapPO.loginWithAccount(user, password);
         suVuPO = trangChuPO.openMenuByName("Dịch vụ bảo hành");
+        suVuPO.openNewTicketScreen();
         
+
 
         
     }

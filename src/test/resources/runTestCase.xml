@@ -1,12 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<!-- <suite name="CRM" verbose="1" parallel="tests"> -->
 <suite name="CRM" verbose="1" parallel="false">
 
-  <parameter name="browser" value="chrome"/>
-  <test name="DangNhapTest">
+  <!-- <test name="TaoMoiSuVu - Chrome">
+    <parameter name="browser" value="chrome"/>
     <parameter name="url" value="https://stg-crm.smarthiz.vn/login"/>
     <classes>
-      <class name="demo.testSuites.DangNhapTest"/>
+      <class name="demo.testSuites.TaoMoiSuVu"/>
     </classes>
   </test>
+
+  <test name="TestParallel1 - Firefox">
+    <parameter name="browser" value="firefox"/>
+    <parameter name="url" value="https://stg-crm.smarthiz.vn/login"/>
+    <classes>
+      <class name="demo.testSuites.TestParallel"/>
+    </classes>
+  </test> -->
+
+  <!-- <test name="TestParallel2 - Firefox">
+    <parameter name="browser" value="firefox"/>
+    <parameter name="url" value="https://stg-crm.smarthiz.vn/login"/>
+    <classes>
+      <class name="demo.testSuites.TestParallel2"/>
+    </classes>
+  </test> -->
+
+
+  <!-- <test name="UploadFile - Chrome">
+    <parameter name="browser" value="chrome"/>
+    <parameter name="url" value="https://stg-crm.smarthiz.vn/login"/>
+    <classes>
+      <class name="demo.testSuites.UploadFileTest"/>
+    </classes>
+  </test> -->
+
+  <!-- <test name="ConnectDB - Chrome">
+    <parameter name="browser" value="chrome"/>
+    <parameter name="url" value="https://stg-crm.smarthiz.vn/login"/>
+    <classes>
+      <class name="demo.testSuites.ValidataDataOnUIAndDB"/>
+    </classes>
+  </test> -->
+
+  <!-- <test name="Iframe - Chrome">
+    <parameter name="browser" value="chrome"/>
+    <classes>
+      <class name="demo.testSuites.Iframe"/>
+    </classes>
+  </test> -->
+
+  <!-- <test name="Alert - Chrome">
+    <parameter name="browser" value="chrome"/>
+    <parameter name="url" value="https://demo.automationtesting.in/Alerts.html"/>
+    <classes>
+      <class name="demo.testSuites.HandleAlert"/>
+    </classes>
+  </test> -->
+
+  <!-- <test name="Alert - Chrome">
+    <parameter name="browser" value="chrome"/>
+    <parameter name="url" value="https://the-internet.herokuapp.com/"/>
+    <classes>
+      <class name="demo.testSuites.ActionsPage"/>
+    </classes>
+  </test> -->
+
+  <test name="SwitchTab - Chrome">
+    <parameter name="browser" value="chrome"/>
+    <parameter name="url" value="https://the-internet.herokuapp.com/windows"/>
+    <classes>
+      <class name="demo.testSuites.SwitchTab"/>
+    </classes>
+  </test>
+
+
 </suite>

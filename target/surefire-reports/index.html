@@ -92,7 +92,7 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">1 method,   1 passed</span>
+                    <span class="method-stats">3 methods,   3 passed</span>
                   </li>
                   <li>
                     <span class="method-list-title passed">Passed methods</span>
@@ -103,7 +103,17 @@
                     <div class="method-list-content passed suite-CRM">
                       <span>
                         <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-CRM" title="demo.testSuites.DangNhapTest" class="method navigator-link" hash-for-method="DangNhapThanhCong">DangNhapThanhCong</a> <!-- method navigator-link -->
+                        <a href="#" panel-name="suite-CRM" title="demo.testSuites.SwitchTab" class="method navigator-link" hash-for-method="SwtichTabByIndex">SwtichTabByIndex</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-CRM" title="demo.testSuites.SwitchTab" class="method navigator-link" hash-for-method="SwtichTabByTitle">SwtichTabByTitle</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-CRM" title="demo.testSuites.SwitchTab" class="method navigator-link" hash-for-method="SwtichTabByUrl">SwtichTabByUrl</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content passed suite-CRM -->
@@ -121,14 +131,28 @@
           <div class="suite-CRM-class-passed">
             <div class="main-panel-header rounded-window-top">
               <img src="passed.png"/>
-              <span class="class-name">demo.testSuites.DangNhapTest</span>
+              <span class="class-name">demo.testSuites.SwitchTab</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="DangNhapThanhCong">
-                  </a> <!-- DangNhapThanhCong -->
-                  <span class="method-name">DangNhapThanhCong</span>
+                  <a name="SwtichTabByIndex">
+                  </a> <!-- SwtichTabByIndex -->
+                  <span class="method-name">SwtichTabByIndex</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="SwtichTabByTitle">
+                  </a> <!-- SwtichTabByTitle -->
+                  <span class="method-name">SwtichTabByTitle</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="SwtichTabByUrl">
+                  </a> <!-- SwtichTabByUrl -->
+                  <span class="method-name">SwtichTabByUrl</span>
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
@@ -143,13 +167,13 @@
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;!DOCTYPE suite SYSTEM &quot;https://testng.org/testng-1.0.dtd&quot;&gt;
 &lt;suite name=&quot;CRM&quot; guice-stage=&quot;DEVELOPMENT&quot; verbose=&quot;0&quot;&gt;
-  &lt;parameter name=&quot;browser&quot; value=&quot;chrome&quot;/&gt;
-  &lt;test thread-count=&quot;5&quot; name=&quot;DangNhapTest&quot; verbose=&quot;0&quot;&gt;
-    &lt;parameter name=&quot;url&quot; value=&quot;https://stg-crm.smarthiz.vn/login&quot;/&gt;
+  &lt;test thread-count=&quot;5&quot; name=&quot;SwitchTab - Chrome&quot; verbose=&quot;0&quot;&gt;
+    &lt;parameter name=&quot;browser&quot; value=&quot;chrome&quot;/&gt;
+    &lt;parameter name=&quot;url&quot; value=&quot;https://the-internet.herokuapp.com/windows&quot;/&gt;
     &lt;classes&gt;
-      &lt;class name=&quot;demo.testSuites.DangNhapTest&quot;/&gt;
+      &lt;class name=&quot;demo.testSuites.SwitchTab&quot;/&gt;
     &lt;/classes&gt;
-  &lt;/test&gt; &lt;!-- DangNhapTest --&gt;
+  &lt;/test&gt; &lt;!-- SwitchTab - Chrome --&gt;
 &lt;/suite&gt; &lt;!-- CRM --&gt;
             </pre>
           </div> <!-- main-panel-content rounded-window-bottom -->
@@ -161,7 +185,7 @@
           <div class="main-panel-content rounded-window-bottom">
             <ul>
               <li>
-                <span class="test-name">DangNhapTest (1 class)</span>
+                <span class="test-name">SwitchTab - Chrome (1 class)</span>
               </li>
             </ul>
           </div> <!-- main-panel-content rounded-window-bottom -->
@@ -187,16 +211,24 @@ data.addColumn('number', 'Number');
 data.addColumn('string', 'Method');
 data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
-data.addRows(1);
+data.addRows(3);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'DangNhapThanhCong')
-data.setCell(0, 2, 'demo.testSuites.DangNhapTest')
-data.setCell(0, 3, 16630);
+data.setCell(0, 1, 'SwtichTabByTitle')
+data.setCell(0, 2, 'demo.testSuites.SwitchTab')
+data.setCell(0, 3, 4145);
+data.setCell(1, 0, 1)
+data.setCell(1, 1, 'SwtichTabByUrl')
+data.setCell(1, 2, 'demo.testSuites.SwitchTab')
+data.setCell(1, 3, 931);
+data.setCell(2, 0, 2)
+data.setCell(2, 1, 'SwtichTabByIndex')
+data.setCell(2, 2, 'demo.testSuites.SwitchTab')
+data.setCell(2, 3, 863);
 window.suiteTableData['CRM']= { tableData: data, tableDiv: 'times-div-CRM'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 16 seconds</span>
+              <span class="suite-total-time">Total running time: 5 seconds</span>
               <div id="times-div-CRM">
               </div> <!-- times-div-CRM -->
             </div> <!-- times-div -->
@@ -222,23 +254,47 @@ return data;
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="chronological-class">
-              <div class="chronological-class-name">demo.testSuites.DangNhapTest</div> <!-- chronological-class-name -->
+              <div class="chronological-class-name">demo.testSuites.SwitchTab</div> <!-- chronological-class-name -->
               <div class="configuration-test before">
                 <span class="method-name">deleteFileInReport</span>
                 <span class="method-start">0 ms</span>
               </div> <!-- configuration-test before -->
-              <div class="configuration-class before">
-                <span class="method-name">beforeClass(chrome, https://stg-crm.smarthiz.vn/login)</span>
-                <span class="method-start">81 ms</span>
-              </div> <!-- configuration-class before -->
+              <div class="configuration-method before">
+                <span class="method-name">beforeMethod(chrome, https://the-internet.herokuapp.com/windows)</span>
+                <span class="method-start">112 ms</span>
+              </div> <!-- configuration-method before -->
               <div class="test-method">
-                <span class="method-name">DangNhapThanhCong</span>
-                <span class="method-start">7283 ms</span>
+                <span class="method-name">SwtichTabByTitle</span>
+                <span class="method-start">7176 ms</span>
               </div> <!-- test-method -->
-              <div class="configuration-class after">
-                <span class="method-name">afterClass</span>
-                <span class="method-start">24057 ms</span>
-              </div> <!-- configuration-class after -->
+              <div class="configuration-method after">
+                <span class="method-name">afterMethod</span>
+                <span class="method-start">11337 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">beforeMethod(chrome, https://the-internet.herokuapp.com/windows)</span>
+                <span class="method-start">11487 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">SwtichTabByUrl</span>
+                <span class="method-start">15710 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">afterMethod</span>
+                <span class="method-start">16641 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">beforeMethod(chrome, https://the-internet.herokuapp.com/windows)</span>
+                <span class="method-start">16842 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">SwtichTabByIndex</span>
+                <span class="method-start">21295 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">afterMethod</span>
+                <span class="method-start">22158 ms</span>
+              </div> <!-- configuration-method after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
       </div> <!-- main-panel-root -->
