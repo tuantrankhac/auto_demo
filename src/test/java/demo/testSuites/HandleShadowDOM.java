@@ -12,7 +12,7 @@ import demo.pageObjects.HandleShadowDOMPO;
 import demo.pageObjects.PageGenerator;
 
 public class HandleShadowDOM extends BrowserFactory {
-    @Parameters({ "browser"})
+    @Parameters({ "browser" })
     @BeforeMethod
     public void beforeMethod(String browserName) {
         log.info("Pre-Condition: Step 01: Open Browser: " + browserName);
@@ -28,11 +28,10 @@ public class HandleShadowDOM extends BrowserFactory {
 
     }
 
-
     @Test(priority = 2)
     public void HandleShadowDOMNested() {
         driver.get("https://selectorshub.com/shadow-dom-in-iframe/");
-
+        handleShadowDOMPO.getTextElementInNestedShadow();
     }
 
     @AfterMethod(alwaysRun = true)

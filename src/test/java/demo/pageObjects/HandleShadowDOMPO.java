@@ -17,7 +17,7 @@ public class HandleShadowDOMPO extends BasePage {
     }
 
     public void getTextElementInNestedShadow(){
-        getElementInNestedShadowRoot(driver, HandleShadowDOMPageUI.SINGLE_SHADOW_DOM, HandleShadowDOMPageUI.ELEMENT_IN_SINGLE_SHADOW_DOM);
+        getElementInNestedShadowRoot(driver, HandleShadowDOMPageUI.SHADOW_DOM_NESTED_PARENT, HandleShadowDOMPageUI.SHADOW_DOM_NESTED_CHILD, HandleShadowDOMPageUI.ELEMENT_IN_SHADOW_DOM_NESTED);
     }
 
 }

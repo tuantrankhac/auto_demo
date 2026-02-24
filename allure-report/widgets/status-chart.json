@@ -1,0 +1,1 @@
+[{"uid":"b341128640c27542","name":"HandleShadowDOMNested","time":{"start":1771947823894,"stop":1771947858101,"duration":34207},"status":"broken","severity":"normal"},{"uid":"26b64c2ffad8977e","name":"HandleShadowDOMSingle","time":{"start":1771947790510,"stop":1771947822932,"duration":32422},"status":"broken","severity":"normal"}]

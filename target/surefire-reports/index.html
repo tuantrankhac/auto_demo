@@ -25,7 +25,7 @@
       <span class="top-banner-title-font">Test results</span>
       <button id="button" class="button">Switch Retro Theme</button> <!-- button -->
       <br/>
-      <span class="top-banner-font-1">1 suite</span>
+      <span class="top-banner-font-1">1 suite, 2 failed tests</span>
     </div> <!-- top-banner-root -->
     <div class="navigator-root">
       <div class="navigator-suite-header">
@@ -39,7 +39,7 @@
         <div class="rounded-window">
           <div class="suite-header light-rounded-window-top">
             <a href="#" panel-name="suite-CRM" class="navigator-link">
-              <span class="suite-name border-passed">CRM</span>
+              <span class="suite-name border-failed">CRM</span>
             </a> <!-- navigator-link -->
           </div> <!-- suite-header light-rounded-window-top -->
           <div class="navigator-suite-content">
@@ -50,7 +50,7 @@
               <ul>
                 <li>
                   <a href="#" panel-name="test-xml-CRM" class="navigator-link ">
-                    <span>C:\Users\Admin\Documents\Oxii\S-Office\Project_Hybrid\DEMO\src\test\resources\runTestCase.xml</span>
+                    <span>C:\Users\ADMIN\Documents\Pro\Demo\auto_demo\src\test\resources\runTestCase.xml</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
@@ -92,31 +92,26 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">3 methods,   3 passed</span>
+                    <span class="method-stats">2 methods, 2 failed,   </span>
                   </li>
                   <li>
-                    <span class="method-list-title passed">Passed methods</span>
-                    <span class="show-or-hide-methods passed">
-                      <a href="#" panel-name="suite-CRM" class="hide-methods passed suite-CRM"> (hide)</a> <!-- hide-methods passed suite-CRM -->
-                      <a href="#" panel-name="suite-CRM" class="show-methods passed suite-CRM"> (show)</a> <!-- show-methods passed suite-CRM -->
+                    <span class="method-list-title failed">Failed methods</span>
+                    <span class="show-or-hide-methods failed">
+                      <a href="#" panel-name="suite-CRM" class="hide-methods failed suite-CRM"> (hide)</a> <!-- hide-methods failed suite-CRM -->
+                      <a href="#" panel-name="suite-CRM" class="show-methods failed suite-CRM"> (show)</a> <!-- show-methods failed suite-CRM -->
                     </span>
-                    <div class="method-list-content passed suite-CRM">
+                    <div class="method-list-content failed suite-CRM">
                       <span>
-                        <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-CRM" title="demo.testSuites.SwitchTab" class="method navigator-link" hash-for-method="SwtichTabByIndex">SwtichTabByIndex</a> <!-- method navigator-link -->
+                        <img src="failed.png" width="3%"/>
+                        <a href="#" panel-name="suite-CRM" title="demo.testSuites.HandleShadowDOM" class="method navigator-link" hash-for-method="HandleShadowDOMNested">HandleShadowDOMNested</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                       <span>
-                        <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-CRM" title="demo.testSuites.SwitchTab" class="method navigator-link" hash-for-method="SwtichTabByTitle">SwtichTabByTitle</a> <!-- method navigator-link -->
+                        <img src="failed.png" width="3%"/>
+                        <a href="#" panel-name="suite-CRM" title="demo.testSuites.HandleShadowDOM" class="method navigator-link" hash-for-method="HandleShadowDOMSingle">HandleShadowDOMSingle</a> <!-- method navigator-link -->
                       </span>
                       <br/>
-                      <span>
-                        <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-CRM" title="demo.testSuites.SwitchTab" class="method navigator-link" hash-for-method="SwtichTabByUrl">SwtichTabByUrl</a> <!-- method navigator-link -->
-                      </span>
-                      <br/>
-                    </div> <!-- method-list-content passed suite-CRM -->
+                    </div> <!-- method-list-content failed suite-CRM -->
                   </li>
                 </ul>
               </div> <!-- suite-section-content -->
@@ -128,52 +123,114 @@
     <div class="wrapper">
       <div class="main-panel-root">
         <div panel-name="suite-CRM" class="panel CRM">
-          <div class="suite-CRM-class-passed">
+          <div class="suite-CRM-class-failed">
             <div class="main-panel-header rounded-window-top">
-              <img src="passed.png"/>
-              <span class="class-name">demo.testSuites.SwitchTab</span>
+              <img src="failed.png"/>
+              <span class="class-name">demo.testSuites.HandleShadowDOM</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="SwtichTabByIndex">
-                  </a> <!-- SwtichTabByIndex -->
-                  <span class="method-name">SwtichTabByIndex</span>
+                  <a name="HandleShadowDOMNested">
+                  </a> <!-- HandleShadowDOMNested -->
+                  <span class="method-name">HandleShadowDOMNested</span>
+                  <div class="stack-trace">java.util.NoSuchElementException: Không tìm thấy shadow host: By.xpath: //input[@type=&apos;email&apos;]
+	at commons.BasePage.getElementInNestedShadowRoot(BasePage.java:824)
+	at demo.pageObjects.HandleShadowDOMPO.getTextElementInNestedShadow(HandleShadowDOMPO.java:20)
+	at demo.testSuites.HandleShadowDOM.HandleShadowDOMNested(HandleShadowDOM.java:35)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.apache.maven.plugin.surefire.InPluginVMSurefireStarter.runSuitesInProcess(InPluginVMSurefireStarter.java:91)
+	at org.apache.maven.plugin.surefire.AbstractSurefireMojo.executeProvider(AbstractSurefireMojo.java:1308)
+	at org.apache.maven.plugin.surefire.AbstractSurefireMojo.executeAfterPreconditionsChecked(AbstractSurefireMojo.java:1137)
+	at org.apache.maven.plugin.surefire.AbstractSurefireMojo.execute(AbstractSurefireMojo.java:971)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:126)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute2(MojoExecutor.java:328)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute(MojoExecutor.java:316)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:212)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:174)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.access$000(MojoExecutor.java:75)
+	at org.apache.maven.lifecycle.internal.MojoExecutor$1.run(MojoExecutor.java:162)
+	at org.apache.maven.plugin.DefaultMojosExecutionStrategy.execute(DefaultMojosExecutionStrategy.java:39)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:159)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:105)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:73)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:53)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:118)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:261)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:173)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:101)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:906)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:283)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:206)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:283)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:226)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:407)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:348)
+... Removed 38 stack frames
+</div> <!-- stack-trace -->
                 </div> <!-- method-content -->
               </div> <!-- method -->
               <div class="method">
                 <div class="method-content">
-                  <a name="SwtichTabByTitle">
-                  </a> <!-- SwtichTabByTitle -->
-                  <span class="method-name">SwtichTabByTitle</span>
-                </div> <!-- method-content -->
-              </div> <!-- method -->
-              <div class="method">
-                <div class="method-content">
-                  <a name="SwtichTabByUrl">
-                  </a> <!-- SwtichTabByUrl -->
-                  <span class="method-name">SwtichTabByUrl</span>
+                  <a name="HandleShadowDOMSingle">
+                  </a> <!-- HandleShadowDOMSingle -->
+                  <span class="method-name">HandleShadowDOMSingle</span>
+                  <div class="stack-trace">java.util.NoSuchElementException: Shadow host element not found: By.id: shadow-host
+	at commons.BasePage.getShadowRoot(BasePage.java:723)
+	at commons.BasePage.getElementInShadowRoot(BasePage.java:786)
+	at commons.BasePage.getTextElementInShadowRoot(BasePage.java:862)
+	at demo.pageObjects.HandleShadowDOMPO.getTextElementInShadow(HandleShadowDOMPO.java:16)
+	at demo.testSuites.HandleShadowDOM.HandleShadowDOMSingle(HandleShadowDOM.java:27)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.apache.maven.plugin.surefire.InPluginVMSurefireStarter.runSuitesInProcess(InPluginVMSurefireStarter.java:91)
+	at org.apache.maven.plugin.surefire.AbstractSurefireMojo.executeProvider(AbstractSurefireMojo.java:1308)
+	at org.apache.maven.plugin.surefire.AbstractSurefireMojo.executeAfterPreconditionsChecked(AbstractSurefireMojo.java:1137)
+	at org.apache.maven.plugin.surefire.AbstractSurefireMojo.execute(AbstractSurefireMojo.java:971)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:126)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute2(MojoExecutor.java:328)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute(MojoExecutor.java:316)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:212)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:174)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.access$000(MojoExecutor.java:75)
+	at org.apache.maven.lifecycle.internal.MojoExecutor$1.run(MojoExecutor.java:162)
+	at org.apache.maven.plugin.DefaultMojosExecutionStrategy.execute(DefaultMojosExecutionStrategy.java:39)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:159)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:105)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:73)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:53)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:118)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:261)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:173)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:101)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:906)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:283)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:206)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:283)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:226)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:407)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:348)
+... Removed 38 stack frames
+</div> <!-- stack-trace -->
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
-          </div> <!-- suite-CRM-class-passed -->
+          </div> <!-- suite-CRM-class-failed -->
         </div> <!-- panel CRM -->
         <div panel-name="test-xml-CRM" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">C:\Users\Admin\Documents\Oxii\S-Office\Project_Hybrid\DEMO\src\test\resources\runTestCase.xml</span>
+            <span class="header-content">C:\Users\ADMIN\Documents\Pro\Demo\auto_demo\src\test\resources\runTestCase.xml</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <pre>
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;!DOCTYPE suite SYSTEM &quot;https://testng.org/testng-1.0.dtd&quot;&gt;
 &lt;suite name=&quot;CRM&quot; guice-stage=&quot;DEVELOPMENT&quot; verbose=&quot;0&quot;&gt;
-  &lt;test thread-count=&quot;5&quot; name=&quot;SwitchTab - Chrome&quot; verbose=&quot;0&quot;&gt;
+  &lt;test thread-count=&quot;5&quot; name=&quot;Shadow DOM - Chrome&quot; verbose=&quot;0&quot;&gt;
     &lt;parameter name=&quot;browser&quot; value=&quot;chrome&quot;/&gt;
-    &lt;parameter name=&quot;url&quot; value=&quot;https://the-internet.herokuapp.com/windows&quot;/&gt;
     &lt;classes&gt;
-      &lt;class name=&quot;demo.testSuites.SwitchTab&quot;/&gt;
+      &lt;class name=&quot;demo.testSuites.HandleShadowDOM&quot;/&gt;
     &lt;/classes&gt;
-  &lt;/test&gt; &lt;!-- SwitchTab - Chrome --&gt;
+  &lt;/test&gt; &lt;!-- Shadow DOM - Chrome --&gt;
 &lt;/suite&gt; &lt;!-- CRM --&gt;
             </pre>
           </div> <!-- main-panel-content rounded-window-bottom -->
@@ -185,7 +242,7 @@
           <div class="main-panel-content rounded-window-bottom">
             <ul>
               <li>
-                <span class="test-name">SwitchTab - Chrome (1 class)</span>
+                <span class="test-name">Shadow DOM - Chrome (1 class)</span>
               </li>
             </ul>
           </div> <!-- main-panel-content rounded-window-bottom -->
@@ -211,24 +268,20 @@ data.addColumn('number', 'Number');
 data.addColumn('string', 'Method');
 data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
-data.addRows(3);
+data.addRows(2);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'SwtichTabByTitle')
-data.setCell(0, 2, 'demo.testSuites.SwitchTab')
-data.setCell(0, 3, 4145);
+data.setCell(0, 1, 'HandleShadowDOMNested')
+data.setCell(0, 2, 'demo.testSuites.HandleShadowDOM')
+data.setCell(0, 3, 34210);
 data.setCell(1, 0, 1)
-data.setCell(1, 1, 'SwtichTabByUrl')
-data.setCell(1, 2, 'demo.testSuites.SwitchTab')
-data.setCell(1, 3, 931);
-data.setCell(2, 0, 2)
-data.setCell(2, 1, 'SwtichTabByIndex')
-data.setCell(2, 2, 'demo.testSuites.SwitchTab')
-data.setCell(2, 3, 863);
+data.setCell(1, 1, 'HandleShadowDOMSingle')
+data.setCell(1, 2, 'demo.testSuites.HandleShadowDOM')
+data.setCell(1, 3, 32439);
 window.suiteTableData['CRM']= { tableData: data, tableDiv: 'times-div-CRM'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 5 seconds</span>
+              <span class="suite-total-time">Total running time: 1 minutes</span>
               <div id="times-div-CRM">
               </div> <!-- times-div-CRM -->
             </div> <!-- times-div -->
@@ -254,46 +307,38 @@ return data;
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="chronological-class">
-              <div class="chronological-class-name">demo.testSuites.SwitchTab</div> <!-- chronological-class-name -->
+              <div class="chronological-class-name">demo.testSuites.HandleShadowDOM</div> <!-- chronological-class-name -->
               <div class="configuration-test before">
                 <span class="method-name">deleteFileInReport</span>
                 <span class="method-start">0 ms</span>
               </div> <!-- configuration-test before -->
               <div class="configuration-method before">
-                <span class="method-name">beforeMethod(chrome, https://the-internet.herokuapp.com/windows)</span>
-                <span class="method-start">112 ms</span>
+                <span class="method-name">beforeMethod(chrome)</span>
+                <span class="method-start">31 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
-                <span class="method-name">SwtichTabByTitle</span>
-                <span class="method-start">7176 ms</span>
+                <img src="failed.png">
+                </img>
+                <span class="method-name">HandleShadowDOMSingle</span>
+                <span class="method-start">2811 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">afterMethod</span>
-                <span class="method-start">11337 ms</span>
+                <span class="method-start">35266 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-method before">
-                <span class="method-name">beforeMethod(chrome, https://the-internet.herokuapp.com/windows)</span>
-                <span class="method-start">11487 ms</span>
+                <span class="method-name">beforeMethod(chrome)</span>
+                <span class="method-start">35390 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
-                <span class="method-name">SwtichTabByUrl</span>
-                <span class="method-start">15710 ms</span>
+                <img src="failed.png">
+                </img>
+                <span class="method-name">HandleShadowDOMNested</span>
+                <span class="method-start">36212 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">afterMethod</span>
-                <span class="method-start">16641 ms</span>
-              </div> <!-- configuration-method after -->
-              <div class="configuration-method before">
-                <span class="method-name">beforeMethod(chrome, https://the-internet.herokuapp.com/windows)</span>
-                <span class="method-start">16842 ms</span>
-              </div> <!-- configuration-method before -->
-              <div class="test-method">
-                <span class="method-name">SwtichTabByIndex</span>
-                <span class="method-start">21295 ms</span>
-              </div> <!-- test-method -->
-              <div class="configuration-method after">
-                <span class="method-name">afterMethod</span>
-                <span class="method-start">22158 ms</span>
+                <span class="method-start">70422 ms</span>
               </div> <!-- configuration-method after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
