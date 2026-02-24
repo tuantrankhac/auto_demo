@@ -1,6 +1,7 @@
 package constant;
 
 import java.io.File;
+import org.openqa.selenium.By;
 
 public class GlobalConstants {
 	public static final String PROJECT_PATH = System.getProperty("user.dir");
@@ -12,6 +13,6 @@ public class GlobalConstants {
 	public static final long SHORT_TIMEOUT = 5;
 	public static final long LONG_TIMEOUT = 12;
 	public static final long RYTRY_TIMEOUT = 3;
-	public static final String LOADING_ICON = "//div[@class='global-loading fade-in']";
+	public static final By LOADING_ICON = By.xpath("//div[@class='global-loading fade-in']");
 
 }

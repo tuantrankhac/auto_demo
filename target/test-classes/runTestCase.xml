@@ -67,13 +67,19 @@
     </classes>
   </test> -->
 
-  <test name="SwitchTab - Chrome">
+  <!-- <test name="SwitchTab - Chrome">
     <parameter name="browser" value="chrome"/>
     <parameter name="url" value="https://the-internet.herokuapp.com/windows"/>
     <classes>
       <class name="demo.testSuites.SwitchTab"/>
     </classes>
-  </test>
+  </test> -->
 
+  <test name="Shadow DOM - Chrome">
+    <parameter name="browser" value="chrome"/>
+    <classes>
+      <class name="demo.testSuites.HandleShadowDOM"/>
+    </classes>
+  </test>
 
 </suite>

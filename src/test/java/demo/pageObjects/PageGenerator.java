@@ -31,5 +31,9 @@ public class PageGenerator {
 		return new SwitchTabPO(driver);
 	}
 
+
+	public static HandleShadowDOMPO getHandleShadowDOMPO(WebDriver driver){
+		return new HandleShadowDOMPO(driver);
+	}
 }
 

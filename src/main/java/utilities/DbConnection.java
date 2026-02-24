@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+
 import io.qameta.allure.Allure;
 
 public class DbConnection {
@@ -16,11 +17,11 @@ public class DbConnection {
     private static final String DRIVER_CLASS = "org.postgresql.Driver";
 
     // Nếu dùng MySQL
-    // private static final String DB_URL =
+    // private static final By DB_URL =
     // "jdbc:mysql://localhost:3306/your_database_name?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
-    // private static final String USERNAME = "root";
-    // private static final String PASSWORD = "your_mysql_password";
-    // private static final String DRIVER_CLASS = "com.mysql.cj.jdbc.Driver";
+    // private static final By USERNAME = "root";
+    // private static final By PASSWORD = "your_mysql_password";
+    // private static final By DRIVER_CLASS = "com.mysql.cj.jdbc.Driver";
 
     private static Connection connection;
 

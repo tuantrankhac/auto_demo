@@ -104,7 +104,6 @@ public class BasePage {
 		sleepInMiliSecond(500);
 	}
 
-
 	// ======================= Cookies =========================
 
 	public Set<Cookie> getAllCookies(WebDriver driver) {
@@ -113,12 +112,10 @@ public class BasePage {
 		});
 	}
 
-
 	public String getCookieByJS(WebDriver driver) {
 		Allure.step("Lấy tất cả cookies bằng Javascript");
 		return (String) ((JavascriptExecutor) driver).executeScript("return document.cookie;");
 	}
-
 
 	public Map<String, Object> getAllCookiesByCDP(WebDriver driver) {
 		Allure.step("Lấy tất cả cookies thông qua CDP");
@@ -127,7 +124,6 @@ public class BasePage {
 				org.openqa.selenium.devtools.DevTools devTools = 
 					((org.openqa.selenium.chrome.ChromeDriver) driver).getDevTools();
 				devTools.createSession();
-				// domains: Network or Browser, depending on Selenium version
 				Map<String, Object> cookies = 
 					(Map<String, Object>) ((org.openqa.selenium.chrome.ChromeDriver) driver)
 						.executeCdpCommand("Network.getAllCookies", new java.util.HashMap<>());
@@ -148,18 +144,12 @@ public class BasePage {
 		}
 	}
 
-
-
-
-
-
 	public Alert waitForAlertPresence(WebDriver driver) {
 		Allure.step("Đợi cho alert present và switch vào alert");
 		WebDriverWait explicitWait = new WebDriverWait(driver, Duration.ofSeconds(3));
 		explicitWait.until(ExpectedConditions.alertIsPresent());
 		Alert alert = driver.switchTo().alert();
 		return alert;
-
 	}
 
 	public void acceptAlert(WebDriver driver) {
@@ -172,7 +162,6 @@ public class BasePage {
 		Allure.step("Hủy alert");
 		waitForAlertPresence(driver).dismiss();
 		switchToDefaultContent(driver);
-
 	}
 
 	public String getAlertText(WebDriver driver) {
@@ -200,190 +189,137 @@ public class BasePage {
 		} catch (Exception e) {
 			Allure.step("Không có alert nào hiển thị!");
 		}
-
 	}
 
-
-
-	private By getByXpath(String xpathLocator) {
+	public WebElement getWebElement(WebDriver driver, By locator) {
 		try {
-			return By.xpath(xpathLocator);
-		} catch (NoSuchElementException e) {
-			return null;
-		}
-	}
-
-	public WebElement getWebElement(WebDriver driver, String xpathLocator) {
-		try {
-			// Chờ tối đa 10s cho đến khi element xuất hiện trong DOM
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-			return wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpathLocator)));
+			return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
 		} catch (TimeoutException e) {
-			System.err.println("Lỗi: Không tìm thấy element sau 10s: " + xpathLocator);
-			// Có thể chụp ảnh màn hình ở đây nếu muốn
+			System.err.println("Lỗi: Không tìm thấy element sau 10s: " + locator);
 		} catch (Exception e) {
 			System.err.println("Lỗi hệ thống khi tìm element: " + e.getMessage());
 		}
-		return null; // Chỉ trả về null khi thực sự đã đợi mà không thấy
+		return null;
 	}
 
-	public WebElement getWebElement(WebDriver driver, String xpathLocator, String... params) {
-		xpathLocator = getDynamicLocator(xpathLocator, params);
-		try {
-			return driver.findElement(By.xpath(xpathLocator));
-		} catch (NoSuchElementException e) {
-			return null;
-		}
+	public WebElement getWebElement(WebDriver driver, By locator, String... params) {
+		// Không xử lý params với By, trả lại luôn
+		return getWebElement(driver, locator);
 	}
 
-	public List<WebElement> getListWebElement(WebDriver driver, String xpathLocator) {
-		return driver.findElements(getByXpath(xpathLocator));
+	public List<WebElement> getListWebElement(WebDriver driver, By locator) {
+		return driver.findElements(locator);
 	}
 
-	private String getDynamicLocator(String xpathLocator, String... params) {
-		try {
-			return String.format(xpathLocator, (Object[]) params);
-		} catch (NoSuchElementException e) {
-			return null;
-		}
-
-	}
-
-	public void clickToElement(WebDriver driver, String xpathLocator) {
-		Allure.step("Click vào element: " + xpathLocator);
-		waitForElementClickable(driver, xpathLocator);
-		getWebElement(driver, xpathLocator).click();
+	public void clickToElement(WebDriver driver, By locator) {
+		Allure.step("Click vào element: " + locator);
+		waitForElementClickable(driver, locator);
+		getWebElement(driver, locator).click();
 		sleepInMiliSecond(500);
 	}
 
-	public void clickToElement(WebDriver driver, String xpathLocator, String... params) {
-		Allure.step("Click vào element động với tham số");
-		waitForElementClickable(driver, xpathLocator, params);
-		getWebElement(driver, getDynamicLocator(xpathLocator, params)).click();
+	public void clickToElement(WebDriver driver, By locator, String... params) {
+		Allure.step("Click vào element với tham số: " + locator);
+		waitForElementClickable(driver, locator);
+		getWebElement(driver, locator).click();
 		sleepInMiliSecond(500);
 	}
 
-	public void cleaDateEnteredToTextbox(WebDriver driver, String xpathLocator) {
+	public void cleaDateEnteredToTextbox(WebDriver driver, By locator) {
 		Allure.step("Clear dữ liệu trong textbox");
-		getWebElement(driver, xpathLocator).clear();
+		getWebElement(driver, locator).clear();
 	}
 
-	public void cleaDateEnteredToTextbox(WebDriver driver, String xpathLocator, String... params) {
-		Allure.step("Clear dữ liệu trong textbox");
-		xpathLocator = getDynamicLocator(xpathLocator, params);
-		getWebElement(driver, xpathLocator).clear();
+	public void cleaDateEnteredToTextbox(WebDriver driver, By locator, String... params) {
+		Allure.step("Clear dữ liệu trong textbox (dynamic): " + locator);
+		getWebElement(driver, locator).clear();
 	}
 
-	public void sendkeyToElement(WebDriver driver, String xpathLocator, String textValue) {
-		Allure.step("Nhập vào input: " + xpathLocator + " với giá trị: " + textValue);
+	public void sendkeyToElement(WebDriver driver, By locator, String textValue) {
+		Allure.step("Nhập vào input: " + locator + " với giá trị: " + textValue);
 		try {
-			waitForElementVisible(driver, xpathLocator);
-			getWebElement(driver, xpathLocator).clear();
-			getWebElement(driver, xpathLocator).sendKeys(textValue);
+			waitForElementVisible(driver, locator);
+			getWebElement(driver, locator).clear();
+			getWebElement(driver, locator).sendKeys(textValue);
 		} catch (NoSuchElementException e) {
 		} catch (Exception e) {
 		}
 	}
 
-	public void sendkeyToElementAreaTextbox(WebDriver driver, String xpathLocator, String textValue) {
+	public void sendkeyToElement(WebDriver driver, By locator, String textValue, String... params) {
+		Allure.step("Nhập text vào element động với giá trị: " + textValue + " - " + locator);
 		try {
-			waitForElementClickable(driver, xpathLocator);
-			getWebElement(driver, xpathLocator).sendKeys(Keys.chord(Keys.CONTROL, "a"));
-			getWebElement(driver, xpathLocator).sendKeys(Keys.BACK_SPACE);
-			getWebElement(driver, xpathLocator).sendKeys(textValue);
-		} catch (NoSuchElementException e) {
+			getWebElement(driver, locator).clear();
+			getWebElement(driver, locator).sendKeys(textValue);
 		} catch (Exception e) {
 		}
 	}
 
-	public void sendkeyToElementAreaTextbox(WebDriver driver, String xpathLocator, String textValue, String... params) {
-		try {
-			waitForElementClickable(driver, xpathLocator, params);
-			getWebElement(driver, xpathLocator, params).sendKeys(Keys.chord(Keys.CONTROL, "a"));
-			getWebElement(driver, xpathLocator, params).sendKeys(Keys.BACK_SPACE);
-			getWebElement(driver, xpathLocator, params).sendKeys(textValue);
-		} catch (NoSuchElementException e) {
-		} catch (Exception e) {
-		}
-
-	}
-
-	public void sendkeyToElement(WebDriver driver, String xpathLocator, String textValue, String... params) {
-		Allure.step("Nhập text vào element động với giá trị: " + textValue);
-		try {
-			xpathLocator = getDynamicLocator(xpathLocator, params);
-			getWebElement(driver, xpathLocator, params).clear();
-			getWebElement(driver, xpathLocator, params).sendKeys(textValue);
-		} catch (Exception e) {
-		}
-	}
-
-	public String getElementText(WebDriver driver, String xpathLocator) {
-		return Allure.step("Lấy text từ element: " + xpathLocator, () -> {
-			waitForElementVisible(driver, xpathLocator);
-			if (getWebElement(driver, xpathLocator) != null) {
-				Allure.step("Value sau khi getText: " + getWebElement(driver, xpathLocator).getText());
-				return getWebElement(driver, xpathLocator).getText();
-
+	public String getElementText(WebDriver driver, By locator) {
+		return Allure.step("Lấy text từ element: " + locator, () -> {
+			waitForElementVisible(driver, locator);
+			WebElement el = getWebElement(driver, locator);
+			if (el != null) {
+				Allure.step("Value sau khi getText: " + el.getText());
+				return el.getText();
 			} else {
 				return null;
 			}
 		});
 	}
 
-	public String getElementText(WebDriver driver, String xpathLocator, String... params) {
-		return Allure.step("Lấy text từ element động", () -> {
-			waitForElementVisible(driver, xpathLocator, params);
-			if (getWebElement(driver, xpathLocator, params) != null) {
-				Allure.step("Value sau khi getText: " + getWebElement(driver, xpathLocator).getText());
-				return getWebElement(driver, xpathLocator, params).getText();
+	public String getElementText(WebDriver driver, By locator, String... params) {
+		return Allure.step("Lấy text từ element động: " + locator, () -> {
+			waitForElementVisible(driver, locator);
+			WebElement el = getWebElement(driver, locator);
+			if (el != null) {
+				Allure.step("Value sau khi getText: " + el.getText());
+				return el.getText();
 			} else {
 				return null;
 			}
 		});
 	}
 
-	public void selectDropdownByText(WebDriver driver, String xpathLocator, String textItem) {
+	public void selectDropdownByText(WebDriver driver, By locator, String textItem) {
 		Allure.step("Chọn dropdown theo text: " + textItem);
-		Select select = new Select(getWebElement(driver, xpathLocator));
+		Select select = new Select(getWebElement(driver, locator));
 		select.selectByVisibleText(textItem);
 	}
 
-	public void selectDropdownByText(WebDriver driver, String xpathLocator, String textItem, String... params) {
-		Allure.step("Chọn dropdown động theo text: " + textItem);
-		xpathLocator = getDynamicLocator(xpathLocator, params);
-		Select select = new Select(getWebElement(driver, xpathLocator));
+	public void selectDropdownByText(WebDriver driver, By locator, String textItem, String... params) {
+		Allure.step("Chọn dropdown động theo text: " + textItem + " - " + locator);
+		Select select = new Select(getWebElement(driver, locator));
 		select.selectByVisibleText(textItem);
 	}
 
-	public String getSelectedItemDefaultDropdown(WebDriver driver, String xpathLocator) {
+	public String getSelectedItemDefaultDropdown(WebDriver driver, By locator) {
 		return Allure.step("Lấy item đã chọn trong dropdown mặc định", () -> {
-			Select select = new Select(getWebElement(driver, xpathLocator));
+			Select select = new Select(getWebElement(driver, locator));
 			return select.getFirstSelectedOption().getText();
 		});
 	}
 
-	public String getSelectedItemDropdown(WebDriver driver, String xpathLocator) {
+	public String getSelectedItemDropdown(WebDriver driver, By locator) {
 		return Allure.step("Lấy item đã chọn trong dropdown", () -> {
-			select = new Select(getWebElement(driver, xpathLocator));
+			select = new Select(getWebElement(driver, locator));
 			return select.getFirstSelectedOption().getText();
 		});
 	}
 
-	public String getSelectedItemDropdown(WebDriver driver, String xpathLocator, String... params) {
-		xpathLocator = getDynamicLocator(xpathLocator, params);
-		select = new Select(getWebElement(driver, xpathLocator));
+	public String getSelectedItemDropdown(WebDriver driver, By locator, String... params) {
+		select = new Select(getWebElement(driver, locator));
 		return select.getFirstSelectedOption().getText();
 	}
 
-	public boolean isDropdownMultiple(WebDriver driver, String xpathLocator) {
-		Select select = new Select(getWebElement(driver, xpathLocator));
+	public boolean isDropdownMultiple(WebDriver driver, By locator) {
+		Select select = new Select(getWebElement(driver, locator));
 		return select.isMultiple();
-
 	}
 
-	public void deselectOptionByVisibleText(WebDriver driver, String xpathLocator, String optionText) {
-		WebElement dropdown = driver.findElement(By.xpath(xpathLocator));
+	public void deselectOptionByVisibleText(WebDriver driver, By locator, String optionText) {
+		WebElement dropdown = getWebElement(driver, locator);
 		Select select = new Select(dropdown);
 		if (select.isMultiple()) {
 			select.deselectByVisibleText(optionText);
@@ -392,8 +328,8 @@ public class BasePage {
 		}
 	}
 
-	public void deselectAllOption(WebDriver driver, String xpathLocator) {
-		WebElement dropdown = driver.findElement(By.xpath(xpathLocator));
+	public void deselectAllOption(WebDriver driver, By locator) {
+		WebElement dropdown = getWebElement(driver, locator);
 		Select select = new Select(dropdown);
 		if (select.isMultiple()) {
 			select.deselectAll();
@@ -402,15 +338,14 @@ public class BasePage {
 		}
 	}
 
-	public void selectItemInCustomDropdown(WebDriver driver, String parentXpath, String childXpath,
-			String expectedItem) {
-		getWebElement(driver, parentXpath).click();
+	public void selectItemInCustomDropdown(WebDriver driver, By parentLocator, By childLocator, String expectedItem) {
+		getWebElement(driver, parentLocator).click();
 		sleepInMiliSecond(2000);
 
 		WebDriverWait explicitWait = new WebDriverWait(driver, Duration.ofSeconds(15));
 
 		List<WebElement> allItems = explicitWait
-				.until(ExpectedConditions.presenceOfAllElementsLocatedBy(getByXpath(childXpath)));
+				.until(ExpectedConditions.presenceOfAllElementsLocatedBy(childLocator));
 		for (WebElement item : allItems) {
 			if (item.getText().trim().equals(expectedItem)) {
 				JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
@@ -422,64 +357,62 @@ public class BasePage {
 		}
 	}
 
-	public String getElementAttribute(WebDriver driver, String xpathLocator, String attributeName) {
-		return getWebElement(driver, xpathLocator).getAttribute(attributeName);
+	public String getElementAttribute(WebDriver driver, By locator, String attributeName) {
+		return getWebElement(driver, locator).getAttribute(attributeName);
 	}
 
-	public String getElementAttribute(WebDriver driver, String xpathLocator, String attributeName, String... params) {
-		xpathLocator = getDynamicLocator(xpathLocator, params);
-		return getWebElement(driver, xpathLocator).getAttribute(attributeName);
+	public String getElementAttribute(WebDriver driver, By locator, String attributeName, String... params) {
+		return getWebElement(driver, locator).getAttribute(attributeName);
 	}
 
-	public String getElementCssValue(WebDriver driver, String xpathLocator, String propertyName) {
-		return getWebElement(driver, xpathLocator).getCssValue(propertyName);
+	public String getElementCssValue(WebDriver driver, By locator, String propertyName) {
+		return getWebElement(driver, locator).getCssValue(propertyName);
 	}
 
 	public String getHexaColorFromRGBA(String rgbaValue) {
 		return Color.fromString(rgbaValue).asHex();
 	}
 
-	public int getElementSize(WebDriver driver, String xpathLocator) {
-		return getListWebElement(driver, xpathLocator).size();
+	public int getElementSize(WebDriver driver, By locator) {
+		return getListWebElement(driver, locator).size();
 	}
 
-	public int getElementSize(WebDriver driver, String xpathLocator, String... params) {
-		xpathLocator = getDynamicLocator(xpathLocator, params);
-		return getListWebElement(driver, xpathLocator).size();
+	public int getElementSize(WebDriver driver, By locator, String... params) {
+		return getListWebElement(driver, locator).size();
 	}
 
-	public void checkToDefaultCheckboxRadio(WebDriver driver, String xpathLocator) {
-		Allure.step("Chọn checkbox/radio: " + xpathLocator);
-		WebElement element = getWebElement(driver, xpathLocator);
+	public void checkToDefaultCheckboxRadio(WebDriver driver, By locator) {
+		Allure.step("Chọn checkbox/radio: " + locator);
+		WebElement element = getWebElement(driver, locator);
 		if (!element.isSelected()) {
 			element.click();
 		}
 	}
 
-	public void uncheckToDefaultCheckbox(WebDriver driver, String xpathLocator) {
-		Allure.step("Bỏ chọn checkbox: " + xpathLocator);
-		WebElement element = getWebElement(driver, xpathLocator);
+	public void uncheckToDefaultCheckbox(WebDriver driver, By locator) {
+		Allure.step("Bỏ chọn checkbox: " + locator);
+		WebElement element = getWebElement(driver, locator);
 		if (element.isSelected()) {
 			element.click();
 		}
 	}
 
-	public boolean isElementDisplayed(WebDriver driver, String xpathLocator) {
-		return Allure.step("Kiểm tra element có hiển thị: " + xpathLocator, () -> {
-			waitForElementVisible(driver, xpathLocator);
+	public boolean isElementDisplayed(WebDriver driver, By locator) {
+		return Allure.step("Kiểm tra element có hiển thị: " + locator, () -> {
+			waitForElementVisible(driver, locator);
 			try {
-				return getWebElement(driver, xpathLocator).isDisplayed();
+				return getWebElement(driver, locator).isDisplayed();
 			} catch (Exception e) {
 				return false;
 			}
 		});
 	}
 
-	public boolean isElementDisplayed(WebDriver driver, String xpathLocator, String... params) {
-		return Allure.step("Kiểm tra element động có hiển thị", () -> {
-			waitForElementVisible(driver, xpathLocator, params);
+	public boolean isElementDisplayed(WebDriver driver, By locator, String... params) {
+		return Allure.step("Kiểm tra element động có hiển thị: " + locator, () -> {
+			waitForElementVisible(driver, locator);
 			try {
-				return getWebElement(driver, getDynamicLocator(xpathLocator, params)).isDisplayed();
+				return getWebElement(driver, locator).isDisplayed();
 			} catch (NoSuchElementException e) {
 				return false;
 			} catch (Exception e) {
@@ -488,10 +421,10 @@ public class BasePage {
 		});
 	}
 
-	public boolean isElementUndisplayed(WebDriver driver, String xpathLocator) {
+	public boolean isElementUndisplayed(WebDriver driver, By locator) {
 		System.out.println("Start time = " + new Date().toString());
 		overrideGlobalTimeout(driver, shortTimeout);
-		List<WebElement> elements = getListWebElement(driver, xpathLocator);
+		List<WebElement> elements = getListWebElement(driver, locator);
 		overrideGlobalTimeout(driver, longTimeout);
 
 		if (elements.size() == 0) {
@@ -508,39 +441,37 @@ public class BasePage {
 		}
 	}
 
-
 	public void waitForNumberOfWindowsToIncrease(WebDriver driver, int originalCount) {
 		Allure.step("Đợi số lượng window handle tăng lên so với ban đầu: " + originalCount);
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
 		wait.until(driver1 -> driver1.getWindowHandles().size() > originalCount);
 	}
 
-	
 	public void overrideGlobalTimeout(WebDriver driver, long timeout) {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(timeout));
 	}
 
-	public boolean isElementEnabled(WebDriver driver, String xpathLocator) {
-		return getWebElement(driver, xpathLocator).isEnabled();
+	public boolean isElementEnabled(WebDriver driver, By locator) {
+		return getWebElement(driver, locator).isEnabled();
 	}
 
-	public boolean isElementEnabled(WebDriver driver, String xpathLocator, String... params) {
-		return getWebElement(driver, getDynamicLocator(xpathLocator, params)).isEnabled();
+	public boolean isElementEnabled(WebDriver driver, By locator, String... params) {
+		return getWebElement(driver, locator).isEnabled();
 	}
 
-	public boolean isElementSelected(WebDriver driver, String xpathLocator) {
-		waitForElementVisible(driver, xpathLocator);
-		return getWebElement(driver, xpathLocator).isSelected();
+	public boolean isElementSelected(WebDriver driver, By locator) {
+		waitForElementVisible(driver, locator);
+		return getWebElement(driver, locator).isSelected();
 	}
 
-	public boolean isElementSelected(WebDriver driver, String xpathLocator, String... params) {
-		return getWebElement(driver, getDynamicLocator(xpathLocator, params)).isSelected();
+	public boolean isElementSelected(WebDriver driver, By locator, String... params) {
+		return getWebElement(driver, locator).isSelected();
 	}
 
-	public void switchToFrameByWebElement(WebDriver driver, String xpathLocator) {
-		Allure.step("Chuyển vào iframe: " + xpathLocator);
+	public void switchToFrameByWebElement(WebDriver driver, By locator) {
+		Allure.step("Chuyển vào iframe: " + locator);
 		explicitWait = new WebDriverWait(driver, Duration.ofSeconds(longTimeout));
-		WebElement iframe = explicitWait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpathLocator)));
+		WebElement iframe = explicitWait.until(ExpectedConditions.elementToBeClickable(locator));
 		driver.switchTo().frame(iframe);
 	}
 
@@ -559,20 +490,20 @@ public class BasePage {
 		driver.switchTo().defaultContent();
 	}
 
-	public void hoverMouseToElement(WebDriver driver, String xpathLocator) {
-		Allure.step("Hover chuột vào element: " + xpathLocator);
+	public void hoverMouseToElement(WebDriver driver, By locator) {
+		Allure.step("Hover chuột vào element: " + locator);
 		Actions action = new Actions(driver);
-		action.moveToElement(getWebElement(driver, xpathLocator)).perform();
+		action.moveToElement(getWebElement(driver, locator)).perform();
 	}
 
-	public void hoverMouseToElement(WebDriver driver, String xpathLocator, String... params) {
-		Allure.step("Hover chuột vào element động");
+	public void hoverMouseToElement(WebDriver driver, By locator, String... params) {
+		Allure.step("Hover chuột vào element động: " + locator);
 		Actions action = new Actions(driver);
-		action.moveToElement(getWebElement(driver, getDynamicLocator(xpathLocator, params))).perform();
+		action.moveToElement(getWebElement(driver, locator)).perform();
 	}
 
-	public void hightlightElement(WebDriver driver, String xpathLocator) {
-		WebElement element = getWebElement(driver, xpathLocator);
+	public void hightlightElement(WebDriver driver, By locator) {
+		WebElement element = getWebElement(driver, locator);
 		String originalStyle = element.getAttribute("style");
 		jsExecutor = (JavascriptExecutor) driver;
 		jsExecutor.executeScript("arguments[0].setAttribute('style', arguments[1])", element,
@@ -581,48 +512,47 @@ public class BasePage {
 		jsExecutor.executeScript("arguments[0].setAttribute('style', arguments[1])", element, originalStyle);
 	}
 
-	public void clickToElementByJS(WebDriver driver, String xpathLocator) {
-		Allure.step("Click vào element bằng JavaScript: " + xpathLocator);
+	public void clickToElementByJS(WebDriver driver, By locator) {
+		Allure.step("Click vào element bằng JavaScript: " + locator);
 		jsExecutor = (JavascriptExecutor) driver;
-		jsExecutor.executeScript("arguments[0].click();", getWebElement(driver, xpathLocator));
+		jsExecutor.executeScript("arguments[0].click();", getWebElement(driver, locator));
 		sleepInMiliSecond(3000);
 	}
 
-	public void pressKeyToElement(WebDriver driver, String xpathLocator, Keys key) {
-		Allure.step("Nhấn phím " + key.name() + " trên element: " + xpathLocator);
+	public void pressKeyToElement(WebDriver driver, By locator, Keys key) {
+		Allure.step("Nhấn phím " + key.name() + " trên element: " + locator);
 		action = new Actions(driver);
-		action.sendKeys(getWebElement(driver, xpathLocator), key).perform();
+		action.sendKeys(getWebElement(driver, locator), key).perform();
 	}
 
-	public void pressKeyToElement(WebDriver driver, String xpathLocator, Keys key, String... params) {
-		Allure.step("Nhấn phím " + key.name() + " trên element động");
+	public void pressKeyToElement(WebDriver driver, By locator, Keys key, String... params) {
+		Allure.step("Nhấn phím " + key.name() + " trên element động: " + locator);
 		action = new Actions(driver);
-		xpathLocator = getDynamicLocator(xpathLocator, params);
-		action.sendKeys(getWebElement(driver, xpathLocator), key).perform();
+		action.sendKeys(getWebElement(driver, locator), key).perform();
 	}
 
-	public void scrollToElementOnTopByJS(WebDriver driver, String xpathLocator) {
-		Allure.step("Cuộn tới element (trên) bằng JS: " + xpathLocator);
+	public void scrollToElementOnTopByJS(WebDriver driver, By locator) {
+		Allure.step("Cuộn tới element (trên) bằng JS: " + locator);
 		jsExecutor = (JavascriptExecutor) driver;
-		jsExecutor.executeScript("arguments[0].scrollIntoView(true);", getWebElement(driver, xpathLocator));
+		jsExecutor.executeScript("arguments[0].scrollIntoView(true);", getWebElement(driver, locator));
 	}
 
-	public void scrollToElementOnTopByJS(WebDriver driver, String xpathLocator, String... param) {
-		Allure.step("Cuộn tới element động (trên) bằng JS");
+	public void scrollToElementOnTopByJS(WebDriver driver, By locator, String... params) {
+		Allure.step("Cuộn tới element động (trên) bằng JS: " + locator);
 		jsExecutor = (JavascriptExecutor) driver;
-		jsExecutor.executeScript("arguments[0].scrollIntoView(true);", getWebElement(driver, xpathLocator, param));
+		jsExecutor.executeScript("arguments[0].scrollIntoView(true);", getWebElement(driver, locator));
 	}
 
-	public void scrollToElementOnDownByJS(WebDriver driver, String xpathLocator) {
-		Allure.step("Cuộn tới element (dưới) bằng JS: " + xpathLocator);
+	public void scrollToElementOnDownByJS(WebDriver driver, By locator) {
+		Allure.step("Cuộn tới element (dưới) bằng JS: " + locator);
 		jsExecutor = (JavascriptExecutor) driver;
-		jsExecutor.executeScript("arguments[0].scrollIntoView(false);", getWebElement(driver, xpathLocator));
+		jsExecutor.executeScript("arguments[0].scrollIntoView(false);", getWebElement(driver, locator));
 	}
 
-	public void scrollToElementOnDownByJS(WebDriver driver, String xpathLocator, String... params) {
-		Allure.step("Cuộn tới element động (dưới) bằng JS");
+	public void scrollToElementOnDownByJS(WebDriver driver, By locator, String... params) {
+		Allure.step("Cuộn tới element động (dưới) bằng JS: " + locator);
 		jsExecutor = (JavascriptExecutor) driver;
-		jsExecutor.executeScript("arguments[0].scrollIntoView(false);", getWebElement(driver, xpathLocator, params));
+		jsExecutor.executeScript("arguments[0].scrollIntoView(false);", getWebElement(driver, locator));
 	}
 
 	public void scrollToBottomPageByJS(WebDriver driver) {
@@ -631,70 +561,70 @@ public class BasePage {
 		jsExecutor.executeScript("window.scrollBy(0,document.body.scrollHeight)");
 	}
 
-	public void scrollToElementCenterByJS(WebDriver driver, String xpathLocator) {
-		Allure.step("Cuộn tới element vị trí giữa bằng JS: " + xpathLocator);
+	public void scrollToElementCenterByJS(WebDriver driver, By locator) {
+		Allure.step("Cuộn tới element vị trí giữa bằng JS: " + locator);
 		jsExecutor = (JavascriptExecutor) driver;
 		jsExecutor.executeScript("arguments[0].scrollIntoView({block: 'center', inline: 'nearest'});",
-				getWebElement(driver, xpathLocator));
+				getWebElement(driver, locator));
 	}
 
-	public void scrollToElementCenterByJS(WebDriver driver, String xpathLocator, String... params) {
-		Allure.step("Cuộn tới element động vị trí giữa bằng JS");
+	public void scrollToElementCenterByJS(WebDriver driver, By locator, String... params) {
+		Allure.step("Cuộn tới element động vị trí giữa bằng JS: " + locator);
 		jsExecutor = (JavascriptExecutor) driver;
 		jsExecutor.executeScript("arguments[0].scrollIntoView({block: 'center', inline: 'nearest'});",
-				getWebElement(driver, xpathLocator, params));
+				getWebElement(driver, locator));
 	}
 
-	public void setAttributeInDOM(WebDriver driver, String xpathLocator, String attributeName, String attributeValue) {
-		Allure.step("Set attribute '" + attributeName + "' = '" + attributeValue + "' cho element: " + xpathLocator);
+	public void setAttributeInDOM(WebDriver driver, By locator, String attributeName, String attributeValue) {
+		Allure.step("Set attribute '" + attributeName + "' = '" + attributeValue + "' cho element: " + locator);
 		jsExecutor = (JavascriptExecutor) driver;
 		jsExecutor.executeScript("arguments[0].setAttribute('" + attributeName + "', '" + attributeValue + "');",
-				getWebElement(driver, xpathLocator));
+				getWebElement(driver, locator));
 	}
 
-	public void removeAttributeInDOM(WebDriver driver, String xpathLocator, String attributeRemove) {
-		Allure.step("Xóa attribute '" + attributeRemove + "' trong DOM của element: " + xpathLocator);
+	public void removeAttributeInDOM(WebDriver driver, By locator, String attributeRemove) {
+		Allure.step("Xóa attribute '" + attributeRemove + "' trong DOM của element: " + locator);
 		jsExecutor = (JavascriptExecutor) driver;
 		jsExecutor.executeScript("arguments[0].removeAttribute('" + attributeRemove + "');",
-				getWebElement(driver, xpathLocator));
+				getWebElement(driver, locator));
 	}
 
-	public void sendkeyToElementByJS(WebDriver driver, String xpathLocator, String value) {
-		Allure.step("Nhập value bằng JS vào element: " + xpathLocator + " với giá trị: " + value);
+	public void sendkeyToElementByJS(WebDriver driver, By locator, String value) {
+		Allure.step("Nhập value bằng JS vào element: " + locator + " với giá trị: " + value);
 		jsExecutor = (JavascriptExecutor) driver;
 		jsExecutor.executeScript("arguments[0].setAttribute('value', '" + value + "')",
-				getWebElement(driver, xpathLocator));
+				getWebElement(driver, locator));
 	}
 
-	public String getAttributeInDOMByJS(WebDriver driver, String xpathLocator, String attributeName) {
+	public String getAttributeInDOMByJS(WebDriver driver, By locator, String attributeName) {
 		return Allure.step(
-				"Lấy attribute '" + attributeName + "' trong DOM của element: " + xpathLocator,
+				"Lấy attribute '" + attributeName + "' trong DOM của element: " + locator,
 				() -> {
 					jsExecutor = (JavascriptExecutor) driver;
 					return (String) jsExecutor.executeScript(
 							"return arguments[0].getAttribute('" + attributeName + "');",
-							getWebElement(driver, xpathLocator));
+							getWebElement(driver, locator));
 				});
 	}
 
-	public String getElementValidationMessage(WebDriver driver, String xpathLocator) {
+	public String getElementValidationMessage(WebDriver driver, By locator) {
 		return Allure.step(
-				"Lấy validation message của element: " + xpathLocator,
+				"Lấy validation message của element: " + locator,
 				() -> {
 					jsExecutor = (JavascriptExecutor) driver;
 					return (String) jsExecutor.executeScript("return arguments[0].validationMessage;",
-							getWebElement(driver, xpathLocator));
+							getWebElement(driver, locator));
 				});
 	}
 
-	public boolean isImageLoaded(WebDriver driver, String xpathLocator) {
+	public boolean isImageLoaded(WebDriver driver, By locator) {
 		return Allure.step(
-				"Kiểm tra image đã load: " + xpathLocator,
+				"Kiểm tra image đã load: " + locator,
 				() -> {
 					jsExecutor = (JavascriptExecutor) driver;
 					return (boolean) jsExecutor.executeScript("return arguments[0].complete "
 							+ "&& typeof arguments[0].naturalWidth != 'undefined' && arguments[0].naturalWidth > 0",
-							getWebElement(driver, xpathLocator));
+							getWebElement(driver, locator));
 				});
 	}
 
@@ -711,11 +641,9 @@ public class BasePage {
 		return explicitWait.until(jQueryLoad);
 	}
 
-	public static void clickOutside(WebDriver driver, String xpathLocator) {
-		Allure.step("Click ra ngoài popup tại element: " + xpathLocator);
-		// Tìm một phần tử nằm ngoài popup (thường là phần tử body)
-		WebElement outsideElement = driver.findElement(By.xpath(xpathLocator));
-		// Dùng JavaScript để click ra ngoài
+	public static void clickOutside(WebDriver driver, By locator) {
+		Allure.step("Click ra ngoài popup tại element: " + locator);
+		WebElement outsideElement = driver.findElement(locator);
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].click();", outsideElement);
 	}
@@ -729,11 +657,11 @@ public class BasePage {
 		}
 	}
 
-	public void waitForElementVisible(WebDriver driver, String xpathLocator) {
-		Allure.step("Chờ element hiển thị: " + xpathLocator);
+	public void waitForElementVisible(WebDriver driver, By locator) {
+		Allure.step("Chờ element hiển thị: " + locator);
 		try {
 			explicitWait = new WebDriverWait(driver, Duration.ofSeconds(shortTimeout));
-			explicitWait.until(ExpectedConditions.visibilityOfElementLocated(getByXpath(xpathLocator)));
+			explicitWait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 			Allure.step("Element có hiển thị");
 		} catch (Exception e) {
 			System.out.println("Không tìm thấy Element");
@@ -741,20 +669,20 @@ public class BasePage {
 		}
 	}
 
-	public void fluentWaitForElementVisible(WebDriver driver, String xpathLocator, long timeoutInSeconds,
+	public void fluentWaitForElementVisible(WebDriver driver, By locator, long timeoutInSeconds,
 			long pollingInMillis) {
 		FluentWait<WebDriver> fluentWait = new FluentWait<>(driver)
 				.withTimeout(Duration.ofSeconds(timeoutInSeconds))
 				.pollingEvery(Duration.ofMillis(pollingInMillis))
 				.ignoring(NoSuchElementException.class);
-		fluentWait.until(ExpectedConditions.visibilityOfElementLocated(getByXpath(xpathLocator)));
+		fluentWait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 	}
 
-	public void waitForElementPresent(WebDriver driver, String xpathLocator) {
-		Allure.step("Chờ element tồn tại trong DOM: " + xpathLocator);
+	public void waitForElementPresent(WebDriver driver, By locator) {
+		Allure.step("Chờ element tồn tại trong DOM: " + locator);
 		try {
 			explicitWait = new WebDriverWait(driver, Duration.ofSeconds(shortTimeout));
-			explicitWait.until(ExpectedConditions.presenceOfElementLocated(getByXpath(xpathLocator)));
+			explicitWait.until(ExpectedConditions.presenceOfElementLocated(locator));
 			Allure.step("Element có tồn tại trong DOM");
 		} catch (Exception e) {
 			System.out.println("Element không tồn tại trong DOM");
@@ -762,21 +690,21 @@ public class BasePage {
 		}
 	}
 
-	public void fluentWaitForElementClickable(WebDriver driver, String xpathLocator, long timeoutInSeconds,
+	public void fluentWaitForElementClickable(WebDriver driver, By locator, long timeoutInSeconds,
 			long pollingInMillis) {
 		FluentWait<WebDriver> fluentWait = new FluentWait<>(driver)
 				.withTimeout(Duration.ofSeconds(timeoutInSeconds))
 				.pollingEvery(Duration.ofMillis(pollingInMillis))
 				.ignoring(NoSuchElementException.class);
-		fluentWait.until(ExpectedConditions.elementToBeClickable(getByXpath(xpathLocator)));
+		fluentWait.until(ExpectedConditions.elementToBeClickable(locator));
 	}
 
-	public void waitForElementVisible(WebDriver driver, String xpathLocator, String... params) {
-		Allure.step("Chờ element động hiển thị");
+	public void waitForElementVisible(WebDriver driver, By locator, String... params) {
+		Allure.step("Chờ element động hiển thị: " + locator);
 		try {
 			explicitWait = new WebDriverWait(driver, Duration.ofSeconds(shortTimeout));
 			explicitWait.until(ExpectedConditions
-					.visibilityOfElementLocated(getByXpath((getDynamicLocator(xpathLocator, params)))));
+					.visibilityOfElementLocated(locator));
 			Allure.step("Element có hiển thị");
 		} catch (TimeoutException e) {
 			System.out.println("Không tìm thấy Element");
@@ -787,45 +715,201 @@ public class BasePage {
 		}
 	}
 
-	public void waitForAllElementVisible(WebDriver driver, String xpathLocator) {
-		explicitWait = new WebDriverWait(driver, Duration.ofSeconds(longTimeout));
-		explicitWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(getByXpath(xpathLocator)));
+	// ===== Shadow DOM Handling Methods =====
+
+	public SearchContext getShadowRoot(WebDriver driver, By shadowHostLocator) {
+		WebElement shadowHost = getWebElement(driver, shadowHostLocator);
+		if (shadowHost == null) {
+			throw new NoSuchElementException("Shadow host element not found: " + shadowHostLocator);
+		}
+		// shadowRoot supported in Selenium 4+
+		try {
+			return shadowHost.getShadowRoot();
+		} catch (UnsupportedOperationException | NoSuchMethodError e) {
+			// Fallback for Selenium < 4 or if not supported, use Javascript
+			if (driver instanceof JavascriptExecutor) {
+				Object shadowRoot = ((JavascriptExecutor) driver).executeScript("return arguments[0].shadowRoot", shadowHost);
+				if (shadowRoot instanceof SearchContext) {
+					return (SearchContext) shadowRoot;
+				} else if (shadowRoot instanceof WebElement) {
+					return (WebElement) shadowRoot;
+				}
+			}
+			throw new UnsupportedOperationException("Shadow DOM is not supported or could not be accessed");
+		}
 	}
 
-	public void waitForElementInvisible(WebDriver driver, String xpathLocator) {
-		explicitWait = new WebDriverWait(driver, Duration.ofSeconds(longTimeout));
-		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(getByXpath(xpathLocator)));
+	/**
+	 * Lấy nested shadow root theo chuỗi các By tương ứng với từng shadow host lớp lồng nhau. 
+	 * @param driver WebDriver đang chạy
+	 * @param shadowHostLocators Mảng các By, mỗi By là shadow host từng lớp (lồng nhau theo thứ tự)
+	 * @return SearchContext cuối cùng là shadowRoot của lớp lồng sâu nhất
+	 */
+	public SearchContext getNestedShadowRoot(WebDriver driver, By... shadowHostLocators) {
+		SearchContext context = driver;
+		for (By locator : shadowHostLocators) {
+			WebElement shadowHost;
+			if (context instanceof WebDriver) {
+				shadowHost = getWebElement((WebDriver) context, locator);
+			} else if (context instanceof SearchContext) {
+				shadowHost = context.findElement(locator);
+			} else {
+				throw new UnsupportedOperationException("Unknown SearchContext: " + context);
+			}
+			if (shadowHost == null) {
+				throw new NoSuchElementException("Không tìm thấy shadow host: " + locator);
+			}
+			// shadowRoot supported in Selenium 4+
+			try {
+				context = shadowHost.getShadowRoot();
+			} catch (UnsupportedOperationException | NoSuchMethodError e) {
+				// Fallback bằng JS nếu không hỗ trợ
+				if (driver instanceof JavascriptExecutor) {
+					Object shadowRoot = ((JavascriptExecutor) driver).executeScript("return arguments[0].shadowRoot", shadowHost);
+					if (shadowRoot instanceof SearchContext) {
+						context = (SearchContext) shadowRoot;
+					} else if (shadowRoot instanceof WebElement) {
+						context = (WebElement) shadowRoot;
+					} else {
+						throw new UnsupportedOperationException("Không truy cập được shadow DOM qua JS cho: " + locator);
+					}
+				} else {
+					throw new UnsupportedOperationException("Shadow DOM không được hỗ trợ hoặc không thể truy cập cho: " + locator);
+				}
+			}
+		}
+		return context;
+	}
+	
+	public WebElement getElementInShadowRoot(WebDriver driver, By shadowHostLocator, By elementInShadowLocator) {
+		Allure.step("Tìm element trong Shadow DOM: shadow host = " + shadowHostLocator + ", element = " + elementInShadowLocator);
+		SearchContext shadowRoot = getShadowRoot(driver, shadowHostLocator);
+		if (shadowRoot == null) {
+			throw new NoSuchElementException("Shadow root not found for host: " + shadowHostLocator);
+		}
+		try {
+			WebElement element = shadowRoot.findElement(elementInShadowLocator);
+			Allure.step("Đã tìm thấy element trong shadow root: " + elementInShadowLocator);
+			return element;
+		} catch (NoSuchElementException e) {
+			Allure.step("Không tìm thấy element trong shadow root: " + elementInShadowLocator);
+			throw e;
+		}
 	}
 
-	public void waitForElementInvisible(WebDriver driver, String xpathLocator, String... params) {
-		explicitWait = new WebDriverWait(driver, Duration.ofSeconds(longTimeout));
-		explicitWait.until(
-				ExpectedConditions.invisibilityOfElementLocated(getByXpath(getDynamicLocator(xpathLocator, params))));
+
+	/**
+	 * Locate an element inside nested (multi-level) shadow DOMs.
+	 * Each By in shadowHostLocators represents a shadow host at a given depth.
+	 * The final By is the locator for the inner element.
+	 * 
+	 * Usage:
+	 *     WebElement element = getElementInNestedShadowRoot(driver, shadowHost1, shadowHost2, ..., targetElementLocator);
+	 */
+	public WebElement getElementInNestedShadowRoot(WebDriver driver, By... locators) {
+		if (locators == null || locators.length < 2) {
+			throw new IllegalArgumentException("You must provide at least one shadow host and one element locator.");
+		}
+		SearchContext context = driver;
+		for (int i = 0; i < locators.length - 1; i++) {
+			WebElement shadowHost;
+			if (context instanceof WebDriver) {
+				shadowHost = getWebElement((WebDriver) context, locators[i]);
+			} else if (context instanceof SearchContext) {
+				shadowHost = context.findElement(locators[i]);
+			} else {
+				throw new UnsupportedOperationException("Unknown SearchContext: " + context);
+			}
+			if (shadowHost == null) {
+				throw new NoSuchElementException("Không tìm thấy shadow host: " + locators[i]);
+			}
+			try {
+				context = shadowHost.getShadowRoot();
+			} catch (UnsupportedOperationException | NoSuchMethodError e) {
+				if (driver instanceof JavascriptExecutor) {
+					Object shadowRoot = ((JavascriptExecutor) driver).executeScript("return arguments[0].shadowRoot", shadowHost);
+					if (shadowRoot instanceof SearchContext) {
+						context = (SearchContext) shadowRoot;
+					} else if (shadowRoot instanceof WebElement) {
+						context = (WebElement) shadowRoot;
+					} else {
+						throw new UnsupportedOperationException("Không truy cập được shadow DOM qua JS cho: " + locators[i]);
+					}
+				} else {
+					throw new UnsupportedOperationException("Shadow DOM không được hỗ trợ hoặc không thể truy cập cho: " + locators[i]);
+				}
+			}
+		}
+		// The last locator is the actual element inside the innermost shadow DOM
+		try {
+			WebElement element = context.findElement(locators[locators.length - 1]);
+			Allure.step("Đã tìm thấy element trong nested shadow root: " + locators[locators.length - 1]);
+			return element;
+		} catch (NoSuchElementException e) {
+			Allure.step("Không tìm thấy element trong nested shadow root: " + locators[locators.length - 1]);
+			throw e;
+		}
 	}
 
-	public void waitForAllElementInvisible(WebDriver driver, String xpathLocator) {
-		explicitWait = new WebDriverWait(driver, Duration.ofSeconds(longTimeout));
-		explicitWait.until(ExpectedConditions.invisibilityOfAllElements(getListWebElement(driver, xpathLocator)));
+	public void clickElementInShadowRoot(WebDriver driver, By shadowHostLocator, By elementInShadowLocator) {
+		Allure.step("Click element trong Shadow DOM: shadow host = " + shadowHostLocator + ", element = " + elementInShadowLocator);
+		WebElement element = getElementInShadowRoot(driver, shadowHostLocator, elementInShadowLocator);
+		element.click();
 	}
 
-	public void waitForElementClickable(WebDriver driver, String xpathLocator) {
-		Allure.step("Chờ element có thể click: " + xpathLocator);
+	public String getTextElementInShadowRoot(WebDriver driver, By shadowHostLocator, By elementInShadowLocator) {
+		Allure.step("Lấy text element trong Shadow DOM: shadow host = " + shadowHostLocator + ", element = " + elementInShadowLocator);
+		WebElement element = getElementInShadowRoot(driver, shadowHostLocator, elementInShadowLocator);
+		String text = element.getText();
+		Allure.step("Text lấy được: " + text);
+		return text;
+	}
+	
+	public void sendKeysToElementInShadowRoot(WebDriver driver, By shadowHostLocator, By elementInShadowLocator, String value) {
+		Allure.step("SendKeys vào element trong Shadow DOM: shadow host = " + shadowHostLocator + ", element = " + elementInShadowLocator + ", value = " + value);
+		WebElement element = getElementInShadowRoot(driver, shadowHostLocator, elementInShadowLocator);
+		element.clear();
+		element.sendKeys(value);
+	}
+
+
+	public void waitForAllElementVisible(WebDriver driver, By locator) {
 		explicitWait = new WebDriverWait(driver, Duration.ofSeconds(longTimeout));
-		explicitWait.until(ExpectedConditions.elementToBeClickable(getByXpath(xpathLocator)));
+		explicitWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
+	}
+
+	public void waitForElementInvisible(WebDriver driver, By locator) {
+		explicitWait = new WebDriverWait(driver, Duration.ofSeconds(longTimeout));
+		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
+	}
+
+	public void waitForElementInvisible(WebDriver driver, By locator, String... params) {
+		explicitWait = new WebDriverWait(driver, Duration.ofSeconds(longTimeout));
+		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
+	}
+
+	public void waitForAllElementInvisible(WebDriver driver, By locator) {
+		explicitWait = new WebDriverWait(driver, Duration.ofSeconds(longTimeout));
+		explicitWait.until(ExpectedConditions.invisibilityOfAllElements(getListWebElement(driver, locator)));
+	}
+
+	public void waitForElementClickable(WebDriver driver, By locator) {
+		Allure.step("Chờ element có thể click: " + locator);
+		explicitWait = new WebDriverWait(driver, Duration.ofSeconds(longTimeout));
+		explicitWait.until(ExpectedConditions.elementToBeClickable(locator));
 		Allure.step("Element có thể click");
 	}
 
-	public void waitForElementClickable(WebDriver driver, String xpathLocator, String... params) {
-		Allure.step("Chờ element động có thể click");
+	public void waitForElementClickable(WebDriver driver, By locator, String... params) {
+		Allure.step("Chờ element động có thể click: " + locator);
 		explicitWait = new WebDriverWait(driver, Duration.ofSeconds(longTimeout));
-		explicitWait
-				.until(ExpectedConditions.elementToBeClickable(getByXpath(getDynamicLocator(xpathLocator, params))));
+		explicitWait.until(ExpectedConditions.elementToBeClickable(locator));
 		Allure.step("Element có thể click");
 	}
 
-	public void checkToCheckboxOrRadio(WebDriver driver, String xpathLocator) {
-		if (!isElementSelected(driver, xpathLocator)) {
-			getWebElement(driver, xpathLocator).click();
+	public void checkToCheckboxOrRadio(WebDriver driver, By locator) {
+		if (!isElementSelected(driver, locator)) {
+			getWebElement(driver, locator).click();
 		}
 	}
 
@@ -859,7 +943,7 @@ public class BasePage {
 		}
 	}
 
-	public void uploadFile(WebDriver driver, String xpathLocator, String... fileNames) {
+	public void uploadFile(WebDriver driver, By locator, String... fileNames) {
 		Allure.step("Upload file: " + String.join(", ", fileNames));
 
 		StringBuilder fullPathBuilder = new StringBuilder();
@@ -879,39 +963,34 @@ public class BasePage {
 		String finalPaths = fullPathBuilder.toString().trim();
 
 		// Đảm bảo element sẵn sàng trước khi tương tác
-		getWebElement(driver, xpathLocator).sendKeys(finalPaths);
+		getWebElement(driver, locator).sendKeys(finalPaths);
 	}
 
-	public void uploadFilesSequentiallyWithWait(WebDriver driver, String xpathLocatorInitialFile, String xpathLocator,
-			String... fileNames) {
+	public void uploadFilesSequentiallyWithWait(WebDriver driver, By locatorInitialFile, By locator, String... fileNames) {
 		Allure.step("Upload lần lượt " + fileNames.length + " file: " + String.join(", ", fileNames));
 
 		String folderPath = GlobalConstants.UPLOAD_FILE_FOLDER;
-		waitForElementPresent(driver, xpathLocator);
+		waitForElementPresent(driver, locator);
 
 		for (int i = 0; i < fileNames.length; i++) {
-			// Lưu số lượng file đã upload trước khi bắt đầu (để so sánh sau mỗi lần upload)
-			int initialFileCount = getListWebElement(driver, xpathLocatorInitialFile).size();
+			int initialFileCount = getListWebElement(driver, locatorInitialFile).size();
 			Allure.step("Số lượng file đã upload trước khi upload: " + initialFileCount);
 
 			String fileName = fileNames[i];
 			String absolutePath = folderPath + fileName;
 
-			// Kiểm tra file tồn tại
 			if (!Files.exists(Paths.get(absolutePath))) {
 				throw new RuntimeException("File không tồn tại: " + absolutePath);
 			}
 
-			getWebElement(driver, xpathLocator).sendKeys(absolutePath);
+			getWebElement(driver, locator).sendKeys(absolutePath);
 
-			// Chờ upload thành công băng cách đợi số lượng element tăng lên
 			try {
 				explicitWait = new WebDriverWait(driver, Duration.ofSeconds(longTimeout));
-				explicitWait.until(ExpectedConditions.numberOfElementsToBeMoreThan(getByXpath(xpathLocatorInitialFile),
-						initialFileCount));
+				explicitWait.until(ExpectedConditions.numberOfElementsToBeMoreThan(locatorInitialFile, initialFileCount));
 				Allure.step("Upload file " + fileName + " thành công");
 			} catch (Exception e) {
-				int uploadedFileCount = getListWebElement(driver, xpathLocatorInitialFile).size();
+				int uploadedFileCount = getListWebElement(driver, locatorInitialFile).size();
 				throw new RuntimeException(
 						"Upload file " + fileName + " thất bại. Số lượng file đã upload: " + uploadedFileCount);
 			}
@@ -921,11 +1000,8 @@ public class BasePage {
 	public void waitLoadingIsInvisible(WebDriver driver) {
 		Allure.step("Đợi cho loading icon biến mất");
 		try {
-			// Tìm icon loading trong thời gian rất ngắn (1s)
 			WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(3));
-			shortWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(GlobalConstants.LOADING_ICON)));
-
-			// Nếu thấy thì mới chờ cho nó biến mất (vẫn dùng timeout mặc định)
+			shortWait.until(ExpectedConditions.presenceOfElementLocated(GlobalConstants.LOADING_ICON));
 			waitForElementInvisible(driver, GlobalConstants.LOADING_ICON);
 		} catch (TimeoutException e) {
 			// Không tìm thấy loading icon trong 1s, bỏ qua luôn không chờ nữa

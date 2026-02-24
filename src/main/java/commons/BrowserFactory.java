@@ -27,6 +27,7 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.safari.SafariDriver;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.Reporter;
@@ -212,21 +213,46 @@ public class BrowserFactory {
 		WebDriver driverInstance; // Khởi tạo biến tạm
 		BROWSER browser = BROWSER.valueOf(browserName.toUpperCase());
 		if (browser == BROWSER.CHROME) {
-			// WebDriverManager.chromedriver().setup();
 			ChromeOptions options = new ChromeOptions();
 			// options.addArguments("--headless=new");
 			options.addArguments("--incognito");
 			options.addArguments("--use-fake-ui-for-media-stream");
+
+			// Tắt notification/popup hệ thống
+			// options.addArguments("--disable-notifications");
+			// options.addArguments("--disable-popup-blocking");
+			// Có thể truyền thêm các preferences nếu cần
+			// options.setExperimentalOption("prefs", new java.util.HashMap<String,
+			// Object>() {{
+			// put("profile.default_content_setting_values.notifications", 2);
+			// put("profile.default_content_setting_values.geolocation", 2);
+			// put("profile.default_content_setting_values.media_stream_camera", 2);
+			// put("profile.default_content_setting_values.media_stream_mic", 2);
+			// put("profile.default_content_setting_values.automatic_downloads", 1);
+			// put("profile.default_content_settings.popups", 0);
+			// }});
+
+			// Thiết lập kích thước cửa sổ trình duyệt (ví dụ: 1280x800)
+			// options.addArguments("window-size=1280,800");
+
 			driverInstance = new ChromeDriver(options);
 		} else if (browser == BROWSER.FIREFOX) {
-			// WebDriverManager.firefoxdriver().setup();
 			FirefoxOptions options = new FirefoxOptions();
 			// options.addArguments("-headless");
 			options.addArguments("-private");
 
-			// Sử dụng Preferences thay vì Arguments cho Firefox
-			options.addPreference("media.navigator.permission.disabled", true);
-			options.addPreference("media.navigator.streams.fake", true);
+			// // Sử dụng Preferences để tắt notification/popup cho Firefox
+			// options.addPreference("media.navigator.permission.disabled", true);
+			// options.addPreference("media.navigator.streams.fake", true);
+			// options.addPreference("dom.webnotifications.enabled", false);
+			// options.addPreference("dom.push.enabled", false);
+			// options.addPreference("dom.disable_beforeunload", true); // Tắt popup warning
+			// trước khi unload page
+
+			// Thiết lập kích thước cửa sổ trình duyệt (ví dụ: 1280x800)
+			// options.addPreference("browser.window.width", 1280);
+			// options.addPreference("browser.window.height", 800);
+
 			driverInstance = new FirefoxDriver(options);
 		} else if (browser == BROWSER.EDGE_CHROMIUM) {
 			// WebDriverManager.edgedriver().setup();
@@ -234,11 +260,27 @@ public class BrowserFactory {
 			// options.addArguments("--headless=new");
 			options.addArguments("-inprivate");
 			options.addArguments("--use-fake-ui-for-media-stream");
+			// Tắt notification/popup hệ thống đối với Edge Chromium
+			// options.addArguments("--disable-notifications");
+			// options.addArguments("--disable-popup-blocking");
+			// java.util.HashMap<String, Object> edgePrefs = new java.util.HashMap<String, Object>();
+			// edgePrefs.put("profile.default_content_setting_values.notifications", 2);
+			// edgePrefs.put("profile.default_content_setting_values.geolocation", 2);
+			// edgePrefs.put("profile.default_content_setting_values.media_stream_camera",2);
+			// edgePrefs.put("profile.default_content_setting_values.media_stream_mic", 2);
+			// edgePrefs.put("profile.default_content_setting_values.automatic_downloads",1);
+			// edgePrefs.put("profile.default_content_settings.popups", 0);
+			// options.setExperimentalOption("prefs", edgePrefs);
+
+			// Thiết lập kích thước cửa sổ trình duyệt (ví dụ: 1280x800)
+			// options.addArguments("window-size=1280,800");
+
 			driverInstance = new EdgeDriver(options);
 		} else if (browser == BROWSER.SAFARI) {
 			// Safari hỗ trợ private nhưng SafariDriver không trực tiếp expose option này.
 			// Có thể mở thủ công nếu muốn hoặc ghi chú lại.
 			// Safari hiện tại chưa hỗ trợ headless mode chính thức.
+			// SafariDriver không có option disable-notifications chính thức
 			driverInstance = new SafariDriver();
 		} else {
 			throw new RuntimeException("Please enter correct browser name!");
@@ -249,6 +291,10 @@ public class BrowserFactory {
 
 		getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		getDriver().manage().window().maximize();
+		
+		// Set kích thước màn hình 1280 x 800 với setSize
+		// getDriver().manage().window().setSize(new Dimension(1280, 800));
+		
 		getDriver().get(appUrl);
 		drivers.add(getDriver());
 		return getDriver();
