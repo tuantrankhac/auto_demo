@@ -5,7 +5,7 @@
     <groupId>com.demo</groupId>
     <artifactId>Demo</artifactId>
     <version>1.0.0</version>
-    <name>Demo Hybrid Framework</name>
+    <name>Demo Framework</name>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -213,17 +213,18 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.5.0</version>
                 <configuration>
-                    <!-- Để Maven vẫn chạy tới phase verify (generate Allure report) dù test FAIL -->
-                    <testFailureIgnore>true</testFailureIgnore>
+                    <testFailureIgnore>true</testFailureIgnore>                    <!-- giữ nguyên -->
                     <systemPropertyVariables>
                         <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
                     </systemPropertyVariables>
                     <suiteXmlFiles>
                         <suiteXmlFile>src/test/resources/runTestCase.xml</suiteXmlFile>
                     </suiteXmlFiles>
-                    <argLine>
-                    -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
-                    </argLine>
+
+                    <!-- Thêm các dòng này để tắt fork và tránh crash agent -->
+                    <forkCount>0</forkCount>
+                    <reuseForks>false</reuseForks>
+                    <argLine>-Xmx2048m -XX:MaxMetaspaceSize=512m</argLine>                    <!-- tăng memory nếu cần, tránh OOM -->
                 </configuration>
             </plugin>
 

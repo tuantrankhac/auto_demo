@@ -12,7 +12,7 @@ import demo.pageObjects.HandleShadowDOMPO;
 import demo.pageObjects.PageGenerator;
 
 public class HandleShadowDOM extends BrowserFactory {
-    @Parameters({ "browser"})
+    @Parameters({ "browser" })
     @BeforeMethod
     public void beforeMethod(String browserName) {
         log.info("Pre-Condition: Step 01: Open Browser: " + browserName);
@@ -23,14 +23,14 @@ public class HandleShadowDOM extends BrowserFactory {
 
     @Test(priority = 1)
     public void HandleShadowDOMSingle() {
-        driver.get("https://practice.expandtesting.com/shadowdoms");
+        driver.get("https://practice.expandtesting.com/shadowdom");
         handleShadowDOMPO.getTextElementInShadow();
     }
 
-
     @Test(priority = 2)
     public void HandleShadowDOMNested() {
-        driver.get("https://selectorshub.com/shadow-dom-in-iframe/");
+        driver.get("https://shop.polymer-project.org/");
+        handleShadowDOMPO.getTextElementInNestedShadow();
         
     }
 

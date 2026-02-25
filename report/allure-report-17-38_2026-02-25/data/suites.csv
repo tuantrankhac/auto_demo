@@ -1,0 +1,3 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","25306","AddProductToCart","Demo","Wed Feb 25 17:38:52 GMT+07:00 2026","broken","Wed Feb 25 17:39:18 GMT+07:00 2026","demo.testSuites.TestDependency","Dependency - Chrome","demo.testSuites.TestDependency","AddProductToCart"
+"","0","HandleShadowDOMNested","Demo","Wed Feb 25 17:39:18 GMT+07:00 2026","passed","Wed Feb 25 17:39:18 GMT+07:00 2026","demo.testSuites.TestDependency","Dependency - Chrome","demo.testSuites.TestDependency","HandleShadowDOMNested"

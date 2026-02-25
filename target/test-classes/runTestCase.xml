@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <!-- <suite name="CRM" verbose="1" parallel="tests"> -->
-<suite name="CRM" verbose="1" parallel="false">
+<suite name="Demo" verbose="1" parallel="false">
 
   <!-- <test name="TaoMoiSuVu - Chrome">
     <parameter name="browser" value="chrome"/>
@@ -75,10 +75,18 @@
     </classes>
   </test> -->
 
-  <test name="Shadow DOM - Chrome">
+  <!-- <test name="Shadow DOM - Chrome">
     <parameter name="browser" value="chrome"/>
     <classes>
       <class name="demo.testSuites.HandleShadowDOM"/>
+    </classes>
+  </test> -->
+
+  <test name="Dependency - Chrome">
+    <parameter name="browser" value="chrome"/>
+    <parameter name="url" value="https://demo.nopcommerce.com/"/>
+    <classes>
+      <class name="demo.testSuites.TestDependency"/>
     </classes>
   </test>
 
