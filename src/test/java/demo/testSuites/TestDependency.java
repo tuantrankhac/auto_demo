@@ -31,6 +31,7 @@ public class TestDependency extends BrowserFactory {
     @Test(dependsOnMethods = "AddProductToCart")
     public void EditProductInCart() {
         testDependencyPO.editProductInCart();
+
     }
 
     @Test(dependsOnMethods = "EditProductInCart")
@@ -42,14 +43,14 @@ public class TestDependency extends BrowserFactory {
     @Test(groups = "Product Added")
     public void AddNewProductToCart1() {
         String productName = "Custom T-Shirt";
-        String nameOnShirt = "Love";
+        String nameOnShirt = "Love1";
         testDependencyPO.selectAndAddProduct(productName, nameOnShirt);
     }
 
     @Test(groups = "Product Added")
     public void AddNewProductToCart2() {
         String productName = "Custom T-Shirt";
-        String nameOnShirt = "Love";
+        String nameOnShirt = "Love2";
         testDependencyPO.selectAndAddProduct(productName, nameOnShirt);
     }
 
@@ -59,7 +60,7 @@ public class TestDependency extends BrowserFactory {
     }
 
 
-    
+
     @AfterClass(alwaysRun = true)
     public void AfterClass() {
         closeAllBrowsers();
