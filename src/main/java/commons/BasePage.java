@@ -233,7 +233,7 @@ public class BasePage {
 
 	public void clickToElement(WebDriver driver, String locator, String... params) {
 		By by = getDynamicBy(locator, params);
-		Allure.step("Click vào element dynamic: " + by.toString());
+		Allure.step("Click vào element dynamic: " + by);
 		waitForElementClickable(driver, by);
 		getWebElement(driver, by).click();
 		sleepInMiliSecond(500);
@@ -380,7 +380,7 @@ public class BasePage {
 	}
 
 	public String getElementAttribute(WebDriver driver, String locator, String attributeName, String... params) {
-		By by = getDynamicBy(locator.toString(), params);
+		By by = getDynamicBy(locator, params);
 		return getWebElement(driver, by).getAttribute(attributeName);
 	}
 
@@ -477,7 +477,7 @@ public class BasePage {
 	}
 
 	public boolean isElementEnabled(WebDriver driver, String locator, String... params) {
-		By by = getDynamicBy(locator.toString(), params);
+		By by = getDynamicBy(locator, params);
 		return getWebElement(driver, by).isEnabled();
 	}
 
@@ -487,7 +487,7 @@ public class BasePage {
 	}
 
 	public boolean isElementSelected(WebDriver driver, String locator, String... params) {
-		By by = getDynamicBy(locator.toString(), params);
+		By by = getDynamicBy(locator, params);
 		return getWebElement(driver, by).isSelected();
 	}
 
