@@ -25,14 +25,13 @@ public class HandleShadowDOM extends BrowserFactory {
     public void HandleShadowDOMSingle() {
         driver.get("https://practice.expandtesting.com/shadowdoms");
         handleShadowDOMPO.getTextElementInShadow();
-
     }
 
 
     @Test(priority = 2)
     public void HandleShadowDOMNested() {
         driver.get("https://selectorshub.com/shadow-dom-in-iframe/");
-
+        
     }
 
     @AfterMethod(alwaysRun = true)
