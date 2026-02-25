@@ -2,16 +2,16 @@
 <testng-results ignored="0" total="2" passed="2" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-02-25T17:59:40 GMT+07:00" name="Demo" finished-at="2026-02-25T17:59:51 GMT+07:00" duration-ms="10630">
+  <suite started-at="2026-02-25T22:40:44 ICT" name="Demo" finished-at="2026-02-25T22:40:51 ICT" duration-ms="6694">
     <groups>
     </groups>
-    <test started-at="2026-02-25T17:59:40 GMT+07:00" name="Dependency - Chrome" finished-at="2026-02-25T17:59:51 GMT+07:00" duration-ms="10630">
+    <test started-at="2026-02-25T22:40:44 ICT" name="Dependency - Chrome" finished-at="2026-02-25T22:40:51 ICT" duration-ms="6694">
       <class name="demo.testSuites.TestDependency">
-        <test-method is-config="true" signature="deleteFileInReport()[pri:0, instance:demo.testSuites.TestDependency@4c5d934b]" started-at="2026-02-25T17:59:40 GMT+07:00" name="deleteFileInReport" finished-at="2026-02-25T17:59:41 GMT+07:00" duration-ms="79" status="PASS">
+        <test-method is-config="true" signature="deleteFileInReport()[pri:0, instance:demo.testSuites.TestDependency@674cd2da]" started-at="2026-02-25T22:40:44 ICT" name="deleteFileInReport" finished-at="2026-02-25T22:40:44 ICT" duration-ms="32" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- deleteFileInReport -->
-        <test-method is-config="true" signature="BeforeClass(java.lang.String,java.lang.String)[pri:0, instance:demo.testSuites.TestDependency@4c5d934b]" started-at="2026-02-25T17:59:41 GMT+07:00" name="BeforeClass" finished-at="2026-02-25T17:59:44 GMT+07:00" duration-ms="3832" status="PASS">
+        <test-method is-config="true" signature="BeforeClass(java.lang.String,java.lang.String)[pri:0, instance:demo.testSuites.TestDependency@674cd2da]" started-at="2026-02-25T22:40:44 ICT" name="BeforeClass" finished-at="2026-02-25T22:40:46 ICT" duration-ms="1734" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -27,15 +27,15 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- BeforeClass -->
-        <test-method signature="AddProductToCart()[pri:0, instance:demo.testSuites.TestDependency@4c5d934b]" started-at="2026-02-25T17:59:44 GMT+07:00" name="AddProductToCart" finished-at="2026-02-25T17:59:51 GMT+07:00" duration-ms="6242" status="PASS">
+        <test-method signature="AddProductToCart()[pri:0, instance:demo.testSuites.TestDependency@674cd2da]" started-at="2026-02-25T22:40:46 ICT" name="AddProductToCart" finished-at="2026-02-25T22:40:50 ICT" duration-ms="4745" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- AddProductToCart -->
-        <test-method signature="HandleShadowDOMNested()[pri:2, instance:demo.testSuites.TestDependency@4c5d934b]" started-at="2026-02-25T17:59:51 GMT+07:00" name="HandleShadowDOMNested" finished-at="2026-02-25T17:59:51 GMT+07:00" duration-ms="0" status="PASS">
+        <test-method signature="HandleShadowDOMNested()[pri:2, instance:demo.testSuites.TestDependency@674cd2da]" started-at="2026-02-25T22:40:50 ICT" name="HandleShadowDOMNested" finished-at="2026-02-25T22:40:50 ICT" duration-ms="0" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- HandleShadowDOMNested -->
-        <test-method is-config="true" signature="AfterClass()[pri:0, instance:demo.testSuites.TestDependency@4c5d934b]" started-at="2026-02-25T17:59:51 GMT+07:00" name="AfterClass" finished-at="2026-02-25T17:59:51 GMT+07:00" duration-ms="275" status="PASS">
+        <test-method is-config="true" signature="AfterClass()[pri:0, instance:demo.testSuites.TestDependency@674cd2da]" started-at="2026-02-25T22:40:50 ICT" name="AfterClass" finished-at="2026-02-25T22:40:51 ICT" duration-ms="100" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- AfterClass -->

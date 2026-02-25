@@ -519,8 +519,8 @@ public class BasePage {
 		action.moveToElement(getWebElement(driver, locator)).perform();
 	}
 
-	public void hoverMouseToElement(WebDriver driver, By locator, String... params) {
-		By by = getDynamicBy(locator.toString(), params);
+	public void hoverMouseToElement(WebDriver driver, String locator, String... params) {
+		By by = getDynamicBy(locator, params);
 		Allure.step("Hover chuột vào element động: " + by);
 		Actions action = new Actions(driver);
 		action.moveToElement(getWebElement(driver, by)).perform();
@@ -549,8 +549,8 @@ public class BasePage {
 		action.sendKeys(getWebElement(driver, locator), key).perform();
 	}
 
-	public void pressKeyToElement(WebDriver driver, By locator, Keys key, String... params) {
-		By by = getDynamicBy(locator.toString(), params);
+	public void pressKeyToElement(WebDriver driver, String locator, Keys key, String... params) {
+		By by = getDynamicBy(locator, params);
 		Allure.step("Nhấn phím " + key.name() + " trên element động: " + by);
 		action = new Actions(driver);
 		action.sendKeys(getWebElement(driver, by), key).perform();
@@ -562,8 +562,8 @@ public class BasePage {
 		jsExecutor.executeScript("arguments[0].scrollIntoView(true);", getWebElement(driver, locator));
 	}
 
-	public void scrollToElementOnTopByJS(WebDriver driver, By locator, String... params) {
-		By by = getDynamicBy(locator.toString(), params);
+	public void scrollToElementOnTopByJS(WebDriver driver, String locator, String... params) {
+		By by = getDynamicBy(locator, params);
 		Allure.step("Cuộn tới element động (trên) bằng JS: " + by);
 		jsExecutor = (JavascriptExecutor) driver;
 		jsExecutor.executeScript("arguments[0].scrollIntoView(true);", getWebElement(driver, by));
@@ -575,8 +575,8 @@ public class BasePage {
 		jsExecutor.executeScript("arguments[0].scrollIntoView(false);", getWebElement(driver, locator));
 	}
 
-	public void scrollToElementOnDownByJS(WebDriver driver, By locator, String... params) {
-		By by = getDynamicBy(locator.toString(), params);
+	public void scrollToElementOnDownByJS(WebDriver driver, String locator, String... params) {
+		By by = getDynamicBy(locator, params);
 		Allure.step("Cuộn tới element động (dưới) bằng JS: " + by);
 		jsExecutor = (JavascriptExecutor) driver;
 		jsExecutor.executeScript("arguments[0].scrollIntoView(false);", getWebElement(driver, by));
@@ -596,7 +596,7 @@ public class BasePage {
 	}
 
 	public void scrollToElementCenterByJS(WebDriver driver, String locator, String... params) {
-		By by = getDynamicBy(locator.toString(), params);
+		By by = getDynamicBy(locator, params);
 		Allure.step("Cuộn tới element động vị trí giữa bằng JS: " + by);
 		jsExecutor = (JavascriptExecutor) driver;
 		jsExecutor.executeScript("arguments[0].scrollIntoView({block: 'center', inline: 'nearest'});",
@@ -728,7 +728,7 @@ public class BasePage {
 	}
 
 	public void waitForElementVisible(WebDriver driver, String locator, String... params) {
-		By by = getDynamicBy(locator.toString(), params);
+		By by = getDynamicBy(locator, params);
 		Allure.step("Chờ element động hiển thị: " + by);
 		try {
 			explicitWait = new WebDriverWait(driver, Duration.ofSeconds(shortTimeout));
@@ -906,7 +906,7 @@ public class BasePage {
 	}
 
 	public void waitForElementInvisible(WebDriver driver, String locator, String... params) {
-		By by = getDynamicBy(locator.toString(), params);
+		By by = getDynamicBy(locator, params);
 		explicitWait = new WebDriverWait(driver, Duration.ofSeconds(longTimeout));
 		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(by));
 	}
@@ -924,8 +924,7 @@ public class BasePage {
 	}
 
 	public void waitForElementClickable(WebDriver driver, String xpath, String... params) {
-		String formattedXpath = String.format(xpath, (Object[]) params);
-		By locator = By.xpath(formattedXpath);
+		By locator = getDynamicBy(xpath, params);
 		Allure.step("Chờ element động có thể click: " + locator);
 		explicitWait = new WebDriverWait(driver, Duration.ofSeconds(longTimeout));
 		explicitWait.until(ExpectedConditions.elementToBeClickable(locator));

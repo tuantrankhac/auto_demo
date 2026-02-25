@@ -1,4 +1,0 @@
-"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"","4079","SwtichTabByTitle","CRM","Wed Feb 11 17:17:20 GMT+07:00 2026","passed","Wed Feb 11 17:17:24 GMT+07:00 2026","demo.testSuites.SwitchTab","SwitchTab - Chrome","demo.testSuites.SwitchTab","SwtichTabByTitle"
-"","863","SwtichTabByIndex","CRM","Wed Feb 11 17:17:34 GMT+07:00 2026","passed","Wed Feb 11 17:17:35 GMT+07:00 2026","demo.testSuites.SwitchTab","SwitchTab - Chrome","demo.testSuites.SwitchTab","SwtichTabByIndex"
-"","931","SwtichTabByUrl","CRM","Wed Feb 11 17:17:28 GMT+07:00 2026","passed","Wed Feb 11 17:17:29 GMT+07:00 2026","demo.testSuites.SwitchTab","SwitchTab - Chrome","demo.testSuites.SwitchTab","SwtichTabByUrl"

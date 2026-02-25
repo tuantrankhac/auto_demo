@@ -1,3 +1,0 @@
-"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"","33555","HandleShadowDOMNested","Demo","Wed Feb 25 09:52:32 GMT+07:00 2026","broken","Wed Feb 25 09:53:06 GMT+07:00 2026","demo.testSuites.HandleShadowDOM","Shadow DOM - Chrome","demo.testSuites.HandleShadowDOM","HandleShadowDOMNested"
-"","3959","HandleShadowDOMSingle","Demo","Wed Feb 25 09:52:27 GMT+07:00 2026","broken","Wed Feb 25 09:52:31 GMT+07:00 2026","demo.testSuites.HandleShadowDOM","Shadow DOM - Chrome","demo.testSuites.HandleShadowDOM","HandleShadowDOMSingle"

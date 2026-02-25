@@ -1,0 +1,3 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","0","HandleShadowDOMNested","Demo","Wed Feb 25 22:40:50 ICT 2026","passed","Wed Feb 25 22:40:50 ICT 2026","demo.testSuites.TestDependency","Dependency - Chrome","demo.testSuites.TestDependency","HandleShadowDOMNested"
+"","4718","AddProductToCart","Demo","Wed Feb 25 22:40:46 ICT 2026","passed","Wed Feb 25 22:40:50 ICT 2026","demo.testSuites.TestDependency","Dependency - Chrome","demo.testSuites.TestDependency","AddProductToCart"
