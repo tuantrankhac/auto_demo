@@ -37,6 +37,8 @@ public class TestDependency extends BrowserFactory {
     @Test(dependsOnMethods = "EditProductInCart")
     public void DeleteProductInCart() {
         testDependencyPO.deleteProductInCart();
+        testDependencyPO.deleteProductInCart1();
+
     }
 
 
