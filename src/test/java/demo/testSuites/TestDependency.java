@@ -47,6 +47,7 @@ public class TestDependency extends BrowserFactory {
         String productName = "Custom T-Shirt";
         String nameOnShirt = "Love5";
         String nameOnClStri = "Love7";
+        String nameOq1 = "Love 3";
         testDependencyPO.selectAndAddProduct(productName, nameOnShirt);
     }
 
