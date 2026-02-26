@@ -1,0 +1,86 @@
+name: Mini CI - Build, Test & Allure Report
+
+on:
+  # push:
+  #   branches: [ main, master, develop ]
+  # pull_request:
+  #   branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        browser: [chrome, firefox]  # thêm browser bạn muốn (có thể thêm edge)
+
+    steps:
+      # Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Setup JDK 17
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      # Cache Maven
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-maven-
+
+      # Cài Chrome (với ChromeDriver tự động)
+      - name: Setup Chrome
+        if: matrix.browser == 'chrome'
+        uses: browser-actions/setup-chrome@v2
+        with:
+          chrome-version: stable  # hoặc cụ thể như 120
+          install-chromedriver: true
+
+      # Cài Firefox (với GeckoDriver)
+      - name: Setup Firefox
+        if: matrix.browser == 'firefox'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y firefox-geckodriver firefox
+
+      # Chạy Maven test với browser từ matrix
+      - name: Build and Test with Maven (${{ matrix.browser }})
+        run: mvn clean verify -Dbrowser=${{ matrix.browser }} -Dheadless=true
+
+      # (Tùy chọn) Upload Allure results để download về local nếu cần
+      - name: Upload Allure results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results-${{ matrix.browser }}
+          path: target/allure-results
+
+      # Generate Allure report
+      - name: Get Allure
+        if: always()
+        run: |
+          curl -o allure.tgz -Ls https://github.com/allure-framework/allure2/releases/download/2.29.0/allure-2.29.0.tgz
+          tar -zxvf allure.tgz -C /tmp
+          echo "/tmp/allure-2.29.0/bin" >> $GITHUB_PATH
+
+      - name: Generate Allure Report (${{ matrix.browser }})
+        if: always()
+        run: allure generate target/allure-results -o allure-report-${{ matrix.browser }} --clean
+
+      # Deploy report lên GitHub Pages (riêng cho từng browser)
+      - name: Deploy Allure Report to GitHub Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: allure-report-${{ matrix.browser }}
+          publish_branch: gh-pages
+          destination_dir: allure-report-${{ matrix.browser }}-${{ github.run_id }}
+          # force_orphan: true

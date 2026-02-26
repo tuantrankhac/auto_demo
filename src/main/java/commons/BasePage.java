@@ -696,6 +696,7 @@ public class BasePage {
 			Allure.step("Element không hiển thị");
 		}
 	}
+	
 
 	public void fluentWaitForElementVisible(WebDriver driver, By locator, long timeoutInSeconds,
 			long pollingInMillis) {
@@ -899,9 +900,19 @@ public class BasePage {
 		explicitWait = new WebDriverWait(driver, Duration.ofSeconds(longTimeout));
 		explicitWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
 	}
+	
+	public void waitForAllElementVisible(WebDriver driver, By locator, long longTimeout) {
+		explicitWait = new WebDriverWait(driver, Duration.ofSeconds(longTimeout));
+		explicitWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
+	}
 
 	public void waitForElementInvisible(WebDriver driver, By locator) {
 		explicitWait = new WebDriverWait(driver, Duration.ofSeconds(longTimeout));
+		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
+	}
+
+	public void waitForElementInvisible(WebDriver driver, By locator, long timeOutInSeconds) {
+		explicitWait = new WebDriverWait(driver, Duration.ofSeconds(timeOutInSeconds));
 		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
 	}
 

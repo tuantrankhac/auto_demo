@@ -1,0 +1,7 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","6925","TC05_AddNewProductToCart2","Demo","Thu Feb 26 16:26:25 GMT+07:00 2026","broken","Thu Feb 26 16:26:32 GMT+07:00 2026","demo.testSuites.TestDependency","Dependency - Chrome","demo.testSuites.TestDependency","TC05_AddNewProductToCart2"
+"","7616","TC04_AddNewProductToCart1","Demo","Thu Feb 26 16:26:17 GMT+07:00 2026","passed","Thu Feb 26 16:26:25 GMT+07:00 2026","demo.testSuites.TestDependency","Dependency - Chrome","demo.testSuites.TestDependency","TC04_AddNewProductToCart1"
+"","7136","TC01_AddProductToCart","Demo","Thu Feb 26 16:26:04 GMT+07:00 2026","passed","Thu Feb 26 16:26:11 GMT+07:00 2026","demo.testSuites.TestDependency","Dependency - Chrome","demo.testSuites.TestDependency","TC01_AddProductToCart"
+"","5649","TC02_EditProductInCart","Demo","Thu Feb 26 16:26:11 GMT+07:00 2026","broken","Thu Feb 26 16:26:17 GMT+07:00 2026","demo.testSuites.TestDependency","Dependency - Chrome","demo.testSuites.TestDependency","TC02_EditProductInCart"
+"","0","TC03_DeleteProductInCart","Demo","Thu Feb 26 16:26:17 GMT+07:00 2026","skipped","Thu Feb 26 16:26:17 GMT+07:00 2026","demo.testSuites.TestDependency","Dependency - Chrome","demo.testSuites.TestDependency","TC03_DeleteProductInCart"
+"","0","TC06_CheckoutProduct","Demo","Thu Feb 26 16:26:32 GMT+07:00 2026","skipped","Thu Feb 26 16:26:32 GMT+07:00 2026","demo.testSuites.TestDependency","Dependency - Chrome","demo.testSuites.TestDependency","TC06_CheckoutProduct"

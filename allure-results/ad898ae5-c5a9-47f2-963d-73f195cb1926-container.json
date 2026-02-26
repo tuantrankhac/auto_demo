@@ -1,1 +1,0 @@
-{"uuid":"ad898ae5-c5a9-47f2-963d-73f195cb1926","name":"soffice-app-web","children":[],"befores":[{"name":"deleteFileInReport","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1732617287570,"stop":1732617287582}],"afters":[],"start":1732617287538,"stop":1732617287592}

@@ -12,7 +12,7 @@ import demo.pageObjects.PageGenerator;
 import demo.pageObjects.TestDependencyPO;
 
 public class TestDependency extends BrowserFactory {
-    @Parameters({ "browser", "url"})
+    @Parameters({ "browser", "url" })
     @BeforeClass
     public void BeforeClass(String browserName, String url) {
         log.info("Pre-Condition: Step 01: Open Browser: " + browserName);
@@ -22,47 +22,56 @@ public class TestDependency extends BrowserFactory {
     }
 
     @Test
-    public void AddProductToCart() {
+    public void TC01_AddProductToCart() {
         String productName = "Custom T-Shirt";
         String nameOnShirt = "Love";
-        testDependencyPO.selectAndAddProduct(productName, nameOnShirt);
+        testDependencyPO.selectAndAddProductShirt(productName, nameOnShirt);
     }
 
-    @Test(dependsOnMethods = "AddProductToCart")
-    public void EditProductInCart() {
-        testDependencyPO.editQuantityProductInCart();
-        testDependencyPO.editContentProductInCart();
+    @Test(dependsOnMethods = "TC01_AddProductToCart")
+    public void TC02_EditProductInCart() {
+        String productName = "Custom T-Shirt";
+        testDependencyPO.increaseQuantityProductInCart(productName);
+        testDependencyPO.increaseQuantityProductInCart(productName);
+        double priceUnit = testDependencyPO.getPriceUnitProduct(productName);
+        int quantityAfterIncrease = testDependencyPO.getQuantityProduct(productName, "value");
+        double totalPriceActualIncrease = priceUnit * quantityAfterIncrease;
+        double totalPrictExpectIncrease = testDependencyPO.getTotalPriceProduct(productName);
+        verifyEquals(totalPriceActualIncrease, totalPrictExpectIncrease);
+
+        testDependencyPO.decreaseQuantityProductInCart(productName);
+        int quantityAfterDecrease = testDependencyPO.getQuantityProduct(productName, "value");
+        double totalPriceActualDecrease = priceUnit * quantityAfterDecrease;
+        double totalPrictExpectDecrease = testDependencyPO.getTotalPriceProduct(productName);
+        verifyEquals(totalPriceActualDecrease, totalPrictExpectDecrease);
     }
 
-    @Test(dependsOnMethods = "EditProductInCart")
-    public void DeleteProductInCart() {
-        testDependencyPO.deleteProductInCart();
-        testDependencyPO.deleteProductInCart1();
-
+    @Test(dependsOnMethods = "TC02_EditProductInCart")
+    public void TC03_DeleteProductInCart() {
+        String productName = "Custom T-Shirt";
+        testDependencyPO.deleteProductInCart(productName);
     }
-
 
     @Test(groups = "Product Added")
-    public void AddNewProductToCart1() {
-        String productName = "Custom T-Shirt";
-        String nameOnShirt = "Love5";
-        String nameOnClStri = "Love7";
-        String nameOq1 = "Love 3";
-        testDependencyPO.selectAndAddProduct(productName, nameOnShirt);
+    public void TC04_AddNewProductToCart1() {
+        String productName = "Ray Ban Aviator Sunglasses";
+        testDependencyPO.goToHomePage();
+        testDependencyPO.selectAndAddProduct(productName);
     }
 
-    @Test(groups = "Product Added")
-    public void AddNewProductToCart2() {
-        String productName = "Custom T-Shirt";
-        String nameOnShirt = "Love7";
-        testDependencyPO.selectAndAddProduct(productName, nameOnShirt);
+    @Test(dependsOnMethods = "TC04_AddNewProductToCart1", groups = "Product Added")
+    public void TC05_AddNewProductToCart2() {
+        String productName = "Reversible Horseferry Check Belt";
+        testDependencyPO.goToHomePage();
+        testDependencyPO.selectAndAddProduct(productName);
     }
 
     @Test(dependsOnGroups = "Product Added")
-    public void CheckoutProduct() {
-        testDependencyPO.checkoutProduct();
-    }
+    public void TC06_CheckoutProduct() {
+        testDependencyPO.goToHomePage();
+        testDependencyPO.openCartPage();
 
+    }
 
     @AfterClass(alwaysRun = true)
     public void AfterClass() {
