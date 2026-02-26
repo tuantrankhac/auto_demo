@@ -43,14 +43,14 @@ public class TestDependency extends BrowserFactory {
     @Test(groups = "Product Added")
     public void AddNewProductToCart1() {
         String productName = "Custom T-Shirt";
-        String nameOnShirt = "Love4";
+        String nameOnShirt = "Love5";
         testDependencyPO.selectAndAddProduct(productName, nameOnShirt);
     }
 
     @Test(groups = "Product Added")
     public void AddNewProductToCart2() {
         String productName = "Custom T-Shirt";
-        String nameOnShirt = "Love3";
+        String nameOnShirt = "Love7";
         testDependencyPO.selectAndAddProduct(productName, nameOnShirt);
     }
 
