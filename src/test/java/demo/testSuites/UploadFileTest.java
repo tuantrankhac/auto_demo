@@ -15,7 +15,7 @@ public class UploadFileTest extends BrowserFactory {
     String user = "tongdai3@gmail.com";
     String password = "123456";
     String fileUpload1 = "picture_1.jpg";
-    String[] multiFileUpload = {"picture_1.jpg", "picture_2.jpg"};
+    String[] multiFileUpload = {"picture_1.jpg", "picture_3.jpeg"};
     @Parameters({"browser", "url"})
     @BeforeClass
     public void beforeClass(String browserName, String appUrl) {
