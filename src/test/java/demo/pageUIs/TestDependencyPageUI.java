@@ -20,7 +20,5 @@ public class TestDependencyPageUI {
     
 
     public static final By DELETE_PRODUCT_IN_CART = By.cssSelector(".remove-btn");
-    public static final By BACK_TO_HOME_PAGE = By.cssSelector("a[href='/']");
-    public static final By CHECKOUT_BUTTON = By.cssSelector("button[id='checkout']");
-
+    
 }

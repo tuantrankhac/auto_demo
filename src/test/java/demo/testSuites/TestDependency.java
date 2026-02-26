@@ -30,8 +30,8 @@ public class TestDependency extends BrowserFactory {
 
     @Test(dependsOnMethods = "AddProductToCart")
     public void EditProductInCart() {
-        testDependencyPO.editProductInCart();
-
+        testDependencyPO.editQuantityProductInCart();
+        testDependencyPO.editContentProductInCart();
     }
 
     @Test(dependsOnMethods = "EditProductInCart")
@@ -58,7 +58,6 @@ public class TestDependency extends BrowserFactory {
     public void CheckoutProduct() {
         testDependencyPO.checkoutProduct();
     }
-
 
 
     @AfterClass(alwaysRun = true)
