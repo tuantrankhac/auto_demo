@@ -1,1 +1,0 @@
-[{"uid":"e794ad02bb899eb7","name":"HandleShadowDOMNested","time":{"start":1772011951408,"stop":1772011951408,"duration":0},"status":"passed","severity":"normal"},{"uid":"882d738ee958ab80","name":"AddProductToCart","time":{"start":1772011927601,"stop":1772011951344,"duration":23743},"status":"broken","severity":"normal"}]

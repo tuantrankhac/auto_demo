@@ -26,13 +26,40 @@ public class TestDependency extends BrowserFactory {
         String productName = "Custom T-Shirt";
         String nameOnShirt = "Love";
         testDependencyPO.selectAndAddProduct(productName, nameOnShirt);
+    }
+
+    @Test(dependsOnMethods = "AddProductToCart")
+    public void EditProductInCart() {
+        testDependencyPO.editProductInCart();
 
     }
 
-    @Test(priority = 2)
-    public void HandleShadowDOMNested() {
-        
+    @Test(dependsOnMethods = "EditProductInCart")
+    public void DeleteProductInCart() {
+        testDependencyPO.deleteProductInCart();
     }
+
+
+    @Test(groups = "Product Added")
+    public void AddNewProductToCart1() {
+        String productName = "Custom T-Shirt";
+        String nameOnShirt = "Love1";
+        testDependencyPO.selectAndAddProduct(productName, nameOnShirt);
+    }
+
+    @Test(groups = "Product Added")
+    public void AddNewProductToCart2() {
+        String productName = "Custom T-Shirt";
+        String nameOnShirt = "Love2";
+        testDependencyPO.selectAndAddProduct(productName, nameOnShirt);
+    }
+
+    @Test(dependsOnGroups = "Product Added")
+    public void CheckoutProduct() {
+        testDependencyPO.checkoutProduct();
+    }
+
+
 
     @AfterClass(alwaysRun = true)
     public void AfterClass() {

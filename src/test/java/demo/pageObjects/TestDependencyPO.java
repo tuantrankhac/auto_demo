@@ -22,4 +22,25 @@ public class TestDependencyPO extends BasePage {
         waitForElementVisible(driver, TestDependencyPageUI.SHOPPING_CART_TEXT);
     }
 
+    public void editProductInCart(String value) {
+        clickToElement(driver, TestDependencyPageUI.EDIT_PRODUCT_IN_CART);
+        getWebElement(driver, TestDependencyPageUI.QUANTITY_TEXTBOX, value);
+        sendkeyToElement(driver, TestDependencyPageUI.NAME_TEXTBOX, value);
+        clickToElement(driver, TestDependencyPageUI.UPDATE_CART_BUTTON);
+    }
+
+    public void verifyProductAfterEdit(String value) {
+        waitForElementVisible(driver, TestDependencyPageUI.SHOPPING_CART_TEXT);
+        Assert.assertEquals(getTextElement(driver, TestDependencyPageUI.SHOPPING_CART_TEXT), value);
+    }
+
+    public void deleteProductInCart() {
+        clickToElement(driver, TestDependencyPageUI.SHOPPING_CART_TEXT);
+        clickToElement(driver, TestDependencyPageUI.DELETE_PRODUCT_IN_CART);
+    }
+
+    public void backToHomePage() {
+        clickToElement(driver, TestDependencyPageUI.BACK_TO_HOME_PAGE);
+    }
+
 }
