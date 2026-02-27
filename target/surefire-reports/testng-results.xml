@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="6" passed="6" failed="0" skipped="0">
+<testng-results ignored="0" total="4" passed="4" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-02-26T16:38:04 GMT+07:00" name="Demo" finished-at="2026-02-26T16:38:38 GMT+07:00" duration-ms="34428">
+  <suite started-at="2026-02-27T16:14:24 GMT+07:00" name="Demo" finished-at="2026-02-27T16:15:23 GMT+07:00" duration-ms="58998">
     <groups>
-      <group name="Product Added">
-        <method signature="TestDependency.TC04_AddNewProductToCart1()[pri:0, instance:demo.testSuites.TestDependency@5d6e77a4]" name="TC04_AddNewProductToCart1" class="demo.testSuites.TestDependency"/>
-        <method signature="TestDependency.TC05_AddNewProductToCart2()[pri:0, instance:demo.testSuites.TestDependency@5d6e77a4]" name="TC05_AddNewProductToCart2" class="demo.testSuites.TestDependency"/>
-      </group> <!-- Product Added -->
     </groups>
-    <test started-at="2026-02-26T16:38:04 GMT+07:00" name="Dependency - Chrome" finished-at="2026-02-26T16:38:38 GMT+07:00" duration-ms="34428">
-      <class name="demo.testSuites.TestDependency">
-        <test-method is-config="true" signature="deleteFileInReport()[pri:0, instance:demo.testSuites.TestDependency@5d6e77a4]" started-at="2026-02-26T16:38:04 GMT+07:00" name="deleteFileInReport" finished-at="2026-02-26T16:38:04 GMT+07:00" duration-ms="39" status="PASS">
+    <test started-at="2026-02-27T16:14:24 GMT+07:00" name="Read Data Excel - Chrome" finished-at="2026-02-27T16:15:23 GMT+07:00" duration-ms="58998">
+      <class name="demo.testSuites.ReadExcelFile">
+        <test-method is-config="true" signature="deleteFileInReport()[pri:0, instance:demo.testSuites.ReadExcelFile@23faae85]" started-at="2026-02-27T16:14:24 GMT+07:00" name="deleteFileInReport" finished-at="2026-02-27T16:14:24 GMT+07:00" duration-ms="47" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- deleteFileInReport -->
-        <test-method is-config="true" signature="BeforeClass(java.lang.String,java.lang.String)[pri:0, instance:demo.testSuites.TestDependency@5d6e77a4]" started-at="2026-02-26T16:38:04 GMT+07:00" name="BeforeClass" finished-at="2026-02-26T16:38:07 GMT+07:00" duration-ms="3488" status="PASS">
+        <test-method is-config="true" signature="BeforeMethod(java.lang.String,java.lang.String)[pri:0, instance:demo.testSuites.ReadExcelFile@23faae85]" started-at="2026-02-27T16:14:25 GMT+07:00" name="BeforeMethod" finished-at="2026-02-27T16:14:29 GMT+07:00" duration-ms="3817" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -24,42 +20,122 @@
             </param>
             <param index="1">
               <value>
-                <![CDATA[https://demo.nopcommerce.com/]]>
+                <![CDATA[https://stg-crm.smarthiz.vn/login]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- BeforeClass -->
-        <test-method signature="TC01_AddProductToCart()[pri:0, instance:demo.testSuites.TestDependency@5d6e77a4]" started-at="2026-02-26T16:38:07 GMT+07:00" name="TC01_AddProductToCart" finished-at="2026-02-26T16:38:14 GMT+07:00" duration-ms="6179" status="PASS">
+        </test-method> <!-- BeforeMethod -->
+        <test-method signature="TC01_testLogin(java.util.Map)[pri:0, instance:demo.testSuites.ReadExcelFile@23faae85]" started-at="2026-02-27T16:14:29 GMT+07:00" name="TC01_testLogin" data-provider="loginData" finished-at="2026-02-27T16:14:46 GMT+07:00" duration-ms="17179" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[{=, User=tongdai1@gmail.com, RunMode=Yes, Password=123456}]]>
+              </value>
+            </param>
+          </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- TC01_AddProductToCart -->
-        <test-method signature="TC02_EditProductInCart()[pri:0, instance:demo.testSuites.TestDependency@5d6e77a4]" started-at="2026-02-26T16:38:14 GMT+07:00" name="TC02_EditProductInCart" finished-at="2026-02-26T16:38:20 GMT+07:00" depends-on-methods="demo.testSuites.TestDependency.TC01_AddProductToCart" duration-ms="6282" status="PASS">
+        </test-method> <!-- TC01_testLogin -->
+        <test-method is-config="true" signature="AfterMethod()[pri:0, instance:demo.testSuites.ReadExcelFile@23faae85]" started-at="2026-02-27T16:14:46 GMT+07:00" name="AfterMethod" finished-at="2026-02-27T16:14:47 GMT+07:00" duration-ms="353" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- TC02_EditProductInCart -->
-        <test-method signature="TC03_DeleteProductInCart()[pri:0, instance:demo.testSuites.TestDependency@5d6e77a4]" started-at="2026-02-26T16:38:20 GMT+07:00" name="TC03_DeleteProductInCart" finished-at="2026-02-26T16:38:21 GMT+07:00" depends-on-methods="demo.testSuites.TestDependency.TC02_EditProductInCart" duration-ms="1238" status="PASS">
+        </test-method> <!-- AfterMethod -->
+        <test-method is-config="true" signature="BeforeMethod(java.lang.String,java.lang.String)[pri:0, instance:demo.testSuites.ReadExcelFile@23faae85]" started-at="2026-02-27T16:14:47 GMT+07:00" name="BeforeMethod" finished-at="2026-02-27T16:14:50 GMT+07:00" duration-ms="3326" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[chrome]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[https://stg-crm.smarthiz.vn/login]]>
+              </value>
+            </param>
+          </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- TC03_DeleteProductInCart -->
-        <test-method signature="TC04_AddNewProductToCart1()[pri:0, instance:demo.testSuites.TestDependency@5d6e77a4]" started-at="2026-02-26T16:38:21 GMT+07:00" name="TC04_AddNewProductToCart1" finished-at="2026-02-26T16:38:28 GMT+07:00" duration-ms="7250" status="PASS">
+        </test-method> <!-- BeforeMethod -->
+        <test-method signature="TC01_testLogin(java.util.Map)[pri:0, instance:demo.testSuites.ReadExcelFile@23faae85]" started-at="2026-02-27T16:14:50 GMT+07:00" name="TC01_testLogin" data-provider="loginData" finished-at="2026-02-27T16:14:59 GMT+07:00" duration-ms="8775" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[{=, User=tongdai2@gmail.com, RunMode=Yes, Password=123456}]]>
+              </value>
+            </param>
+          </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- TC04_AddNewProductToCart1 -->
-        <test-method signature="TC05_AddNewProductToCart2()[pri:0, instance:demo.testSuites.TestDependency@5d6e77a4]" started-at="2026-02-26T16:38:28 GMT+07:00" name="TC05_AddNewProductToCart2" finished-at="2026-02-26T16:38:35 GMT+07:00" depends-on-methods="demo.testSuites.TestDependency.TC04_AddNewProductToCart1" duration-ms="6921" status="PASS">
+        </test-method> <!-- TC01_testLogin -->
+        <test-method is-config="true" signature="AfterMethod()[pri:0, instance:demo.testSuites.ReadExcelFile@23faae85]" started-at="2026-02-27T16:14:59 GMT+07:00" name="AfterMethod" finished-at="2026-02-27T16:14:59 GMT+07:00" duration-ms="188" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- TC05_AddNewProductToCart2 -->
-        <test-method signature="TC06_CheckoutProduct()[pri:0, instance:demo.testSuites.TestDependency@5d6e77a4]" started-at="2026-02-26T16:38:35 GMT+07:00" name="TC06_CheckoutProduct" depends-on-groups="Product Added" finished-at="2026-02-26T16:38:38 GMT+07:00" duration-ms="2526" status="PASS">
+        </test-method> <!-- AfterMethod -->
+        <test-method is-config="true" signature="BeforeMethod(java.lang.String,java.lang.String)[pri:0, instance:demo.testSuites.ReadExcelFile@23faae85]" started-at="2026-02-27T16:14:59 GMT+07:00" name="BeforeMethod" finished-at="2026-02-27T16:15:02 GMT+07:00" duration-ms="2817" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[chrome]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[https://stg-crm.smarthiz.vn/login]]>
+              </value>
+            </param>
+          </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- TC06_CheckoutProduct -->
-        <test-method is-config="true" signature="AfterClass()[pri:0, instance:demo.testSuites.TestDependency@5d6e77a4]" started-at="2026-02-26T16:38:38 GMT+07:00" name="AfterClass" finished-at="2026-02-26T16:38:38 GMT+07:00" duration-ms="281" status="PASS">
+        </test-method> <!-- BeforeMethod -->
+        <test-method signature="TC01_testLogin(java.util.Map)[pri:0, instance:demo.testSuites.ReadExcelFile@23faae85]" started-at="2026-02-27T16:15:02 GMT+07:00" name="TC01_testLogin" data-provider="loginData" finished-at="2026-02-27T16:15:11 GMT+07:00" duration-ms="8894" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[{=, User=tongdai3@gmail.com, RunMode=Yes, Password=123456}]]>
+              </value>
+            </param>
+          </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- AfterClass -->
-      </class> <!-- demo.testSuites.TestDependency -->
-    </test> <!-- Dependency - Chrome -->
+        </test-method> <!-- TC01_testLogin -->
+        <test-method is-config="true" signature="AfterMethod()[pri:0, instance:demo.testSuites.ReadExcelFile@23faae85]" started-at="2026-02-27T16:15:11 GMT+07:00" name="AfterMethod" finished-at="2026-02-27T16:15:11 GMT+07:00" duration-ms="351" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- AfterMethod -->
+        <test-method is-config="true" signature="BeforeMethod(java.lang.String,java.lang.String)[pri:0, instance:demo.testSuites.ReadExcelFile@23faae85]" started-at="2026-02-27T16:15:11 GMT+07:00" name="BeforeMethod" finished-at="2026-02-27T16:15:13 GMT+07:00" duration-ms="2283" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[chrome]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[https://stg-crm.smarthiz.vn/login]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- BeforeMethod -->
+        <test-method signature="TC01_testLogin(java.util.Map)[pri:0, instance:demo.testSuites.ReadExcelFile@23faae85]" started-at="2026-02-27T16:15:13 GMT+07:00" name="TC01_testLogin" data-provider="loginData" finished-at="2026-02-27T16:15:22 GMT+07:00" duration-ms="9068" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[{=, User=tongdai4@gmail.com, RunMode=Yes, Password=123456}]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- TC01_testLogin -->
+        <test-method is-config="true" signature="AfterMethod()[pri:0, instance:demo.testSuites.ReadExcelFile@23faae85]" started-at="2026-02-27T16:15:22 GMT+07:00" name="AfterMethod" finished-at="2026-02-27T16:15:23 GMT+07:00" duration-ms="435" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- AfterMethod -->
+      </class> <!-- demo.testSuites.ReadExcelFile -->
+    </test> <!-- Read Data Excel - Chrome -->
   </suite> <!-- Demo -->
 </testng-results>

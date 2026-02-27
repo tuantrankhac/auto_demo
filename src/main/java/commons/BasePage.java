@@ -9,6 +9,8 @@ import java.util.Set;
 
 import constant.GlobalConstants;
 import io.qameta.allure.Allure;
+import net.bytebuddy.implementation.bytecode.Throw;
+
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.Color;
@@ -696,7 +698,25 @@ public class BasePage {
 			Allure.step("Element không hiển thị");
 		}
 	}
-	
+
+	public WebElement waitForElementStaleness(WebDriver driver, By locator) {
+		Allure.step("Chờ element bị stale (DOM đã render lại)");
+
+		// 1. Lấy "dấu vết" của phần tử lúc nó vừa xuất hiện (phiên bản 1)
+		explicitWait = new WebDriverWait(driver, Duration.ofSeconds(shortTimeout));
+        WebElement oldElement = explicitWait.until(ExpectedConditions.presenceOfElementLocated(locator));
+		
+		// 2. Đợi cho web rerender (phần tử cũ không còn gắn với DOM nữa)
+		try {
+			explicitWait.until(ExpectedConditions.stalenessOf(oldElement));
+			Allure.step("Element đã bị stale khỏi DOM");
+		} catch (Exception e) {
+			Allure.step("Element không bị stale trong " + shortTimeout + " giây");
+			return oldElement;
+		}
+		return explicitWait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+	}
+
 
 	public void fluentWaitForElementVisible(WebDriver driver, By locator, long timeoutInSeconds,
 			long pollingInMillis) {
@@ -873,34 +893,36 @@ public class BasePage {
 	 * WebElement element = getElementInNestedShadowRoot(driver, shadowHost1,
 	 * shadowHost2, ..., targetElementLocator);
 	 */
-	public WebElement getElementInNestedShadowRoot(WebDriver driver, By elementInShadowLocator, By... shadowHostLocators) {
-	    if (shadowHostLocators == null || shadowHostLocators.length < 1) {
-	        throw new IllegalArgumentException("You must provide at least one shadow host locator.");
-	    }
-	    SearchContext context = getNestedShadowRoot(driver, shadowHostLocators);
-	    try {
-	        WebElement element = context.findElement(elementInShadowLocator);
-	        Allure.step("Đã tìm thấy element trong nested shadow root: " + elementInShadowLocator);
-	        return element;
-	    } catch (NoSuchElementException e) {
-	        Allure.step("Không tìm thấy element trong nested shadow root: " + elementInShadowLocator);
-	        throw e;
-	    }
+	public WebElement getElementInNestedShadowRoot(WebDriver driver, By elementInShadowLocator,
+			By... shadowHostLocators) {
+		if (shadowHostLocators == null || shadowHostLocators.length < 1) {
+			throw new IllegalArgumentException("You must provide at least one shadow host locator.");
+		}
+		SearchContext context = getNestedShadowRoot(driver, shadowHostLocators);
+		try {
+			WebElement element = context.findElement(elementInShadowLocator);
+			Allure.step("Đã tìm thấy element trong nested shadow root: " + elementInShadowLocator);
+			return element;
+		} catch (NoSuchElementException e) {
+			Allure.step("Không tìm thấy element trong nested shadow root: " + elementInShadowLocator);
+			throw e;
+		}
 	}
 
-	public String getTextElementInNestedShadowRoot(WebDriver driver, By elementInShadowLocator, By... shadowHostLocators) {
-	    Allure.step("Lấy text element trong Nested Shadow DOM: " + elementInShadowLocator);
-	    WebElement element = getElementInNestedShadowRoot(driver, elementInShadowLocator, shadowHostLocators);
-	    String text = element.getText();
-	    Allure.step("Lấy text element trong Nested Shadow DOM: " + text);
-	    return text;
+	public String getTextElementInNestedShadowRoot(WebDriver driver, By elementInShadowLocator,
+			By... shadowHostLocators) {
+		Allure.step("Lấy text element trong Nested Shadow DOM: " + elementInShadowLocator);
+		WebElement element = getElementInNestedShadowRoot(driver, elementInShadowLocator, shadowHostLocators);
+		String text = element.getText();
+		Allure.step("Lấy text element trong Nested Shadow DOM: " + text);
+		return text;
 	}
 
 	public void waitForAllElementVisible(WebDriver driver, By locator) {
 		explicitWait = new WebDriverWait(driver, Duration.ofSeconds(longTimeout));
 		explicitWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
 	}
-	
+
 	public void waitForAllElementVisible(WebDriver driver, By locator, long longTimeout) {
 		explicitWait = new WebDriverWait(driver, Duration.ofSeconds(longTimeout));
 		explicitWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));

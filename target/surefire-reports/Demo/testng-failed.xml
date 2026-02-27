@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Demo]" guice-stage="DEVELOPMENT" verbose="0">
+  <test thread-count="5" name="Read Data Excel - Chrome(failed)" verbose="0">
+    <parameter name="browser" value="chrome"/>
+    <parameter name="url" value="https://stg-crm.smarthiz.vn/login"/>
+    <classes>
+      <class name="demo.testSuites.ReadExcelFile">
+        <methods>
+          <include name="BeforeMethod"/>
+          <include name="TC01_testLogin" invocation-numbers="0 1 2 3"/>
+          <include name="deleteFileInReport"/>
+          <include name="AfterMethod"/>
+        </methods>
+      </class> <!-- demo.testSuites.ReadExcelFile -->
+    </classes>
+  </test> <!-- Read Data Excel - Chrome(failed) -->
+</suite> <!-- Failed suite [Demo] -->

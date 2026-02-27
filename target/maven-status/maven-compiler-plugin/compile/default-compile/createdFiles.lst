@@ -5,6 +5,7 @@ commons\BasePage$1.class
 utilities\StringUtils.class
 commons\BrowserFactory.class
 exception\BrowserNotSupport.class
+utilities\ExcelUtils.class
 utilities\VerificationFailures.class
 commons\BasePage.class
 utilities\DbConnection.class

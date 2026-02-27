@@ -2,6 +2,7 @@ demo\pageObjects\ActionsPagePO.class
 demo\testSuites\TestParallel.class
 demo\pageObjects\DangNhapPO.class
 demo\pageObjects\PageGenerator.class
+demo\pageUIs\ReadExcelFilePageUI.class
 demo\testSuites\UploadFileTest.class
 demo\pageObjects\HandleAlertPO.class
 demo\testSuites\LoginWithoutAuth.class
@@ -10,6 +11,7 @@ demo\testSuites\Iframe.class
 report\TestNGAppender.class
 demo\testSuites\TaoMoiSuVu.class
 demo\pageObjects\TrangChuPO.class
+demo\testSuites\ReadExcelFile.class
 demo\testSuites\ValidataDataOnUIAndDB.class
 demo\testSuites\HandleAlert.class
 report\ReportNGListener.class
@@ -33,5 +35,6 @@ demo\testSuites\HandleShadowDOM.class
 demo\pageUIs\IframePageUI.class
 demo\pageObjects\LoginWithoutAuthPO.class
 demo\testSuites\TestDependency.class
+demo\pageObjects\ReadExcelFilePO.class
 demo\pageObjects\SwitchTabPO.class
 demo\pageUIs\SuVuPageUI.class

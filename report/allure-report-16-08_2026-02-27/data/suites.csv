@@ -1,0 +1,5 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","5618","TC01_testLogin","Demo","Fri Feb 27 16:08:27 GMT+07:00 2026","broken","Fri Feb 27 16:08:33 GMT+07:00 2026","demo.testSuites.ReadExcelFile","Read Data Excel - Chrome","demo.testSuites.ReadExcelFile","TC01_testLogin"
+"","5559","TC01_testLogin","Demo","Fri Feb 27 16:08:44 GMT+07:00 2026","broken","Fri Feb 27 16:08:49 GMT+07:00 2026","demo.testSuites.ReadExcelFile","Read Data Excel - Chrome","demo.testSuites.ReadExcelFile","TC01_testLogin"
+"","5555","TC01_testLogin","Demo","Fri Feb 27 16:08:35 GMT+07:00 2026","broken","Fri Feb 27 16:08:41 GMT+07:00 2026","demo.testSuites.ReadExcelFile","Read Data Excel - Chrome","demo.testSuites.ReadExcelFile","TC01_testLogin"
+"","5421","TC01_testLogin","Demo","Fri Feb 27 16:08:20 GMT+07:00 2026","broken","Fri Feb 27 16:08:25 GMT+07:00 2026","demo.testSuites.ReadExcelFile","Read Data Excel - Chrome","demo.testSuites.ReadExcelFile","TC01_testLogin"

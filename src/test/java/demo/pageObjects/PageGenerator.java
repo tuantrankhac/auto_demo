@@ -38,4 +38,13 @@ public class PageGenerator {
 	public static TestDependencyPO getDependencyPO(WebDriver driver) {
 		return new TestDependencyPO(driver);
 	}
+
+	public static ReadExcelFilePO getExcelFilePO(WebDriver driver) {
+		return new ReadExcelFilePO(driver);
+	}
+
+	public static RetryTestPO getRetryTestPO(WebDriver driver) {
+		return new RetryTestPO(driver);
+	}
+
 }

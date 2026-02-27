@@ -82,11 +82,19 @@
     </classes>
   </test> -->
 
-  <test name="Dependency - Chrome">
+  <!-- <test name="Dependency - Chrome">
     <parameter name="browser" value="chrome"/>
     <parameter name="url" value="https://demo.nopcommerce.com/"/>
     <classes>
       <class name="demo.testSuites.TestDependency"/>
+    </classes>
+  </test> -->
+
+  <test name="Read Data Excel - Chrome">
+    <parameter name="browser" value="chrome"/>
+    <parameter name="url" value="https://stg-crm.smarthiz.vn/login"/>
+    <classes>
+      <class name="demo.testSuites.ReadExcelFile"/>
     </classes>
   </test>
 

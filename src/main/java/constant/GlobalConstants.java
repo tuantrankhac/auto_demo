@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 
 public class GlobalConstants {
 	public static final String PROJECT_PATH = System.getProperty("user.dir");
+	public static final String TESTDATA_FILE_FOLDER = PROJECT_PATH + File.separator + "testData" + File.separator;
 	public static final String UPLOAD_FILE_FOLDER = PROJECT_PATH + File.separator + "uploadFiles" + File.separator;
 	public static final String DOWNLOAD_FILE_FOLDER = PROJECT_PATH + File.separator + "downloadFiles";
 	public static final String BROWNSER_LOG_FOLDER = PROJECT_PATH + File.separator + "brownserLog";
