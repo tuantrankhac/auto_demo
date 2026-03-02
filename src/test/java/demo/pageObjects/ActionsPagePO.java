@@ -33,4 +33,15 @@ public class ActionsPagePO extends BasePage {
         return isElementDisplayed(driver, ActionsPagePUI.ACTION_1);
     }
 
+    public void hoverMouseToElement(){
+        hoverMouseToElement(driver, ActionsPagePUI.TEXT);
+    }
+
+    public void dragAndDropElementByAction(){
+        dragAndDropElementByAction(driver, ActionsPagePUI.TEXT, ActionsPagePUI.TEXT);
+    }
+
+    public void dragAndDropElementByJS(){
+        dragAndDropJS(driver, ActionsPagePUI.TEXT, ActionsPagePUI.TEXT);
+    }
 }

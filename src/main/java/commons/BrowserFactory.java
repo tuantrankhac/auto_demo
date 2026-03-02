@@ -675,4 +675,10 @@ public class BrowserFactory {
 		}
 	}
 
+
+	public void configDownloadBehaviorViaCDP(ChromeDriver chromeDriver) {
+		DevTools devTools = chromeDriver.getDevTools();
+		devTools.createSession();
+		devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
+	}
 }

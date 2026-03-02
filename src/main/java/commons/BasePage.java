@@ -9,7 +9,6 @@ import java.util.Set;
 
 import constant.GlobalConstants;
 import io.qameta.allure.Allure;
-import net.bytebuddy.implementation.bytecode.Throw;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -223,6 +222,7 @@ public class BasePage {
 
 	public void clickToElement(WebDriver driver, By locator) {
 		Allure.step("Click vào element: " + locator);
+		// hightlightElement(driver, locator);
 		waitForElementClickable(driver, locator);
 		getWebElement(driver, locator).click();
 		sleepInMiliSecond(500);
@@ -236,6 +236,7 @@ public class BasePage {
 	public void clickToElement(WebDriver driver, String locator, String... params) {
 		By by = getDynamicBy(locator, params);
 		Allure.step("Click vào element dynamic: " + by);
+		// hightlightElement(driver, by);
 		waitForElementClickable(driver, by);
 		getWebElement(driver, by).click();
 		sleepInMiliSecond(500);
@@ -517,6 +518,7 @@ public class BasePage {
 
 	public void hoverMouseToElement(WebDriver driver, By locator) {
 		Allure.step("Hover chuột vào element: " + locator);
+		waitForElementVisible(driver, locator);
 		Actions action = new Actions(driver);
 		action.moveToElement(getWebElement(driver, locator)).perform();
 	}
@@ -524,9 +526,71 @@ public class BasePage {
 	public void hoverMouseToElement(WebDriver driver, String locator, String... params) {
 		By by = getDynamicBy(locator, params);
 		Allure.step("Hover chuột vào element động: " + by);
+		waitForElementVisible(driver, by);
 		Actions action = new Actions(driver);
 		action.moveToElement(getWebElement(driver, by)).perform();
 	}
+
+	public void dragAndDropElementByAction(WebDriver driver, By sourceLocator, By targetLocator) {
+		Allure.step("Drag and drop element: " + sourceLocator + " to " + targetLocator);
+		waitForElementVisible(driver, sourceLocator);
+		waitForElementVisible(driver, targetLocator);
+		waitForElementClickable(driver, sourceLocator);
+		WebElement sourceElement = getWebElement(driver, sourceLocator);
+		WebElement targetElement = getWebElement(driver, targetLocator);
+		Actions action = new Actions(driver);
+		action.clickAndHold(sourceElement)
+				.moveToElement(targetElement)
+				.pause(1000)
+				.release()
+				.perform();
+	}
+
+
+	public void dragAndDropJS(WebDriver driver, By sourceLocator, By targetLocator) {
+		Allure.step("Drag and drop element bằng JavaScript: " + sourceLocator + " to " + targetLocator);
+		waitForElementVisible(driver, sourceLocator);
+		waitForElementVisible(driver, targetLocator);
+		WebElement sourceElement = getWebElement(driver, sourceLocator);
+		WebElement targetElement = getWebElement(driver, targetLocator);
+		JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
+		String jsCode = "function createEvent(typeOfEvent) {\n"
+				+ "   var event = document.createEvent(\"CustomEvent\");\n"
+				+ "   event.initCustomEvent(typeOfEvent, true, true, null);\n"
+				+ "   event.dataTransfer = {\n"
+				+ "       data: {},\n"
+				+ "       setData: function(key, value) {\n"
+				+ "           this.data[key] = value;\n"
+				+ "       },\n"
+				+ "       getData: function(key) {\n"
+				+ "           return this.data[key];\n"
+				+ "       }\n"
+				+ "   };\n"
+				+ "   return event;\n"
+				+ "}\n"
+				+ "\n"
+				+ "function dispatchEvent(element, event, transferData) {\n"
+				+ "   if (transferData) {\n"
+				+ "       event.dataTransfer = transferData;\n"
+				+ "   }\n"
+				+ "   if (element.dispatchEvent) {\n"
+				+ "       element.dispatchEvent(event);\n"
+				+ "   } else if (element.fireEvent) {\n"
+				+ "       element.fireEvent(\"on\" + event.type, event);\n"
+				+ "   }\n"
+				+ "}\n"
+				+ "\n"
+				+ "var source = arguments[0];\n"
+				+ "var target = arguments[1];\n"
+				+ "var dragStartEvent = createEvent('dragstart');\n"
+				+ "dispatchEvent(source, dragStartEvent);\n"
+				+ "var dropEvent = createEvent('drop');\n"
+				+ "dispatchEvent(target, dropEvent, dragStartEvent.dataTransfer);\n"
+				+ "var dragEndEvent = createEvent('dragend');\n"
+				+ "dispatchEvent(source, dragEndEvent, dragStartEvent.dataTransfer);";
+		jsExecutor.executeScript(jsCode, sourceElement, targetElement);
+	}
+
 
 	public void hightlightElement(WebDriver driver, By locator) {
 		WebElement element = getWebElement(driver, locator);
@@ -704,8 +768,8 @@ public class BasePage {
 
 		// 1. Lấy "dấu vết" của phần tử lúc nó vừa xuất hiện (phiên bản 1)
 		explicitWait = new WebDriverWait(driver, Duration.ofSeconds(shortTimeout));
-        WebElement oldElement = explicitWait.until(ExpectedConditions.presenceOfElementLocated(locator));
-		
+		WebElement oldElement = explicitWait.until(ExpectedConditions.presenceOfElementLocated(locator));
+
 		// 2. Đợi cho web rerender (phần tử cũ không còn gắn với DOM nữa)
 		try {
 			explicitWait.until(ExpectedConditions.stalenessOf(oldElement));
@@ -716,7 +780,6 @@ public class BasePage {
 		}
 		return explicitWait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 	}
-
 
 	public void fluentWaitForElementVisible(WebDriver driver, By locator, long timeoutInSeconds,
 			long pollingInMillis) {

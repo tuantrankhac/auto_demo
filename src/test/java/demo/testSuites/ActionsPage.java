@@ -97,7 +97,19 @@ public class ActionsPage extends BrowserFactory {
         actionsPagePO.getAllCookiesByCDP(driver);
     }
 
+    @Test(priority = 15)
+    public void HoverMouseToElement(){
+        actionsPagePO.hoverMouseToElement();
+    }
 
+    @Test(priority = 16)
+    public void DragAndDropElement(){
+        actionsPagePO.dragAndDropElementByAction();
+        actionsPagePO.dragAndDropElementByJS();
+    }
+    
+
+    
     @AfterMethod(alwaysRun = true)
     public void afterMethod() {
         closeAllBrowsers();

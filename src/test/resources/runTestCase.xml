@@ -59,13 +59,13 @@
     </classes>
   </test> -->
 
-  <!-- <test name="Alert - Chrome">
+  <test name="Actions Page - Chrome">
     <parameter name="browser" value="chrome"/>
     <parameter name="url" value="https://the-internet.herokuapp.com/"/>
     <classes>
       <class name="demo.testSuites.ActionsPage"/>
     </classes>
-  </test> -->
+  </test>
 
   <!-- <test name="SwitchTab - Chrome">
     <parameter name="browser" value="chrome"/>
@@ -90,12 +90,21 @@
     </classes>
   </test> -->
 
-  <test name="Read Data Excel - Chrome">
+  <!-- <test name="Read Data Excel - Chrome">
     <parameter name="browser" value="chrome"/>
     <parameter name="url" value="https://stg-crm.smarthiz.vn/login"/>
     <classes>
       <class name="demo.testSuites.ReadExcelFile"/>
     </classes>
-  </test>
+  </test> -->
+
+  <!-- <test name="Retry Test - Chrome">
+    <parameter name="browser" value="chrome"/>
+    <parameter name="url" value="https://demo.automationtesting.in/Alerts.html"/>
+    <listener class-name="commons.retry.RetryTransformer"/>
+    <classes>
+      <class name="demo.testSuites.HandleTestRetry"/>
+    </classes>
+  </test> -->
 
 </suite>
