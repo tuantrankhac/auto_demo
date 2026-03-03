@@ -677,8 +677,35 @@ public class BrowserFactory {
 
 
 	public void configDownloadBehaviorViaCDP(ChromeDriver chromeDriver) {
-		DevTools devTools = chromeDriver.getDevTools();
-		devTools.createSession();
-		devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
+		try {
+			DevTools devTools = chromeDriver.getDevTools();
+			devTools.createSession();
+	
+			// Bật Network domain
+			devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
+	
+			// Cấu hình download: tự động tải, không hiện dialog Save As
+			Map<String, Object> params = new HashMap<>();
+			params.put("behavior", "allow");
+			params.put("downloadPath", "C:\\Users\\Admin\\Documents\\Oxii\\S-Office\\Project_Hybrid\\DEMO\\downloadFiles");  // "" = dùng thư mục Downloads mặc định của Chrome
+			devTools.send("Page.setDownloadBehavior", params);
+	
+			// (Tùy chọn) Listener để log hoặc lưu tên file download
+			devTools.addListener(Network.downloadWillBegin(), download -> {
+				System.out.println("Download bắt đầu: " + download.getUrl());
+				System.out.println("Tên file dự kiến: " + download.getSuggestedFilename());
+				// Có thể lưu tên file vào biến static/class nếu cần verify sau
+			});
+	
+			devTools.addListener(Network.downloadProgress(), progress -> {
+				if ("completed".equals(progress.getState())) {
+					System.out.println("Download hoàn thành!");
+				}
+			});
+	
+		} catch (Exception e) {
+			System.err.println("Lỗi cấu hình CDP cho download: " + e.getMessage());
+		}
+
 	}
 }
