@@ -18,6 +18,7 @@ import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.*;
 
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -546,7 +547,6 @@ public class BasePage {
 				.perform();
 	}
 
-
 	public void dragAndDropJS(WebDriver driver, By sourceLocator, By targetLocator) {
 		Allure.step("Drag and drop element bằng JavaScript: " + sourceLocator + " to " + targetLocator);
 		waitForElementVisible(driver, sourceLocator);
@@ -590,7 +590,6 @@ public class BasePage {
 				+ "dispatchEvent(source, dragEndEvent, dragStartEvent.dataTransfer);";
 		jsExecutor.executeScript(jsCode, sourceElement, targetElement);
 	}
-
 
 	public void hightlightElement(WebDriver driver, By locator) {
 		WebElement element = getWebElement(driver, locator);
@@ -1128,6 +1127,48 @@ public class BasePage {
 		} catch (TimeoutException e) {
 			// Không tìm thấy loading icon trong 1s, bỏ qua luôn không chờ nữa
 		}
+	}
+
+	public File getLatestFileInDir() {
+		File dir = new File(GlobalConstants.DOWNLOAD_FILE_FOLDER);
+		File[] files = dir.listFiles();
+
+		if (files == null || files.length == 0) {
+			return null;
+		}
+
+		File lastModifiedFile = files[0];
+		for (int i = 1; i < files.length; i++) {
+			// So sánh: Nếu file hiện tại có thời gian cập nhật mới hơn file đang giữ
+			if (lastModifiedFile.lastModified() < files[i].lastModified()) {
+				lastModifiedFile = files[i];
+			}
+		}
+		return lastModifiedFile;
+	}
+
+
+	public boolean isFileDownloadedSuccess(long startTime, int timeoutInSeconds) {
+		long endTime = System.currentTimeMillis() + (timeoutInSeconds * 1000);
+		
+		while (System.currentTimeMillis() < endTime) {
+			// Gọi hàm bốc file mới nhất
+			File latestFile = getLatestFileInDir();
+	
+			if (latestFile != null) {
+				// Kiểm tra các điều kiện của file mới nhất đó
+				boolean isNew = latestFile.lastModified() >= startTime;
+				boolean isFinished = !latestFile.getName().contains(".crdownload") 
+								  && !latestFile.getName().contains(".part");
+				boolean hasData = latestFile.length() > 0;
+	
+				if (isNew && isFinished && hasData) {
+					return true; // Xác nhận đã tải xong và hợp lệ
+				}
+			}
+			sleepInMiliSecond(1000);
+		}
+		return false; // Hết thời gian mà không thỏa mãn
 	}
 
 }

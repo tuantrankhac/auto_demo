@@ -20,6 +20,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.v128.network.Network;
 import org.openqa.selenium.devtools.v128.network.model.Headers;
+import org.openqa.selenium.devtools.v128.page.Page;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -234,7 +235,19 @@ public class BrowserFactory {
 			// Thiết lập kích thước cửa sổ trình duyệt (ví dụ: 1280x800)
 			// options.addArguments("window-size=1280,800");
 
+			// Cấu hình download nếu không dùng CDP
+			// Map<String, Object> prefs = new HashMap<>();
+			// prefs.put("download.default_directory",
+			// GlobalConstants.DOWNLOAD_FILE_FOLDER);
+			// prefs.put("download.prompt_for_download", false);
+			// options.setExperimentalOption("prefs", prefs);
+
+			// Tạo driver
 			driverInstance = new ChromeDriver(options);
+
+			// Cấu hình download
+			configDownloadBehaviorViaCDP((ChromeDriver) driverInstance);
+
 		} else if (browser == BROWSER.FIREFOX) {
 			FirefoxOptions options = new FirefoxOptions();
 			// options.addArguments("-headless");
@@ -252,6 +265,14 @@ public class BrowserFactory {
 			// options.addPreference("browser.window.width", 1280);
 			// options.addPreference("browser.window.height", 800);
 
+			// Cấu hình download nếu không dùng CDP
+			// options.addPreference("browser.download.dir",
+			// GlobalConstants.DOWNLOAD_FILE_FOLDER);
+			// options.addPreference("browser.download.folderList", 2);
+			// options.addPreference("browser.helperApps.neverAsk.saveToDisk",
+			// "application/pdf,application/octet-stream");
+			// options.addPreference("pdfjs.disabled", true);
+
 			driverInstance = new FirefoxDriver(options);
 		} else if (browser == BROWSER.EDGE_CHROMIUM) {
 			// WebDriverManager.edgedriver().setup();
@@ -262,7 +283,8 @@ public class BrowserFactory {
 			// Tắt notification/popup hệ thống đối với Edge Chromium
 			// options.addArguments("--disable-notifications");
 			// options.addArguments("--disable-popup-blocking");
-			// java.util.HashMap<String, Object> edgePrefs = new java.util.HashMap<String, Object>();
+			// java.util.HashMap<String, Object> edgePrefs = new java.util.HashMap<String,
+			// Object>();
 			// edgePrefs.put("profile.default_content_setting_values.notifications", 2);
 			// edgePrefs.put("profile.default_content_setting_values.geolocation", 2);
 			// edgePrefs.put("profile.default_content_setting_values.media_stream_camera",2);
@@ -273,6 +295,13 @@ public class BrowserFactory {
 
 			// Thiết lập kích thước cửa sổ trình duyệt (ví dụ: 1280x800)
 			// options.addArguments("window-size=1280,800");
+
+			// Cấu hình download nếu không dùng CDP
+			// Map<String, Object> prefs = new HashMap<>();
+			// prefs.put("download.default_directory",
+			// GlobalConstants.DOWNLOAD_FILE_FOLDER);
+			// prefs.put("download.prompt_for_download", false);
+			// options.setExperimentalOption("prefs", prefs);
 
 			driverInstance = new EdgeDriver(options);
 		} else if (browser == BROWSER.SAFARI) {
@@ -290,10 +319,10 @@ public class BrowserFactory {
 
 		getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		getDriver().manage().window().maximize();
-		
+
 		// Set kích thước màn hình 1280 x 800 với setSize
 		// getDriver().manage().window().setSize(new Dimension(1280, 800));
-		
+
 		getDriver().get(appUrl);
 		drivers.add(getDriver());
 		return getDriver();
@@ -675,37 +704,35 @@ public class BrowserFactory {
 		}
 	}
 
+	// Khai báo một biến để lưu tên file bắt được từ CDP (Dùng ThreadLocal nếu chạy song song)
+	public static ThreadLocal<String> cdpDownloadedFileName = new ThreadLocal<>();
 
 	public void configDownloadBehaviorViaCDP(ChromeDriver chromeDriver) {
-		try {
-			DevTools devTools = chromeDriver.getDevTools();
-			devTools.createSession();
-	
-			// Bật Network domain
-			devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
-	
-			// Cấu hình download: tự động tải, không hiện dialog Save As
-			Map<String, Object> params = new HashMap<>();
-			params.put("behavior", "allow");
-			params.put("downloadPath", "C:\\Users\\Admin\\Documents\\Oxii\\S-Office\\Project_Hybrid\\DEMO\\downloadFiles");  // "" = dùng thư mục Downloads mặc định của Chrome
-			devTools.send("Page.setDownloadBehavior", params);
-	
-			// (Tùy chọn) Listener để log hoặc lưu tên file download
-			devTools.addListener(Network.downloadWillBegin(), download -> {
-				System.out.println("Download bắt đầu: " + download.getUrl());
-				System.out.println("Tên file dự kiến: " + download.getSuggestedFilename());
-				// Có thể lưu tên file vào biến static/class nếu cần verify sau
-			});
-	
-			devTools.addListener(Network.downloadProgress(), progress -> {
-				if ("completed".equals(progress.getState())) {
-					System.out.println("Download hoàn thành!");
-				}
-			});
-	
-		} catch (Exception e) {
-			System.err.println("Lỗi cấu hình CDP cho download: " + e.getMessage());
+		DevTools devTools = chromeDriver.getDevTools();
+		// Khởi tạo session để dùng DevTools API
+		devTools.createSession();
+
+		// Cấu hình download
+		String downloadPath = GlobalConstants.DOWNLOAD_FILE_FOLDER;
+		File downloadDir = new File(downloadPath);
+		if (!downloadDir.exists()) {
+			downloadDir.mkdirs();
 		}
 
+		// Cấu hình Parameter cho lệnh Page.setDownloadBehavior
+		Map<String, Object> params = new HashMap<>();
+		params.put("behavior", "allow"); // Cho phép tải xuống
+		params.put("downloadPath", downloadPath); // Chỉ định folder đích
+		params.put("eventsEnabled", true); // Bật event để theo dõi trạng thái nếu cần
+
+		// Gửi lệnh trực tiếp đến Chrome thông qua CDP
+		chromeDriver.executeCdpCommand("Page.setDownloadBehavior", params);
+
+		// Bắt tên file từ trình duyệt
+		devTools.addListener(Page.downloadWillBegin(), event -> {
+			String fileName = event.getSuggestedFilename();
+			cdpDownloadedFileName.set(fileName); // Lưu tên file vào biến để Testcase dùng
+			log.info("CDP bắt được tên file sắp tải: " + fileName);
+		});
 	}
 }
