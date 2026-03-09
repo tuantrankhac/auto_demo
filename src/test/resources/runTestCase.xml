@@ -59,13 +59,13 @@
     </classes>
   </test> -->
 
-  <test name="Actions Page - Chrome">
+  <!-- <test name="Actions Page - Chrome">
     <parameter name="browser" value="chrome"/>
     <parameter name="url" value="https://the-internet.herokuapp.com/"/>
     <classes>
       <class name="demo.testSuites.ActionsPage"/>
     </classes>
-  </test>
+  </test> -->
 
   <!-- <test name="SwitchTab - Chrome">
     <parameter name="browser" value="chrome"/>
@@ -106,5 +106,14 @@
       <class name="demo.testSuites.HandleTestRetry"/>
     </classes>
   </test> -->
+
+  <test name="Handle Download File - Chrome">
+    <parameter name="browser" value="chrome"/>
+    <classes>
+      <class name="demo.testSuites.HandleDownloadFile"/>
+    </classes>
+  </test>
+
+  
 
 </suite>
