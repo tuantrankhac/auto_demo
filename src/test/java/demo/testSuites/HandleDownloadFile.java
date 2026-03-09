@@ -6,8 +6,10 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+
+
+import demo.pageObjects.HandleDownloadFilePO;
 import demo.pageObjects.PageGenerator;
-import demo.pageObjects.RetryTestPO;;
 
 public class HandleDownloadFile extends BrowserFactory {
     @Parameters({ "browser", "url" })
@@ -15,12 +17,16 @@ public class HandleDownloadFile extends BrowserFactory {
     public void BeforeMethod(String browserName, String url) {
         log.info("Pre-Condition: Step 01: Open Browser: " + browserName);
         driver = getBrowserDriver(browserName, url);
-        retryTestPO = PageGenerator.getRetryTestPO(driver);
+        handleDownloadFilePO = PageGenerator.getHandleDownloadFilePO(driver);
     }
 
     @Test
-    public void TC01_testLogin() {
-        retryTestPO.loginPage("username", "password");
+    public void TC01_verifyFileAfterDownloadViaCDP() {
+        handleDownloadFilePO.clickDownloadFileButton();
+        String fileName = handleDownloadFilePO.getDownloadFileName();
+        handleDownloadFilePO.waitForFileDownloadSuccess();
+        String fileNameAfterDownload = handleDownloadFilePO.getLatestFileAfterDownloaded();
+        verifyEquals(fileName, fileNameAfterDownload);
     }
     
 
@@ -30,5 +36,5 @@ public class HandleDownloadFile extends BrowserFactory {
     }
 
     private WebDriver driver;
-    RetryTestPO retryTestPO;
+    HandleDownloadFilePO handleDownloadFilePO;
 }

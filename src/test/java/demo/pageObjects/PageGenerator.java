@@ -47,4 +47,8 @@ public class PageGenerator {
 		return new RetryTestPO(driver);
 	}
 
+	public static HandleDownloadFilePO getHandleDownloadFilePO(WebDriver driver){
+		return new HandleDownloadFilePO(driver);
+	}
+
 }

@@ -109,6 +109,7 @@
 
   <test name="Handle Download File - Chrome">
     <parameter name="browser" value="chrome"/>
+    <parameter name="url" value="https://filesamples.com/formats/pdf"/>
     <classes>
       <class name="demo.testSuites.HandleDownloadFile"/>
     </classes>

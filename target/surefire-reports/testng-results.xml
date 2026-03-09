@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="4" passed="4" failed="0" skipped="0">
+<testng-results ignored="0" total="1" passed="0" failed="0" skipped="1">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-02-27T16:14:24 GMT+07:00" name="Demo" finished-at="2026-02-27T16:15:23 GMT+07:00" duration-ms="58998">
+  <suite started-at="2026-03-09T23:08:55 ICT" name="Demo" finished-at="2026-03-09T23:08:56 ICT" duration-ms="1347">
     <groups>
     </groups>
-    <test started-at="2026-02-27T16:14:24 GMT+07:00" name="Read Data Excel - Chrome" finished-at="2026-02-27T16:15:23 GMT+07:00" duration-ms="58998">
-      <class name="demo.testSuites.ReadExcelFile">
-        <test-method is-config="true" signature="deleteFileInReport()[pri:0, instance:demo.testSuites.ReadExcelFile@23faae85]" started-at="2026-02-27T16:14:24 GMT+07:00" name="deleteFileInReport" finished-at="2026-02-27T16:14:24 GMT+07:00" duration-ms="47" status="PASS">
+    <test started-at="2026-03-09T23:08:55 ICT" name="Handle Download File - Chrome" finished-at="2026-03-09T23:08:56 ICT" duration-ms="1347">
+      <class name="demo.testSuites.HandleDownloadFile">
+        <test-method is-config="true" signature="deleteFileInReport()[pri:0, instance:demo.testSuites.HandleDownloadFile@f9da676]" started-at="2026-03-09T23:08:55 ICT" name="deleteFileInReport" finished-at="2026-03-09T23:08:55 ICT" duration-ms="15" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- deleteFileInReport -->
-        <test-method is-config="true" signature="BeforeMethod(java.lang.String,java.lang.String)[pri:0, instance:demo.testSuites.ReadExcelFile@23faae85]" started-at="2026-02-27T16:14:25 GMT+07:00" name="BeforeMethod" finished-at="2026-02-27T16:14:29 GMT+07:00" duration-ms="3817" status="PASS">
+        <test-method is-config="true" signature="BeforeMethod(java.lang.String,java.lang.String)[pri:0, instance:demo.testSuites.HandleDownloadFile@f9da676]" started-at="2026-03-09T23:08:55 ICT" name="BeforeMethod" finished-at="2026-03-09T23:08:56 ICT" duration-ms="1192" status="FAIL">
           <params>
             <param index="0">
               <value>
@@ -20,122 +20,206 @@
             </param>
             <param index="1">
               <value>
-                <![CDATA[https://stg-crm.smarthiz.vn/login]]>
+                <![CDATA[https://filesamples.com/formats/pdf]]>
               </value>
             </param>
           </params>
+          <exception class="org.openqa.selenium.devtools.DevToolsException">
+            <message>
+              <![CDATA[You are using a no-op implementation of the CDP. The most likely reason for this is that Selenium was unable to find an implementation of the CDP protocol that matches your browser. Please be sure to include an implementation on the classpath, possibly by adding a new (maven) dependency of `org.seleniumhq.selenium:selenium-devtools-vNN:4.24.0` where `NN` matches the major version of the browser you're using.
+Build info: version: '4.24.0', revision: '748ffc9bc3'
+System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.12'
+Driver info: DevTools Connection]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.devtools.DevToolsException: You are using a no-op implementation of the CDP. The most likely reason for this is that Selenium was unable to find an implementation of the CDP protocol that matches your browser. Please be sure to include an implementation on the classpath, possibly by adding a new (maven) dependency of `org.seleniumhq.selenium:selenium-devtools-vNN:4.24.0` where `NN` matches the major version of the browser you're using.
+Build info: version: '4.24.0', revision: '748ffc9bc3'
+System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.12'
+Driver info: DevTools Connection
+at org.openqa.selenium.devtools.noop.NoOpDomains.target(NoOpDomains.java:60)
+at org.openqa.selenium.devtools.DevTools.findTarget(DevTools.java:195)
+at org.openqa.selenium.devtools.DevTools.createSession(DevTools.java:155)
+at org.openqa.selenium.devtools.DevTools.createSession(DevTools.java:141)
+at commons.BrowserFactory.configDownloadBehaviorViaCDP(BrowserFactory.java:722)
+at commons.BrowserFactory.getBrowserDriver(BrowserFactory.java:252)
+at demo.testSuites.HandleDownloadFile.BeforeMethod(HandleDownloadFile.java:19)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethodConsideringTimeout(MethodInvocationHelper.java:69)
+at org.testng.internal.invokers.ConfigInvoker.invokeConfigurationMethod(ConfigInvoker.java:393)
+at org.testng.internal.invokers.ConfigInvoker.invokeConfigurations(ConfigInvoker.java:326)
+at org.testng.internal.invokers.TestInvoker.runConfigMethods(TestInvoker.java:810)
+at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:578)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:228)
+at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:961)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:201)
+at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+at org.testng.TestRunner.privateRun(TestRunner.java:819)
+at org.testng.TestRunner.run(TestRunner.java:619)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1301)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1228)
+at org.testng.TestNG.runSuites(TestNG.java:1134)
+at org.testng.TestNG.run(TestNG.java:1101)
+at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:308)
+at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:71)
+at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:113)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+at org.apache.maven.surefire.api.util.ReflectionUtils.invokeMethodWithArray2(ReflectionUtils.java:137)
+at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:148)
+at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:88)
+at org.apache.maven.plugin.surefire.InPluginVMSurefireStarter.runSuitesInProcess(InPluginVMSurefireStarter.java:91)
+at org.apache.maven.plugin.surefire.AbstractSurefireMojo.executeProvider(AbstractSurefireMojo.java:1308)
+at org.apache.maven.plugin.surefire.AbstractSurefireMojo.executeAfterPreconditionsChecked(AbstractSurefireMojo.java:1137)
+at org.apache.maven.plugin.surefire.AbstractSurefireMojo.execute(AbstractSurefireMojo.java:971)
+at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:126)
+at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute2(MojoExecutor.java:328)
+at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute(MojoExecutor.java:316)
+at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:212)
+at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:174)
+at org.apache.maven.lifecycle.internal.MojoExecutor.access$000(MojoExecutor.java:75)
+at org.apache.maven.lifecycle.internal.MojoExecutor$1.run(MojoExecutor.java:162)
+at org.apache.maven.plugin.DefaultMojosExecutionStrategy.execute(DefaultMojosExecutionStrategy.java:39)
+at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:159)
+at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:105)
+at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:73)
+at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:53)
+at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:118)
+at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:261)
+at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:173)
+at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:101)
+at org.apache.maven.cli.MavenCli.execute(MavenCli.java:906)
+at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:283)
+at org.apache.maven.cli.MavenCli.main(MavenCli.java:206)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:283)
+at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:226)
+at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:407)
+at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:348)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.devtools.DevToolsException -->
           <reporter-output>
           </reporter-output>
         </test-method> <!-- BeforeMethod -->
-        <test-method signature="TC01_testLogin(java.util.Map)[pri:0, instance:demo.testSuites.ReadExcelFile@23faae85]" started-at="2026-02-27T16:14:29 GMT+07:00" name="TC01_testLogin" data-provider="loginData" finished-at="2026-02-27T16:14:46 GMT+07:00" duration-ms="17179" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[{=, User=tongdai1@gmail.com, RunMode=Yes, Password=123456}]]>
-              </value>
-            </param>
-          </params>
+        <test-method signature="TC01_verifyFileAfterDownloadViaCDP()[pri:0, instance:demo.testSuites.HandleDownloadFile@f9da676]" started-at="2026-03-09T23:08:56 ICT" name="TC01_verifyFileAfterDownloadViaCDP" finished-at="2026-03-09T23:08:56 ICT" duration-ms="1" status="SKIP">
+          <exception class="org.openqa.selenium.devtools.DevToolsException">
+            <message>
+              <![CDATA[You are using a no-op implementation of the CDP. The most likely reason for this is that Selenium was unable to find an implementation of the CDP protocol that matches your browser. Please be sure to include an implementation on the classpath, possibly by adding a new (maven) dependency of `org.seleniumhq.selenium:selenium-devtools-vNN:4.24.0` where `NN` matches the major version of the browser you're using.
+Build info: version: '4.24.0', revision: '748ffc9bc3'
+System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.12'
+Driver info: DevTools Connection]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.devtools.DevToolsException: You are using a no-op implementation of the CDP. The most likely reason for this is that Selenium was unable to find an implementation of the CDP protocol that matches your browser. Please be sure to include an implementation on the classpath, possibly by adding a new (maven) dependency of `org.seleniumhq.selenium:selenium-devtools-vNN:4.24.0` where `NN` matches the major version of the browser you're using.
+Build info: version: '4.24.0', revision: '748ffc9bc3'
+System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.12'
+Driver info: DevTools Connection
+at org.openqa.selenium.devtools.noop.NoOpDomains.target(NoOpDomains.java:60)
+at org.openqa.selenium.devtools.DevTools.findTarget(DevTools.java:195)
+at org.openqa.selenium.devtools.DevTools.createSession(DevTools.java:155)
+at org.openqa.selenium.devtools.DevTools.createSession(DevTools.java:141)
+at commons.BrowserFactory.configDownloadBehaviorViaCDP(BrowserFactory.java:722)
+at commons.BrowserFactory.getBrowserDriver(BrowserFactory.java:252)
+at demo.testSuites.HandleDownloadFile.BeforeMethod(HandleDownloadFile.java:19)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethodConsideringTimeout(MethodInvocationHelper.java:69)
+at org.testng.internal.invokers.ConfigInvoker.invokeConfigurationMethod(ConfigInvoker.java:393)
+at org.testng.internal.invokers.ConfigInvoker.invokeConfigurations(ConfigInvoker.java:326)
+at org.testng.internal.invokers.TestInvoker.runConfigMethods(TestInvoker.java:810)
+at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:578)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:228)
+at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:961)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:201)
+at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+at org.testng.TestRunner.privateRun(TestRunner.java:819)
+at org.testng.TestRunner.run(TestRunner.java:619)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1301)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1228)
+at org.testng.TestNG.runSuites(TestNG.java:1134)
+at org.testng.TestNG.run(TestNG.java:1101)
+at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:308)
+at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:71)
+at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:113)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+at org.apache.maven.surefire.api.util.ReflectionUtils.invokeMethodWithArray2(ReflectionUtils.java:137)
+at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:148)
+at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:88)
+at org.apache.maven.plugin.surefire.InPluginVMSurefireStarter.runSuitesInProcess(InPluginVMSurefireStarter.java:91)
+at org.apache.maven.plugin.surefire.AbstractSurefireMojo.executeProvider(AbstractSurefireMojo.java:1308)
+at org.apache.maven.plugin.surefire.AbstractSurefireMojo.executeAfterPreconditionsChecked(AbstractSurefireMojo.java:1137)
+at org.apache.maven.plugin.surefire.AbstractSurefireMojo.execute(AbstractSurefireMojo.java:971)
+at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:126)
+at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute2(MojoExecutor.java:328)
+at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute(MojoExecutor.java:316)
+at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:212)
+at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:174)
+at org.apache.maven.lifecycle.internal.MojoExecutor.access$000(MojoExecutor.java:75)
+at org.apache.maven.lifecycle.internal.MojoExecutor$1.run(MojoExecutor.java:162)
+at org.apache.maven.plugin.DefaultMojosExecutionStrategy.execute(DefaultMojosExecutionStrategy.java:39)
+at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:159)
+at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:105)
+at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:73)
+at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:53)
+at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:118)
+at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:261)
+at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:173)
+at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:101)
+at org.apache.maven.cli.MavenCli.execute(MavenCli.java:906)
+at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:283)
+at org.apache.maven.cli.MavenCli.main(MavenCli.java:206)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:283)
+at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:226)
+at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:407)
+at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:348)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.devtools.DevToolsException -->
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- TC01_testLogin -->
-        <test-method is-config="true" signature="AfterMethod()[pri:0, instance:demo.testSuites.ReadExcelFile@23faae85]" started-at="2026-02-27T16:14:46 GMT+07:00" name="AfterMethod" finished-at="2026-02-27T16:14:47 GMT+07:00" duration-ms="353" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- AfterMethod -->
-        <test-method is-config="true" signature="BeforeMethod(java.lang.String,java.lang.String)[pri:0, instance:demo.testSuites.ReadExcelFile@23faae85]" started-at="2026-02-27T16:14:47 GMT+07:00" name="BeforeMethod" finished-at="2026-02-27T16:14:50 GMT+07:00" duration-ms="3326" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[chrome]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[https://stg-crm.smarthiz.vn/login]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- BeforeMethod -->
-        <test-method signature="TC01_testLogin(java.util.Map)[pri:0, instance:demo.testSuites.ReadExcelFile@23faae85]" started-at="2026-02-27T16:14:50 GMT+07:00" name="TC01_testLogin" data-provider="loginData" finished-at="2026-02-27T16:14:59 GMT+07:00" duration-ms="8775" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[{=, User=tongdai2@gmail.com, RunMode=Yes, Password=123456}]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- TC01_testLogin -->
-        <test-method is-config="true" signature="AfterMethod()[pri:0, instance:demo.testSuites.ReadExcelFile@23faae85]" started-at="2026-02-27T16:14:59 GMT+07:00" name="AfterMethod" finished-at="2026-02-27T16:14:59 GMT+07:00" duration-ms="188" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- AfterMethod -->
-        <test-method is-config="true" signature="BeforeMethod(java.lang.String,java.lang.String)[pri:0, instance:demo.testSuites.ReadExcelFile@23faae85]" started-at="2026-02-27T16:14:59 GMT+07:00" name="BeforeMethod" finished-at="2026-02-27T16:15:02 GMT+07:00" duration-ms="2817" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[chrome]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[https://stg-crm.smarthiz.vn/login]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- BeforeMethod -->
-        <test-method signature="TC01_testLogin(java.util.Map)[pri:0, instance:demo.testSuites.ReadExcelFile@23faae85]" started-at="2026-02-27T16:15:02 GMT+07:00" name="TC01_testLogin" data-provider="loginData" finished-at="2026-02-27T16:15:11 GMT+07:00" duration-ms="8894" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[{=, User=tongdai3@gmail.com, RunMode=Yes, Password=123456}]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- TC01_testLogin -->
-        <test-method is-config="true" signature="AfterMethod()[pri:0, instance:demo.testSuites.ReadExcelFile@23faae85]" started-at="2026-02-27T16:15:11 GMT+07:00" name="AfterMethod" finished-at="2026-02-27T16:15:11 GMT+07:00" duration-ms="351" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- AfterMethod -->
-        <test-method is-config="true" signature="BeforeMethod(java.lang.String,java.lang.String)[pri:0, instance:demo.testSuites.ReadExcelFile@23faae85]" started-at="2026-02-27T16:15:11 GMT+07:00" name="BeforeMethod" finished-at="2026-02-27T16:15:13 GMT+07:00" duration-ms="2283" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[chrome]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[https://stg-crm.smarthiz.vn/login]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- BeforeMethod -->
-        <test-method signature="TC01_testLogin(java.util.Map)[pri:0, instance:demo.testSuites.ReadExcelFile@23faae85]" started-at="2026-02-27T16:15:13 GMT+07:00" name="TC01_testLogin" data-provider="loginData" finished-at="2026-02-27T16:15:22 GMT+07:00" duration-ms="9068" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[{=, User=tongdai4@gmail.com, RunMode=Yes, Password=123456}]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- TC01_testLogin -->
-        <test-method is-config="true" signature="AfterMethod()[pri:0, instance:demo.testSuites.ReadExcelFile@23faae85]" started-at="2026-02-27T16:15:22 GMT+07:00" name="AfterMethod" finished-at="2026-02-27T16:15:23 GMT+07:00" duration-ms="435" status="PASS">
+        </test-method> <!-- TC01_verifyFileAfterDownloadViaCDP -->
+        <test-method is-config="true" signature="AfterMethod()[pri:0, instance:demo.testSuites.HandleDownloadFile@f9da676]" started-at="2026-03-09T23:08:56 ICT" name="AfterMethod" finished-at="2026-03-09T23:08:56 ICT" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- AfterMethod -->
-      </class> <!-- demo.testSuites.ReadExcelFile -->
-    </test> <!-- Read Data Excel - Chrome -->
+      </class> <!-- demo.testSuites.HandleDownloadFile -->
+    </test> <!-- Handle Download File - Chrome -->
   </suite> <!-- Demo -->
 </testng-results>

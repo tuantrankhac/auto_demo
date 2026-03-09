@@ -2,8 +2,10 @@ utilities\DataUtils.class
 commons\BrowserFactory$BROWSER.class
 constant\GlobalConstants.class
 commons\BasePage$1.class
+commons\retry\RetryTransformer.class
 utilities\StringUtils.class
 commons\BrowserFactory.class
+commons\retry\RetryTest.class
 exception\BrowserNotSupport.class
 utilities\ExcelUtils.class
 utilities\VerificationFailures.class

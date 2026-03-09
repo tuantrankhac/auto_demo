@@ -1,4 +1,5 @@
 demo\pageObjects\ActionsPagePO.class
+demo\testSuites\HandleDownloadFile.class
 demo\testSuites\TestParallel.class
 demo\pageObjects\DangNhapPO.class
 demo\pageObjects\PageGenerator.class
@@ -9,6 +10,7 @@ demo\testSuites\LoginWithoutAuth.class
 report\ExtentManager$1.class
 demo\testSuites\Iframe.class
 report\TestNGAppender.class
+demo\pageObjects\RetryTestPO.class
 demo\testSuites\TaoMoiSuVu.class
 demo\pageObjects\TrangChuPO.class
 demo\testSuites\ReadExcelFile.class
@@ -29,12 +31,15 @@ demo\testSuites\ActionsPage.class
 demo\pageUIs\TestDependencyPageUI.class
 report\ExtentManager.class
 report\MethodListener.class
+demo\testSuites\HandleTestRetry.class
 demo\pageUIs\HandleShadowDOMPageUI.class
 demo\testSuites\SwitchTab.class
 demo\testSuites\HandleShadowDOM.class
 demo\pageUIs\IframePageUI.class
 demo\pageObjects\LoginWithoutAuthPO.class
+demo\pageUIs\HandleDownloadFilePageUI.class
 demo\testSuites\TestDependency.class
+demo\pageObjects\HandleDownloadFilePO.class
 demo\pageObjects\ReadExcelFilePO.class
 demo\pageObjects\SwitchTabPO.class
 demo\pageUIs\SuVuPageUI.class

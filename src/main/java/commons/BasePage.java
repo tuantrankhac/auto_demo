@@ -1147,28 +1147,53 @@ public class BasePage {
 		return lastModifiedFile;
 	}
 
-
-	public boolean isFileDownloadedSuccess(long startTime, int timeoutInSeconds) {
+	public void waitForFileDownloadSuccess(long startTime, int timeoutInSeconds) {
 		long endTime = System.currentTimeMillis() + (timeoutInSeconds * 1000);
-		
+
 		while (System.currentTimeMillis() < endTime) {
-			// Gọi hàm bốc file mới nhất
 			File latestFile = getLatestFileInDir();
-	
+
 			if (latestFile != null) {
-				// Kiểm tra các điều kiện của file mới nhất đó
 				boolean isNew = latestFile.lastModified() >= startTime;
-				boolean isFinished = !latestFile.getName().contains(".crdownload") 
-								  && !latestFile.getName().contains(".part");
+				boolean isFinished = !latestFile.getName().contains(".crdownload")
+						&& !latestFile.getName().contains(".part");
 				boolean hasData = latestFile.length() > 0;
-	
+
 				if (isNew && isFinished && hasData) {
-					return true; // Xác nhận đã tải xong và hợp lệ
+					Allure.step("File tải thành công: " + latestFile.getName());
+					return; // Thành công → thoát hàm
 				}
 			}
-			sleepInMiliSecond(1000);
+
+			sleepInMiliSecond(1000); // Poll mỗi 1s
 		}
-		return false; // Hết thời gian mà không thỏa mãn
+
+		// Hết timeout → fail test
+		String errorMsg = "File không tải thành công trong " + timeoutInSeconds + " giây!";
+		Allure.step(errorMsg);
+		throw new AssertionError(errorMsg);
+	}
+
+	
+
+	public String waitAndGetDownloadFileName(WebDriver driver, int timeoutInSeconds) {
+		try {
+			boolean fileNameCaptured = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds))
+				.until(d -> BrowserFactory.cdpDownloadedFileName.get() != null 
+						 && !BrowserFactory.cdpDownloadedFileName.get().isEmpty());
+	
+			if (fileNameCaptured) {
+				String fileName = BrowserFactory.cdpDownloadedFileName.get();
+				Allure.step("CDP bắt được tên file download: " + fileName);
+				return fileName;
+			} else {
+				Allure.step("CDP không bắt được tên file trong " + timeoutInSeconds + " giây");
+				return null;
+			}
+		} catch (TimeoutException e) {
+			Allure.step("Timeout chờ CDP bắt tên file: " + e.getMessage());
+			return null;
+		}
 	}
 
 }

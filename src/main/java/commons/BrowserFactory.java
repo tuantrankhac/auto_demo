@@ -10,7 +10,6 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 
@@ -18,8 +17,6 @@ import constant.GlobalConstants;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
-import org.openqa.selenium.devtools.v128.network.Network;
-import org.openqa.selenium.devtools.v128.network.model.Headers;
 import org.openqa.selenium.devtools.v128.page.Page;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
@@ -60,25 +57,31 @@ public class BrowserFactory {
 			Allure.step("CDP inject header chỉ hỗ trợ ChromeDriver/EdgeDriver, bỏ qua");
 			return;
 		}
+
 		Allure.step("Inject Authorization header bằng CDP", () -> {
 			Allure.parameter("Authorization Token",
 					authToken != null ? authToken.substring(0, Math.min(20, authToken.length())) + "..." : "null");
 		});
+
 		try {
 			ChromeDriver chromeDriver = (ChromeDriver) driver;
-			DevTools devTools = chromeDriver.getDevTools();
-			devTools.createSession();
-			// Enable Network domain
-			devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
-			// Set extra HTTP headers
+
 			Map<String, Object> headers = new HashMap<>();
 			headers.put("Authorization", authToken);
-			devTools.send(Network.setExtraHTTPHeaders((Headers) headers));
+
+			Map<String, Object> params = new HashMap<>();
+			params.put("headers", headers);
+
+			chromeDriver.executeCdpCommand("Network.enable", new HashMap<>());
+			chromeDriver.executeCdpCommand("Network.setExtraHTTPHeaders", params);
+
 			Allure.step("Đã inject thành công Authorization header");
+
 		} catch (Exception e) {
 			Allure.step("Lỗi khi inject Authorization header qua CDP", step -> {
 				step.parameter("Lỗi chi tiết", e.getMessage());
 			});
+
 			System.err.println("CDP inject header thất bại: " + e.getMessage());
 		}
 	}
@@ -246,7 +249,7 @@ public class BrowserFactory {
 			driverInstance = new ChromeDriver(options);
 
 			// Cấu hình download
-			configDownloadBehaviorViaCDP((ChromeDriver) driverInstance);
+			// configDownloadBehaviorViaCDP((ChromeDriver) driverInstance);
 
 		} else if (browser == BROWSER.FIREFOX) {
 			FirefoxOptions options = new FirefoxOptions();
@@ -704,8 +707,14 @@ public class BrowserFactory {
 		}
 	}
 
-	// Khai báo một biến để lưu tên file bắt được từ CDP (Dùng ThreadLocal nếu chạy song song)
+	// Khai báo một biến để lưu tên file bắt được từ CDP (Dùng ThreadLocal nếu chạy
+	// song song)
 	public static ThreadLocal<String> cdpDownloadedFileName = new ThreadLocal<>();
+
+	// Thêm getter static (protected hoặc public)
+	protected static String getCdpDownloadedFileName() {
+		return cdpDownloadedFileName.get();
+	}
 
 	public void configDownloadBehaviorViaCDP(ChromeDriver chromeDriver) {
 		DevTools devTools = chromeDriver.getDevTools();

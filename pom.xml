@@ -136,7 +136,7 @@
             <version>42.7.4</version>
         </dependency>
 
-    <!-- Đọc file excel -->
+        <!-- Đọc file excel -->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
@@ -149,8 +149,13 @@
             <version>5.3.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-devtools-v128</artifactId>
+            <version>${selenium.version}</version>
+        </dependency>
 
-    </dependencies>
+    </dependencies> 
 
 
 

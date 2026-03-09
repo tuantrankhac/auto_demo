@@ -1,7 +1,9 @@
 package demo.pageObjects;
 
 import commons.BasePage;
-import demo.pageUIs.HandleShadowDOMPageUI;
+import demo.pageUIs.HandleDownloadFilePageUI;
+
+import java.io.File;
 
 import org.openqa.selenium.WebDriver;
 
@@ -12,12 +14,27 @@ public class HandleDownloadFilePO extends BasePage {
         this.driver = driver;
     }
 
-    public void getTextElementInShadow(){
-        getTextElementInShadowRoot(driver, HandleShadowDOMPageUI.SINGLE_SHADOW_DOM, HandleShadowDOMPageUI.ELEMENT_IN_SINGLE_SHADOW_DOM);
+
+
+    public void clickDownloadFileButton(){
+        clickToElement(driver, HandleDownloadFilePageUI.DOWNLOAD_FILE_BUTTON);
     }
 
-    public void getTextElementInNestedShadow(){
-        getTextElementInNestedShadowRoot(driver,HandleShadowDOMPageUI.ELEMENT_IN_SHADOW_DOM_NESTED, HandleShadowDOMPageUI.SHADOW_DOM_NESTED_PARENT, HandleShadowDOMPageUI.SHADOW_DOM_NESTED_CHILD);
+    public String getDownloadFileName(){
+        String fileName = waitAndGetDownloadFileName(driver, 10);
+        return fileName;
     }
+
+    public void waitForFileDownloadSuccess(){
+        waitForFileDownloadSuccess();
+    }
+
+    public String getLatestFileAfterDownloaded(){
+        File latestFile = getLatestFileInDir();
+        String actualFileNameOnDisk = latestFile.getName();
+        return actualFileNameOnDisk;
+    }
+
+   
 
 }
