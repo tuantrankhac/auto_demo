@@ -1,0 +1,2 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","4901","TC01_testAPILogin","Demo","Wed Mar 11 17:39:44 GMT+07:00 2026","passed","Wed Mar 11 17:39:49 GMT+07:00 2026","demo.testSuites.TestApi","API Login - Chrome","demo.testSuites.TestApi","TC01_testAPILogin"

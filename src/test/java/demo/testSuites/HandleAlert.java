@@ -1,18 +1,17 @@
 package demo.testSuites;
 
-import commons.BrowserFactory;
-
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import commons.BaseTest;
 import demo.pageObjects.HandleAlertPO;
 import demo.pageObjects.PageGenerator;
 import utilities.DbConnection;
 
-public class HandleAlert extends BrowserFactory {
+public class HandleAlert extends BaseTest{
     @Parameters({ "browser", "url" })
     @BeforeMethod
     public void beforeMethod(String browserName, String url) {

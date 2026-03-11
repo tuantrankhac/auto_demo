@@ -107,14 +107,18 @@
     </classes>
   </test> -->
 
-  <test name="Handle Download File - Chrome">
+  <!-- <test name="Handle Download File - Chrome">
     <parameter name="browser" value="chrome"/>
     <parameter name="url" value="https://filesamples.com/formats/pdf"/>
     <classes>
       <class name="demo.testSuites.HandleDownloadFile"/>
     </classes>
-  </test>
+  </test> -->
 
-  
+  <test name="API Login - Chrome">
+    <classes>
+      <class name="demo.testSuites.TestApi"/>
+    </classes>
+  </test>
 
 </suite>

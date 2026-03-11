@@ -1,6 +1,6 @@
 package demo.testSuites;
 
-import commons.BrowserFactory;
+import commons.BaseTest;
 
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
@@ -11,7 +11,7 @@ import demo.pageObjects.IframePO;
 import demo.pageObjects.PageGenerator;
 
 
-public class Iframe extends BrowserFactory {
+public class Iframe extends BaseTest {
     @Parameters({"browser"})
     @BeforeMethod
     public void beforeMethod(String browserName){

@@ -1,7 +1,6 @@
 package demo.testSuites;
 
-import commons.BrowserFactory;
-
+import commons.BaseTest;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +15,7 @@ import demo.pageObjects.PageGenerator;
 import demo.pageObjects.ReadExcelFilePO;
 import utilities.ExcelUtils;
 
-public class ReadExcelFile extends BrowserFactory {
+public class ReadExcelFile extends BaseTest {
     @DataProvider(name = "loginData")
     public Object[][] getLoginData() {
         // Gọi hàm đọc từ ExcelUtils

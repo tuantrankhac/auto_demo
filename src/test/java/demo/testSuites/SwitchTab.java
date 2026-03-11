@@ -1,7 +1,6 @@
 package demo.testSuites;
 
-import commons.BrowserFactory;
-
+import commons.BaseTest;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -11,13 +10,13 @@ import org.testng.annotations.Test;
 import demo.pageObjects.PageGenerator;
 import demo.pageObjects.SwitchTabPO;
 
-public class SwitchTab extends BrowserFactory {
+public class SwitchTab extends BaseTest {
     @Parameters({ "browser", "url" })
     @BeforeMethod
     public void beforeMethod(String browserName, String url) {
         log.info("Pre-Condition: Step 01: Open Browser: " + browserName);
-        driver = getBrowserDriver(browserName, url);
-        switchTabPO = PageGenerator.getSwitchTabPO(driver);
+        getBrowserDriver(browserName, url);
+        switchTabPO = PageGenerator.getSwitchTabPO(getDriver());
 
     }
 
@@ -26,9 +25,9 @@ public class SwitchTab extends BrowserFactory {
         String titleNewTab = "New Window";
         String parentHandle = switchTabPO.getWindowParentHandle();
         switchTabPO.clickLinkToNewTab();
-        switchWindowByTitle(driver, titleNewTab);
+        switchTabPO.switchWindowByTitle(titleNewTab);
         switchTabPO.getTextInNewTab();
-        closeCurrentWindowAndSwitchToParent(driver, parentHandle);
+        switchTabPO.closeCurrentWindowAndSwitchToParent(driver, parentHandle);
         switchTabPO.getTextInInitTab();
         sleepInMiliSecond(3000);
     }
@@ -38,9 +37,9 @@ public class SwitchTab extends BrowserFactory {
         String urlNewTab = "new";
         String parentHandle = switchTabPO.getWindowParentHandle();
         switchTabPO.clickLinkToNewTab();
-        switchWindowByUrl(driver, urlNewTab);
+        switchTabPO.switchWindowByUrl(driver, urlNewTab);
         switchTabPO.getTextInNewTab();
-        closeCurrentWindowAndSwitchToParent(driver, parentHandle);
+        switchTabPO.closeCurrentWindowAndSwitchToParent(driver, parentHandle);
         switchTabPO.getTextInInitTab();
     }
 
@@ -49,9 +48,9 @@ public class SwitchTab extends BrowserFactory {
         int indexNewTab = 1;
         String parentHandle = switchTabPO.getWindowParentHandle();
         switchTabPO.clickLinkToNewTab();
-        switchWindowByIndex(driver, indexNewTab);
+        switchTabPO.switchWindowByIndex(driver, indexNewTab);
         switchTabPO.getTextInNewTab();
-        closeCurrentWindowAndSwitchToParent(driver, parentHandle);
+        switchTabPO.closeCurrentWindowAndSwitchToParent(driver, parentHandle);
         switchTabPO.getTextInInitTab();
     }
 

@@ -1,6 +1,7 @@
 package commons;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +24,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class BasePage {
-
+	protected List<String> windowHandles = new ArrayList<>();
 	public static BasePage getBasePageObject() {
 		return new BasePage();
 	}
@@ -515,6 +516,97 @@ public class BasePage {
 	public void switchToDefaultContent(WebDriver driver) {
 		Allure.step("Chuyển về nội dung mặc định (thoát iframe)");
 		driver.switchTo().defaultContent();
+	}
+
+	// Hàm trả về danh sách các window handle
+	public List<String> getWindowHandles() {
+		return windowHandles;
+	}
+
+
+	/**
+	 * Switch to window/tab by its title.
+	 */
+	public void switchWindowByTitle(WebDriver driver, String tabTitle) {
+		Allure.step("Chuyển sang cửa sổ có tiêu đề: " + tabTitle);
+		Set<String> allWindowIDs = driver.getWindowHandles();
+
+		for (String id : allWindowIDs) {
+			driver.switchTo().window(id);
+			String actualTitle = driver.getTitle();
+			if (actualTitle.equals(tabTitle)) {
+				return;
+			}
+		}
+	}
+
+	/**
+	 * Switch to window/tab by its window ID.
+	 */
+	public void switchWindowById(WebDriver driver, String windowId) {
+		Allure.step("Chuyển sang cửa sổ có ID: " + windowId);
+		Set<String> allWindowIDs = driver.getWindowHandles();
+		for (String id : allWindowIDs) {
+			if (id.equals(windowId)) {
+				driver.switchTo().window(id);
+				return;
+			}
+		}
+		Allure.step("Không tìm thấy window với ID: " + windowId);
+	}
+
+	/**
+	 * Switch to window/tab by part (or all) of its URL.
+	 */
+	public void switchWindowByUrl(WebDriver driver, String urlMatch) {
+		Allure.step("Chuyển sang cửa sổ có URL (hoặc chứa): " + urlMatch);
+		Set<String> allWindowIDs = driver.getWindowHandles();
+
+		for (String id : allWindowIDs) {
+			driver.switchTo().window(id);
+			String currentUrl = driver.getCurrentUrl();
+			if (currentUrl != null && currentUrl.contains(urlMatch)) {
+				return;
+			}
+		}
+		Allure.step("Không tìm thấy window với URL chứa: " + urlMatch);
+	}
+
+	/**
+	 * Switch to window/tab by index.
+	 * 
+	 * @param driver The WebDriver instance.
+	 * @param index  The index of the window (starting from 0).
+	 */
+	public void switchWindowByIndex(WebDriver driver, int index) {
+		Allure.step("Chuyển sang cửa sổ theo index: " + index);
+		List<String> windowHandles = new ArrayList<>(driver.getWindowHandles());
+		if (index >= 0 && index < windowHandles.size()) {
+			driver.switchTo().window(windowHandles.get(index));
+		} else {
+			Allure.step("Index cửa sổ không hợp lệ: " + index);
+		}
+	}
+
+	public void closeCurrentWindowAndSwitchToParent(WebDriver driver, String parentHandle) {
+		Allure.step("Đóng tab/window hiện tại và chuyển về tab/window ban đầu");
+		// Đóng tab hiện tại
+		driver.close();
+
+		// Sau khi tab hiện tại đóng, tập mới sẽ còn lại các tab chưa đóng
+		Set<String> updatedWindowHandles = driver.getWindowHandles();
+
+		// Nếu parentHandle vẫn tồn tại sau khi đóng tab hiện tại, thì switch về nó
+		if (parentHandle != null && updatedWindowHandles.contains(parentHandle)) {
+			driver.switchTo().window(parentHandle);
+			Allure.step("Đã chuyển về tab ban đầu có handle: " + parentHandle);
+		} else if (updatedWindowHandles.size() == 1) { // fallback nếu chỉ còn 1 tab
+			String handle = updatedWindowHandles.iterator().next();
+			driver.switchTo().window(handle);
+			Allure.step("Chỉ còn 1 tab, chuyển về handle: " + handle);
+		} else {
+			Allure.step("Không tìm thấy hoặc không thể chuyển về tab ban đầu.");
+		}
 	}
 
 	public void hoverMouseToElement(WebDriver driver, By locator) {
@@ -1174,14 +1266,12 @@ public class BasePage {
 		throw new AssertionError(errorMsg);
 	}
 
-	
-
 	public String waitAndGetDownloadFileName(WebDriver driver, int timeoutInSeconds) {
 		try {
 			boolean fileNameCaptured = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds))
-				.until(d -> BrowserFactory.cdpDownloadedFileName.get() != null 
-						 && !BrowserFactory.cdpDownloadedFileName.get().isEmpty());
-	
+					.until(d -> BrowserFactory.cdpDownloadedFileName.get() != null
+							&& !BrowserFactory.cdpDownloadedFileName.get().isEmpty());
+
 			if (fileNameCaptured) {
 				String fileName = BrowserFactory.cdpDownloadedFileName.get();
 				Allure.step("CDP bắt được tên file download: " + fileName);

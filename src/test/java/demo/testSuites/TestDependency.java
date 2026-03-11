@@ -1,6 +1,5 @@
 package demo.testSuites;
 
-import commons.BrowserFactory;
 
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
@@ -8,10 +7,11 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import commons.BaseTest;
 import demo.pageObjects.PageGenerator;
 import demo.pageObjects.TestDependencyPO;
 
-public class TestDependency extends BrowserFactory {
+public class TestDependency extends BaseTest {
     @Parameters({ "browser", "url" })
     @BeforeClass
     public void BeforeClass(String browserName, String url) {

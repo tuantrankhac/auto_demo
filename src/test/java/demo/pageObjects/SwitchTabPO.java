@@ -30,4 +30,20 @@ public class SwitchTabPO extends BasePage {
         return getElementText(driver, SwitchTabPageUI.TEXT_IN_INIT_TAB);
     }
 
+    public void switchWindowByTitle(String title){
+        switchWindowByTitle(driver, title);
+    }
+
+    public void switchWindowByUrl(String url){
+        switchWindowByUrl(driver, url);
+    }
+
+    public void switchWindowByIndex(String index){
+        switchWindowByUrl(driver, index);
+    }
+
+    public void closeWindowAndSwitchToParent(String windowParent){
+        closeCurrentWindowAndSwitchToParent(driver, windowParent);
+    }
+
 }

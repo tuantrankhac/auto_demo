@@ -1,17 +1,18 @@
 package demo.testSuites;
 
-import commons.BrowserFactory;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+
+import commons.BaseTest;
 import demo.pageObjects.DangNhapPO;
 import demo.pageObjects.PageGenerator;
 import demo.pageObjects.SuVuPO;
 import demo.pageObjects.TrangChuPO;
 
-public class TestParallel extends BrowserFactory {
+public class TestParallel extends BaseTest {
     String user = "tongdai3@gmail.com";
     String password = "123456";
     @Parameters({"browser", "url"})

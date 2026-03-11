@@ -1,6 +1,6 @@
 package demo.testSuites;
 
-import commons.BrowserFactory;
+import commons.BaseTest;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -11,7 +11,7 @@ import demo.pageObjects.PageGenerator;
 import demo.pageObjects.SuVuPO;
 import demo.pageObjects.TrangChuPO;
 
-public class UploadFileTest extends BrowserFactory {
+public class UploadFileTest extends BaseTest {
     String user = "tongdai3@gmail.com";
     String password = "123456";
     String fileUpload1 = "picture_1.jpg";

@@ -15,5 +15,8 @@ public class GlobalConstants {
 	public static final long LONG_TIMEOUT = 12;
 	public static final long RYTRY_TIMEOUT = 3;
 	public static final By LOADING_ICON = By.xpath("//div[@class='global-loading fade-in']");
+	public static final String API_BASE_URL = "https://stg-crm-api.smarthiz.com";
+	public static final String FRONTEND_URL = "https://stg-crm.smarthiz.vn";
+	public static final String GRAPHQL_PATH = "/graphql";
 
 }

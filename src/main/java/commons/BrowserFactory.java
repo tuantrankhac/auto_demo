@@ -10,8 +10,6 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
-import java.util.Set;
 
 import constant.GlobalConstants;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -26,12 +24,8 @@ import org.openqa.selenium.safari.SafariDriver;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
-import org.testng.Reporter;
-import org.testng.annotations.BeforeTest;
 import io.qameta.allure.Allure;
 import utilities.ConfigReader;
-import utilities.VerificationFailures;
 
 public class BrowserFactory {
 	private static ThreadLocal<WebDriver> threadDriver = new ThreadLocal<>();
@@ -47,6 +41,8 @@ public class BrowserFactory {
 	protected BrowserFactory() {
 		log = LogFactory.getLog(getClass());
 	}
+
+
 
 	private enum BROWSER {
 		CHROME, FIREFOX, IE, SAFARI, EDGE_LEGACY, EDGE_CHROMIUM, H_CHROME, H_FIREFOX;
@@ -428,218 +424,6 @@ public class BrowserFactory {
 		System.out.println("Đã mở trình duyệt với ID: " + getDriver().getWindowHandle());
 	}
 
-	// Hàm trả về danh sách các window handle
-	public List<String> getWindowHandles() {
-		return windowHandles;
-	}
-
-	/**
-	 * Switch to window/tab by its title.
-	 */
-	public void switchWindowByTitle(WebDriver driver, String tabTitle) {
-		Allure.step("Chuyển sang cửa sổ có tiêu đề: " + tabTitle);
-		Set<String> allWindowIDs = driver.getWindowHandles();
-
-		for (String id : allWindowIDs) {
-			driver.switchTo().window(id);
-			String actualTitle = driver.getTitle();
-			if (actualTitle.equals(tabTitle)) {
-				return;
-			}
-		}
-	}
-
-	/**
-	 * Switch to window/tab by its window ID.
-	 */
-	public void switchWindowById(WebDriver driver, String windowId) {
-		Allure.step("Chuyển sang cửa sổ có ID: " + windowId);
-		Set<String> allWindowIDs = driver.getWindowHandles();
-		for (String id : allWindowIDs) {
-			if (id.equals(windowId)) {
-				driver.switchTo().window(id);
-				return;
-			}
-		}
-		Allure.step("Không tìm thấy window với ID: " + windowId);
-	}
-
-	/**
-	 * Switch to window/tab by part (or all) of its URL.
-	 */
-	public void switchWindowByUrl(WebDriver driver, String urlMatch) {
-		Allure.step("Chuyển sang cửa sổ có URL (hoặc chứa): " + urlMatch);
-		Set<String> allWindowIDs = driver.getWindowHandles();
-
-		for (String id : allWindowIDs) {
-			driver.switchTo().window(id);
-			String currentUrl = driver.getCurrentUrl();
-			if (currentUrl != null && currentUrl.contains(urlMatch)) {
-				return;
-			}
-		}
-		Allure.step("Không tìm thấy window với URL chứa: " + urlMatch);
-	}
-
-	/**
-	 * Switch to window/tab by index.
-	 * 
-	 * @param driver The WebDriver instance.
-	 * @param index  The index of the window (starting from 0).
-	 */
-	public void switchWindowByIndex(WebDriver driver, int index) {
-		Allure.step("Chuyển sang cửa sổ theo index: " + index);
-		List<String> windowHandles = new ArrayList<>(driver.getWindowHandles());
-		if (index >= 0 && index < windowHandles.size()) {
-			driver.switchTo().window(windowHandles.get(index));
-		} else {
-			Allure.step("Index cửa sổ không hợp lệ: " + index);
-		}
-	}
-
-	public void closeCurrentWindowAndSwitchToParent(WebDriver driver, String parentHandle) {
-		Allure.step("Đóng tab/window hiện tại và chuyển về tab/window ban đầu");
-		// Đóng tab hiện tại
-		driver.close();
-
-		// Sau khi tab hiện tại đóng, tập mới sẽ còn lại các tab chưa đóng
-		Set<String> updatedWindowHandles = driver.getWindowHandles();
-
-		// Nếu parentHandle vẫn tồn tại sau khi đóng tab hiện tại, thì switch về nó
-		if (parentHandle != null && updatedWindowHandles.contains(parentHandle)) {
-			driver.switchTo().window(parentHandle);
-			Allure.step("Đã chuyển về tab ban đầu có handle: " + parentHandle);
-		} else if (updatedWindowHandles.size() == 1) { // fallback nếu chỉ còn 1 tab
-			String handle = updatedWindowHandles.iterator().next();
-			driver.switchTo().window(handle);
-			Allure.step("Chỉ còn 1 tab, chuyển về handle: " + handle);
-		} else {
-			Allure.step("Không tìm thấy hoặc không thể chuyển về tab ban đầu.");
-		}
-	}
-
-	public void sleepInMiliSecond(long timeout) {
-		try {
-			Thread.sleep(timeout);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
-
-	protected String generateEmail() {
-		Random rand = new Random();
-		return rand.nextInt(9999) + "@qa.team";
-	}
-
-	protected static int generateNumber() {
-		Random rand = new Random();
-		return rand.nextInt(9999);
-	}
-
-	protected boolean verifyTrue(boolean condition) {
-		boolean status = true;
-		try {
-			Assert.assertTrue(condition);
-			log.info("-------------- Có hiển thị ---------------");
-		} catch (Throwable e) {
-			status = false;
-			log.info("---------------- Không hiển thị --------------------");
-		}
-		return status;
-	}
-
-	protected boolean verifyFileUploadOpenSuccess(boolean condition) {
-		boolean status = true;
-		try {
-			Assert.assertTrue(condition);
-			log.info("-------------- Upload file thành công và có thể mở ---------------");
-		} catch (Throwable e) {
-			status = false;
-			log.info("---------------- Upload file không thành công --------------------");
-		}
-		return status;
-	}
-
-	protected boolean verifyImageUploadOpenSuccess(boolean condition) {
-		boolean status = true;
-		try {
-			Assert.assertTrue(condition);
-			log.info("-------------- Upload image thành công và có thể mở ---------------");
-		} catch (Throwable e) {
-			status = false;
-			log.info("---------------- Upload image không thành công --------------------");
-		}
-		return status;
-	}
-
-	protected boolean verifyFalse(boolean condition) {
-		boolean status = false;
-		try {
-			Assert.assertFalse(condition);
-			log.info("----------------- Element không hiển thị -------------------");
-		} catch (Throwable e) {
-			status = true;
-			VerificationFailures.getFailures().addFailureForTest(Reporter.getCurrentTestResult(), e);
-			Reporter.getCurrentTestResult().setThrowable(e);
-			log.info("------------------ Element có hiển thị ------------------");
-		}
-		return status;
-	}
-
-	protected boolean verifyEquals(Object actual, Object expected) {
-		boolean status = true;
-		try {
-			if (actual == null) {
-				return false;
-			}
-			log.info("Text hiện tại: " + actual + " và Text mong muốn: " + expected);
-			Assert.assertEquals(actual, expected);
-			log.info("------------ Passed ------------");
-		} catch (Throwable e) {
-			status = false;
-			VerificationFailures.getFailures().addFailureForTest(Reporter.getCurrentTestResult(), e);
-			Reporter.getCurrentTestResult().setThrowable(e);
-			log.info("----------------- Failed -------------------");
-			log.info("Text hiện tại: " + actual);
-		}
-		return status;
-	}
-
-	protected boolean verifyEqualsContains(String actual, String expected) {
-		boolean result = actual.contains(expected);
-		try {
-			Assert.assertTrue(result);
-			log.info("------------ Text giống nhau ------------");
-		} catch (Throwable e) {
-			VerificationFailures.getFailures().addFailureForTest(Reporter.getCurrentTestResult(), e);
-			Reporter.getCurrentTestResult().setThrowable(e);
-			log.info("----------------- Text không giống nhau -------------------");
-		}
-		return result;
-	}
-
-	@BeforeTest
-	public void deleteFileInReport() {
-		deleteAllFileInFolder("reportNGImage");
-		deleteAllFileInFolder("allure-json");
-	}
-
-	public void deleteAllFileInFolder(String folderName) {
-		try {
-			String pathFolderDownload = GlobalConstants.PROJECT_PATH + File.separator + folderName;
-			File file = new File(pathFolderDownload);
-			File[] listOfFiles = file.listFiles();
-			if (listOfFiles.length != 0) {
-				for (int i = 0; i < listOfFiles.length; i++) {
-					if (listOfFiles[i].isFile() && !listOfFiles[i].getName().equals("environment.properties")) {
-						new File(listOfFiles[i].toString()).delete();
-					}
-				}
-			}
-		} catch (Exception e) {
-			System.out.print(e.getMessage());
-		}
-	}
 
 	public void closeAllBrowsers() {
 		for (WebDriver driverInstans : drivers) {

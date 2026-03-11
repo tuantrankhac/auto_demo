@@ -1,0 +1,1 @@
+[{"uid":"9f96738679e2c0cb","name":"cleanUpBrowser","time":{"start":1773223163182,"stop":1773223163184,"duration":2},"status":"broken","severity":"normal"},{"uid":"a47786967ed7eab","name":"TC01_testAPILogin","time":{"start":1773223158290,"stop":1773223163007,"duration":4717},"status":"passed","severity":"normal"}]

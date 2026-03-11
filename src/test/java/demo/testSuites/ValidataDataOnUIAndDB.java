@@ -1,7 +1,6 @@
 package demo.testSuites;
 
-import commons.BrowserFactory;
-
+import commons.BaseTest;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -19,7 +18,7 @@ import demo.pageObjects.TrangChuPO;
 import utilities.DbConnection;
 
 
-public class ValidataDataOnUIAndDB extends BrowserFactory {
+public class ValidataDataOnUIAndDB extends BaseTest {
     String user = "tongdai3@gmail.com";
     String password = "123456";
     String fileUpload1 = "picture_1.jpg";

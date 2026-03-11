@@ -1,6 +1,6 @@
 package demo.testSuites;
 
-import commons.BrowserFactory;
+import commons.BaseTest;
 
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 import demo.pageObjects.ActionsPagePO;
 import demo.pageObjects.PageGenerator;
 
-public class ActionsPage extends BrowserFactory {
+public class ActionsPage extends BaseTest {
     @Parameters({ "browser", "url" })
     @BeforeMethod
     public void beforeMethod(String browserName, String url) {

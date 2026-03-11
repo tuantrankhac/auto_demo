@@ -1,6 +1,6 @@
 package demo.testSuites;
 
-import commons.BrowserFactory;
+import commons.BaseTest;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -11,7 +11,7 @@ import demo.pageObjects.PageGenerator;
 import demo.pageObjects.SuVuPO;
 import demo.pageObjects.TrangChuPO;
 
-public class TaoMoiSuVu extends BrowserFactory {
+public class TaoMoiSuVu extends BaseTest {
     String user = "tongdai3@gmail.com";
     String password = "123456";
     @Parameters({"browser", "url"})

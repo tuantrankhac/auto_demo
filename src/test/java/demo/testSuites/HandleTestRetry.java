@@ -1,6 +1,6 @@
 package demo.testSuites;
 
-import commons.BrowserFactory;
+import commons.BaseTest;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -10,7 +10,7 @@ import commons.retry.*;
 import demo.pageObjects.PageGenerator;
 import demo.pageObjects.RetryTestPO;;
 
-public class HandleTestRetry extends BrowserFactory {
+public class HandleTestRetry extends BaseTest {
     @Parameters({ "browser", "url" })
     @BeforeMethod
     public void BeforeMethod(String browserName, String url) {

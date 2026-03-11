@@ -1,6 +1,6 @@
 package demo.testSuites;
 
-import commons.BrowserFactory;
+import commons.BaseTest;
 
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 import demo.pageObjects.HandleShadowDOMPO;
 import demo.pageObjects.PageGenerator;
 
-public class HandleShadowDOM extends BrowserFactory {
+public class HandleShadowDOM extends BaseTest {
     @Parameters({ "browser" })
     @BeforeMethod
     public void beforeMethod(String browserName) {
