@@ -115,7 +115,7 @@
     </classes>
   </test> -->
 
-  <test name="API Login - Chrome">
+  <test name="API Test - Chrome">
     <classes>
       <class name="demo.testSuites.TestApi"/>
     </classes>

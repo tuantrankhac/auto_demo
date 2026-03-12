@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Failed suite [Demo]" guice-stage="DEVELOPMENT" verbose="0">
-  <test thread-count="5" name="Handle Download File - Chrome(failed)" verbose="0">
-    <parameter name="browser" value="chrome"/>
-    <parameter name="url" value="https://filesamples.com/formats/pdf"/>
+  <test thread-count="5" name="API Test - Chrome(failed)" verbose="0">
     <classes>
-      <class name="demo.testSuites.HandleDownloadFile">
+      <class name="demo.testSuites.TestApi">
         <methods>
-          <include name="BeforeMethod"/>
-          <include name="TC01_verifyFileAfterDownloadViaCDP"/>
-          <include name="deleteFileInReport"/>
-          <include name="AfterMethod"/>
+          <include name="TC01_testAPILogin"/>
         </methods>
-      </class> <!-- demo.testSuites.HandleDownloadFile -->
+      </class> <!-- demo.testSuites.TestApi -->
     </classes>
-  </test> <!-- Handle Download File - Chrome(failed) -->
+  </test> <!-- API Test - Chrome(failed) -->
 </suite> <!-- Failed suite [Demo] -->
