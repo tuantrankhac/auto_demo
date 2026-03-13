@@ -1,0 +1,25 @@
+{
+    "PIXEL_5": {
+      "platform": "android",
+      "version": "14.0",
+      "udid": "emulator-5554",
+      "appPackage": "com.example.myapp",
+      "appActivity": ".MainActivity",
+      "appPath": ""
+    },
+    "SAMSUNG_S23": {
+      "platform": "android",
+      "version": "13.0",
+      "udid": "RF8N123456",
+      "appPackage": "com.example.myapp",
+      "appActivity": ".MainActivity",
+      "appPath": ""
+    },
+    "IPHONE_15": {
+      "platform": "ios",
+      "version": "17.0",
+      "udid": "uuid-cua-iphone-that",
+      "bundleId": "com.example.bundleid",
+      "appPath": ""
+    }
+  }

@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.Random;
 
 import constant.GlobalConstants;
+import io.appium.java_client.AppiumDriver;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.testng.Assert;
@@ -11,12 +13,20 @@ import org.testng.Reporter;
 
 import utilities.VerificationFailures;
 
-public class BaseTest extends BrowserFactory{
-    protected final Log log = LogFactory.getLog(getClass());
+public class BaseTest extends BrowserFactory {
+	protected AppiumDriver getMobileDriver(String deviceName, String appiumUrl) {
+        return MobileFactory.createMobileDriver(deviceName, appiumUrl);
+    }
 
-    protected ApiFactory apiFactory = new ApiFactory();
+	protected AppiumDriver getMobileDriver() {
+        return MobileFactory.getDriver();
+    }
 
-    public void sleepInMiliSecond(long timeout) {
+	protected final Log log = LogFactory.getLog(getClass());
+
+	protected ApiFactory apiFactory = new ApiFactory();
+
+	public void sleepInMiliSecond(long timeout) {
 		try {
 			Thread.sleep(timeout);
 		} catch (InterruptedException e) {
@@ -116,7 +126,6 @@ public class BaseTest extends BrowserFactory{
 		return result;
 	}
 
-
 	public void deleteAllFileInFolder(String folderName) {
 		try {
 			String pathFolderDownload = GlobalConstants.PROJECT_PATH + File.separator + folderName;
@@ -132,5 +141,9 @@ public class BaseTest extends BrowserFactory{
 		} catch (Exception e) {
 			System.out.print(e.getMessage());
 		}
+	}
+
+	public void closeAllMobiles(){
+		MobileFactory.quitMobileDriver();
 	}
 }
