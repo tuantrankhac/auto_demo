@@ -1328,36 +1328,36 @@ public class BasePage {
 	}
 
 	private boolean scrollAndroidNative(WebDriver driver, String uiSelectorCondition) {
-		Allure.step("Android Native Scroll với điều kiện " + uiSelectorCondition );
-			try {
-				String uiAutomatorScript = String.format(
-                    "new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(%s.instance(0))",
-                    uiSelectorCondition);
+		Allure.step("Android Native Scroll với điều kiện " + uiSelectorCondition);
+		try {
+			String uiAutomatorScript = String.format(
+					"new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(%s.instance(0))",
+					uiSelectorCondition);
 
-				getAppiumDriver(driver).findElement(AppiumBy.androidUIAutomator(uiAutomatorScript));
-				Allure.step("Native Scroll tìm thấy element thành công!");
-				return true; // Scroll thành công và đã thấy element
-			} catch (Exception e) {
-				Allure.step("Native Scroll không tìm thấy element. Chuyển sang Fallback.");
-			}
+			getAppiumDriver(driver).findElement(AppiumBy.androidUIAutomator(uiAutomatorScript));
+			Allure.step("Native Scroll tìm thấy element thành công!");
+			return true; // Scroll thành công và đã thấy element
+		} catch (Exception e) {
+			Allure.step("Native Scroll không tìm thấy element. Chuyển sang Fallback.");
+		}
 		return false;
 	}
 
 	private boolean scrollIOSNative(WebDriver driver, String predicateString) {
 		Allure.step("iOS Native Scroll: Tìm kiếm với Predicate '" + predicateString + "'");
-			try {
-				AppiumDriver appiumDriver = getAppiumDriver(driver);
-				Map<String, Object> params = new HashMap<>();
-				params.put("direction", "down");
-				// Ví dụ predicateString: "label == 'Đăng nhập'" hoặc "name CONTAINS 'Đăng'"
-				params.put("predicateString", predicateString);
+		try {
+			AppiumDriver appiumDriver = getAppiumDriver(driver);
+			Map<String, Object> params = new HashMap<>();
+			params.put("direction", "down");
+			// Ví dụ predicateString: "label == 'Đăng nhập'" hoặc "name CONTAINS 'Đăng'"
+			params.put("predicateString", predicateString);
 
-				appiumDriver.executeScript("mobile: scroll", params);
-				Allure.step("Native Scroll tìm thấy element thành công!");
-				return true;
-			} catch (Exception e) {
-				Allure.step("Native Scroll không tìm thấy element. Chuyển sang Fallback.");
-			}
+			appiumDriver.executeScript("mobile: scroll", params);
+			Allure.step("Native Scroll tìm thấy element thành công!");
+			return true;
+		} catch (Exception e) {
+			Allure.step("Native Scroll không tìm thấy element. Chuyển sang Fallback.");
+		}
 		return false;
 	}
 
@@ -1458,14 +1458,15 @@ public class BasePage {
 
 		// 1. Thử dùng sức mạnh Native của hệ điều hành
 		if (isAndroid(driver)) {
-            // Lắp params (ví dụ: mã ticket) vào chuỗi điều kiện SCROLL_CONDITION trước khi cuộn
-            String finalAndroidCondition = String.format(androidCondition, (Object[]) params);
-            isNativeSuccess = scrollAndroidNative(driver, finalAndroidCondition);
-        } else if (isIOS(driver)) {
-            // Tương tự cho iOS
-            String finalIosPredicate = String.format(iosPredicate, (Object[]) params);
-            isNativeSuccess = scrollIOSNative(driver, finalIosPredicate);
-        }
+			// Lắp params (ví dụ: mã ticket) vào chuỗi điều kiện SCROLL_CONDITION trước khi
+			// cuộn
+			String finalAndroidCondition = String.format(androidCondition, (Object[]) params);
+			isNativeSuccess = scrollAndroidNative(driver, finalAndroidCondition);
+		} else if (isIOS(driver)) {
+			// Tương tự cho iOS
+			String finalIosPredicate = String.format(iosPredicate, (Object[]) params);
+			isNativeSuccess = scrollIOSNative(driver, finalIosPredicate);
+		}
 
 		// 2. Xác nhận xem Native Scroll có thực sự hiển thị element lên màn hình chưa
 		if (isNativeSuccess) {
@@ -1486,4 +1487,23 @@ public class BasePage {
 			fallbackScrollW3C(driver, by);
 		}
 	}
+
+	public void swipeBetweenTwoPoints(WebDriver driver, int startX, int startY, int endX, int endY) {
+		PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+		Sequence swipe = new Sequence(finger, 1);
+		// 1. Di chuyển tới điểm bắt đầu
+		swipe.addAction(finger.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), startX, startY));
+    
+		// 2. Chạm xuống
+		swipe.addAction(finger.createPointerDown(PointerInput.MouseButton.LEFT.asArg()));
+		
+		// 3. Di chuyển tới điểm kết thúc (trong 700ms để đảm bảo hệ thống nhận diện là swipe)
+		swipe.addAction(finger.createPointerMove(Duration.ofMillis(700), PointerInput.Origin.viewport(), endX, endY));
+		
+		// 4. Nhấc ngón tay
+		swipe.addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
+	
+		getAppiumDriver(driver).perform(Collections.singletonList(swipe));
+	}
+
 }

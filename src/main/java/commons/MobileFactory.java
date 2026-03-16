@@ -42,6 +42,9 @@ public class MobileFactory {
                 UiAutomator2Options options = new UiAutomator2Options();
                 options.setDeviceName(deviceConfig.get("udid").asText());
                 options.setPlatformVersion(deviceConfig.get("version").asText());
+                // Accept/Allow permission
+                options.setAutoGrantPermissions(true);
+
 
                 String appPath = deviceConfig.get("appPath").asText();
                 if (!appPath.isEmpty()) {
@@ -56,6 +59,8 @@ public class MobileFactory {
                 XCUITestOptions options = new XCUITestOptions();
                 options.setDeviceName(deviceConfig.get("udid").asText());
                 options.setBundleId(deviceConfig.get("bundleId").asText());
+                // Accept/Allow permission
+                options.setAutoAcceptAlerts(true);
                 driverInstance = new IOSDriver(new URL(appiumUrl), options);
             }
 
