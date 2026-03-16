@@ -1,8 +1,8 @@
 package demo.web.testScripts;
 
 import commons.BaseTest;
+import commons.PageGenerator;
 import demo.web.pageObjects.DangNhapPO;
-import demo.web.pageObjects.PageGenerator;
 import demo.web.pageObjects.SuVuPO;
 import demo.web.pageObjects.TrangChuPO;
 

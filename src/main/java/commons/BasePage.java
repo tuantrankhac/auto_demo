@@ -2,17 +2,23 @@ package commons;
 
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
 import constant.GlobalConstants;
+import io.appium.java_client.AppiumBy;
+import io.appium.java_client.AppiumDriver;
 import io.qameta.allure.Allure;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.interactions.PointerInput;
+import org.openqa.selenium.interactions.Sequence;
 import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -25,8 +31,17 @@ import java.nio.file.Paths;
 
 public class BasePage {
 	protected List<String> windowHandles = new ArrayList<>();
+
 	public static BasePage getBasePageObject() {
 		return new BasePage();
+	}
+
+	// Casting WebDriver sang AppiumDriver
+	private AppiumDriver getAppiumDriver(WebDriver driver) {
+		if (driver instanceof AppiumDriver) {
+			return (AppiumDriver) driver;
+		}
+		throw new RuntimeException("Lỗi: Driver này là của Web, không thể dùng cho các hành động của App!");
 	}
 
 	public void openPageUrl(WebDriver driver, String pageUrl) {
@@ -222,17 +237,17 @@ public class BasePage {
 		return driver.findElements(locator);
 	}
 
+	private By getDynamicBy(String locator, String... params) {
+		String formattedLocator = String.format(locator, (Object[]) params);
+		return By.xpath(formattedLocator);
+	}
+
 	public void clickToElement(WebDriver driver, By locator) {
 		Allure.step("Click vào element: " + locator);
 		// hightlightElement(driver, locator);
 		waitForElementClickable(driver, locator);
 		getWebElement(driver, locator).click();
 		sleepInMiliSecond(500);
-	}
-
-	private By getDynamicBy(String locator, String... params) {
-		String formattedLocator = String.format(locator, (Object[]) params);
-		return By.xpath(formattedLocator);
 	}
 
 	public void clickToElement(WebDriver driver, String locator, String... params) {
@@ -244,12 +259,12 @@ public class BasePage {
 		sleepInMiliSecond(500);
 	}
 
-	public void cleaDateEnteredToTextbox(WebDriver driver, By locator) {
+	public void clearDateEnteredToTextbox(WebDriver driver, By locator) {
 		Allure.step("Clear dữ liệu trong textbox");
 		getWebElement(driver, locator).clear();
 	}
 
-	public void cleaDateEnteredToTextbox(WebDriver driver, String locator, String... params) {
+	public void clearDateEnteredToTextbox(WebDriver driver, String locator, String... params) {
 		By by = getDynamicBy(locator, params);
 		Allure.step("Clear dữ liệu trong textbox (dynamic): " + by);
 		getWebElement(driver, by).clear();
@@ -274,6 +289,11 @@ public class BasePage {
 			getWebElement(driver, by).sendKeys(textValue);
 		} catch (Exception e) {
 		}
+	}
+
+	public void clickAndSendkeyToElement(WebDriver driver, By locator, String textValue) {
+		clickToElement(driver, locator);
+		sendkeyToElement(driver, locator, textValue);
 	}
 
 	public String getElementText(WebDriver driver, By locator) {
@@ -522,7 +542,6 @@ public class BasePage {
 	public List<String> getWindowHandles() {
 		return windowHandles;
 	}
-
 
 	/**
 	 * Switch to window/tab by its title.
@@ -846,6 +865,18 @@ public class BasePage {
 		Allure.step("Chờ element hiển thị: " + locator);
 		try {
 			explicitWait = new WebDriverWait(driver, Duration.ofSeconds(shortTimeout));
+			explicitWait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+			Allure.step("Element có hiển thị");
+		} catch (Exception e) {
+			System.out.println("Không tìm thấy Element");
+			Allure.step("Element không hiển thị");
+		}
+	}
+
+	public void waitForElementVisible(WebDriver driver, By locator, long timeOut) {
+		Allure.step("Chờ element hiển thị: " + locator);
+		try {
+			explicitWait = new WebDriverWait(driver, Duration.ofSeconds(timeOut));
 			explicitWait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 			Allure.step("Element có hiển thị");
 		} catch (Exception e) {
@@ -1286,4 +1317,173 @@ public class BasePage {
 		}
 	}
 
+	// ===================================APP=======================================
+
+	private boolean isAndroid(WebDriver driver) {
+		return getAppiumDriver(driver) instanceof io.appium.java_client.android.AndroidDriver;
+	}
+
+	private boolean isIOS(WebDriver driver) {
+		return getAppiumDriver(driver) instanceof io.appium.java_client.ios.IOSDriver;
+	}
+
+	private boolean scrollAndroidNative(WebDriver driver, String uiSelectorCondition) {
+		Allure.step("Android Native Scroll với điều kiện " + uiSelectorCondition );
+			try {
+				String uiAutomatorScript = String.format(
+                    "new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(%s.instance(0))",
+                    uiSelectorCondition);
+
+				getAppiumDriver(driver).findElement(AppiumBy.androidUIAutomator(uiAutomatorScript));
+				Allure.step("Native Scroll tìm thấy element thành công!");
+				return true; // Scroll thành công và đã thấy element
+			} catch (Exception e) {
+				Allure.step("Native Scroll không tìm thấy element. Chuyển sang Fallback.");
+			}
+		return false;
+	}
+
+	private boolean scrollIOSNative(WebDriver driver, String predicateString) {
+		Allure.step("iOS Native Scroll: Tìm kiếm với Predicate '" + predicateString + "'");
+			try {
+				AppiumDriver appiumDriver = getAppiumDriver(driver);
+				Map<String, Object> params = new HashMap<>();
+				params.put("direction", "down");
+				// Ví dụ predicateString: "label == 'Đăng nhập'" hoặc "name CONTAINS 'Đăng'"
+				params.put("predicateString", predicateString);
+
+				appiumDriver.executeScript("mobile: scroll", params);
+				Allure.step("Native Scroll tìm thấy element thành công!");
+				return true;
+			} catch (Exception e) {
+				Allure.step("Native Scroll không tìm thấy element. Chuyển sang Fallback.");
+			}
+		return false;
+	}
+
+	private void swipeUpW3C(WebDriver driver) {
+		AppiumDriver appiumDriver = getAppiumDriver(driver);
+		Dimension size = appiumDriver.manage().window().getSize();
+
+		int startX = size.width / 2;
+		int startY = (int) (size.height * 0.8);
+		int endY = (int) (size.height * 0.2);
+
+		PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+		Sequence swipe = new Sequence(finger, 1);
+
+		swipe.addAction(finger.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), startX, startY));
+		swipe.addAction(finger.createPointerDown(PointerInput.MouseButton.LEFT.asArg()));
+		swipe.addAction(finger.createPointerMove(Duration.ofMillis(600), PointerInput.Origin.viewport(), startX, endY));
+		swipe.addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
+
+		appiumDriver.perform(Collections.singletonList(swipe));
+		sleepInMiliSecond(500);
+	}
+
+	private void fallbackScrollW3C(WebDriver driver, By locator) {
+		Allure.step("Fallback: Kích hoạt W3C Swipe Action để tìm " + locator);
+		boolean isFound = false;
+		int maxSwipe = 5;
+
+		AppiumDriver appiumDriver = getAppiumDriver(driver);
+		Duration originalWait = appiumDriver.manage().timeouts().getImplicitWaitTimeout();
+		appiumDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1)); // Ép thời gian chờ xuống thấp
+
+		for (int i = 0; i < maxSwipe; i++) {
+			try {
+				if (appiumDriver.findElement(locator).isDisplayed()) {
+					isFound = true;
+					break;
+				}
+			} catch (Exception e) {
+				swipeUpW3C(driver);
+			}
+		}
+
+		appiumDriver.manage().timeouts().implicitlyWait(originalWait); // Trả lại timeout cũ
+
+		if (!isFound) {
+			throw new RuntimeException(
+					"Fallback W3C thất bại: Đã vuốt " + maxSwipe + " lần nhưng không thấy " + locator);
+		}
+	}
+
+	/**
+	 * Hàm Smart Scroll: Ưu tiên Native Engine, tự động Fallback sang W3C nếu Native
+	 * fail.
+	 * * @param driver WebDriver/AppiumDriver hiện tại
+	 * 
+	 * @param locator           By locator dùng cho W3C fallback và xác nhận cuối
+	 *                          cùng
+	 * @param androidTextToFind Text hiển thị của element (Dành cho UiScrollable
+	 *                          Android)
+	 * @param iosPredicate      Predicate String của element (Dành cho iOS XCUITest,
+	 *                          VD: "label == 'Submit'")
+	 */
+	public void smartScrollToElement(WebDriver driver, By locator, String androidTextToFind, String iosPredicate) {
+		boolean isNativeSuccess = false;
+
+		// 1. Thử dùng sức mạnh Native của hệ điều hành
+		if (isAndroid(driver)) {
+			isNativeSuccess = scrollAndroidNative(driver, androidTextToFind);
+		} else if (isIOS(driver)) {
+			isNativeSuccess = scrollIOSNative(driver, iosPredicate);
+		}
+
+		// 2. Xác nhận xem Native Scroll có thực sự hiển thị element lên màn hình chưa
+		if (isNativeSuccess) {
+			try {
+				// Kiểm tra lại xem element đã visible sau khi scroll chưa
+				waitForElementVisible(driver, locator, 2);
+				Allure.step("Smart Scroll thành công bằng Native Engine.");
+				return; // Kết thúc hàm nếu thành công
+			} catch (Exception e) {
+				System.out.println("Native Scroll báo thành công nhưng element chưa visible. Chuyển sang Fallback.");
+				isNativeSuccess = false;
+			}
+		}
+
+		// 3. Kích hoạt dự phòng: Nếu Native báo lỗi hoặc tìm không thấy, dùng W3C vuốt
+		// thủ công
+		if (!isNativeSuccess) {
+			fallbackScrollW3C(driver, locator);
+		}
+	}
+
+	public void smartScrollToElement(WebDriver driver, String locator, String androidCondition, String iosPredicate,
+			String... params) {
+		By by = getDynamicBy(locator, params);
+		boolean isNativeSuccess = false;
+
+		// 1. Thử dùng sức mạnh Native của hệ điều hành
+		if (isAndroid(driver)) {
+            // Lắp params (ví dụ: mã ticket) vào chuỗi điều kiện SCROLL_CONDITION trước khi cuộn
+            String finalAndroidCondition = String.format(androidCondition, (Object[]) params);
+            isNativeSuccess = scrollAndroidNative(driver, finalAndroidCondition);
+        } else if (isIOS(driver)) {
+            // Tương tự cho iOS
+            String finalIosPredicate = String.format(iosPredicate, (Object[]) params);
+            isNativeSuccess = scrollIOSNative(driver, finalIosPredicate);
+        }
+
+		// 2. Xác nhận xem Native Scroll có thực sự hiển thị element lên màn hình chưa
+		if (isNativeSuccess) {
+			try {
+				// Kiểm tra lại xem element đã visible sau khi scroll chưa
+				waitForElementVisible(driver, by, 2);
+				Allure.step("Smart Scroll thành công bằng Native Engine.");
+				return; // Kết thúc hàm nếu thành công
+			} catch (Exception e) {
+				System.out.println("Native Scroll báo thành công nhưng element chưa visible. Chuyển sang Fallback.");
+				isNativeSuccess = false;
+			}
+		}
+
+		// 3. Kích hoạt dự phòng: Nếu Native báo lỗi hoặc tìm không thấy, dùng W3C vuốt
+		// thủ công
+		if (!isNativeSuccess) {
+			fallbackScrollW3C(driver, by);
+		}
+	}
 }

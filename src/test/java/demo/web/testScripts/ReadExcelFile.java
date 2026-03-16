@@ -1,7 +1,7 @@
 package demo.web.testScripts;
 
 import commons.BaseTest;
-import demo.web.pageObjects.PageGenerator;
+import commons.PageGenerator;
 import demo.web.pageObjects.ReadExcelFilePO;
 
 import java.util.List;

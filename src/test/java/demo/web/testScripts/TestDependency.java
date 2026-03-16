@@ -8,7 +8,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import commons.BaseTest;
-import demo.web.pageObjects.PageGenerator;
+import commons.PageGenerator;
 import demo.web.pageObjects.TestDependencyPO;
 
 public class TestDependency extends BaseTest {

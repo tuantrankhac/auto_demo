@@ -1,0 +1,25 @@
+{
+    "V350C": {
+      "platform": "android",
+      "version": "10.0",
+      "udid": "BNS00000074",
+      "appPackage": "com.sharitek.lada",
+      "appActivity": "com.sharitek.lada.MainActivity",
+      "appPath": ""
+    },
+    "SAMSUNG_S23": {
+      "platform": "android",
+      "version": "13.0",
+      "udid": "RF8N123456",
+      "appPackage": "com.example.myapp",
+      "appActivity": ".MainActivity",
+      "appPath": ""
+    },
+    "IPHONE_15": {
+      "platform": "ios",
+      "version": "17.0",
+      "udid": "uuid-cua-iphone-that",
+      "bundleId": "com.example.bundleid",
+      "appPath": ""
+    }
+  }

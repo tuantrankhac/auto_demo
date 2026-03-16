@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Failed suite [Demo]" guice-stage="DEVELOPMENT" verbose="0">
-  <test thread-count="5" name="API Test - Chrome(failed)" verbose="0">
+  <test thread-count="5" name="App - Chrome(failed)" verbose="0">
+    <parameter name="appiumUrl" value="http://127.0.0.1:4723"/>
+    <parameter name="deviceName" value="V350C"/>
     <classes>
-      <class name="demo.testSuites.TestApi">
+      <class name="demo.mobile.testScripts.DemoApp">
         <methods>
-          <include name="TC01_testAPILogin"/>
+          <include name="LoginKTV"/>
+          <include name="beforeMethod"/>
+          <include name="afterMethod"/>
         </methods>
-      </class> <!-- demo.testSuites.TestApi -->
+      </class> <!-- demo.mobile.testScripts.DemoApp -->
     </classes>
-  </test> <!-- API Test - Chrome(failed) -->
+  </test> <!-- App - Chrome(failed) -->
 </suite> <!-- Failed suite [Demo] -->

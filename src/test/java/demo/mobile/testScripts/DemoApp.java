@@ -7,23 +7,25 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import commons.BaseTest;
-import demo.web.pageObjects.HandleAlertPO;
-import demo.web.pageObjects.PageGenerator;
+import commons.PageGenerator;
+import demo.mobile.pageObjects.DangNhapAppPO;
 
 public class DemoApp extends BaseTest{
-    @Parameters({ "browser", "url" })
+    @Parameters({ "deviceName", "appiumUrl" })
     @BeforeMethod
-    public void beforeMethod(String browserName, String url) {
-        log.info("Pre-Condition: Step 01: Open Browser: " + browserName);
-        driver = getBrowserDriver(browserName, url);
-        handleAlertPO = PageGenerator.getHandleAlertPO(driver);
+    public void beforeMethod(String deviceName, String appiumUrl) {
+        driver = getMobileDriver(deviceName, appiumUrl);
+        dangNhapAppPO = PageGenerator.getDangNhapAppPO(driver);
 
     }
 
     @Test(priority = 1)
-    public void HandleAlertBasic() {
-        handleAlertPO.clickButtonDisplayAlert();
-        handleAlertPO.acceptAlert(driver);
+    public void LoginKTV() {
+        String userName = "0342992916";
+        String password = "123456";
+        String ticketID = "1118176";
+        dangNhapAppPO.dangNhapApp(userName, password);
+        dangNhapAppPO.scrollToTicket(ticketID);
     }
 
     
@@ -34,5 +36,5 @@ public class DemoApp extends BaseTest{
     }
 
     private WebDriver driver;
-    HandleAlertPO handleAlertPO;
+    DangNhapAppPO dangNhapAppPO;
 }

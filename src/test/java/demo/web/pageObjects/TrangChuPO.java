@@ -1,6 +1,7 @@
 package demo.web.pageObjects;
 
 import commons.BasePage;
+import commons.PageGenerator;
 import demo.web.pageUIs.TrangChuPageUI;
 
 import org.openqa.selenium.WebDriver;

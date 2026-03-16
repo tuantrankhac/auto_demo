@@ -7,8 +7,8 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import commons.BaseTest;
+import commons.PageGenerator;
 import demo.web.pageObjects.HandleAlertPO;
-import demo.web.pageObjects.PageGenerator;
 
 public class HandleAlert extends BaseTest{
     @Parameters({ "browser", "url" })

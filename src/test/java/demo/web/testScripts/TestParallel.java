@@ -7,8 +7,8 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import commons.BaseTest;
+import commons.PageGenerator;
 import demo.web.pageObjects.DangNhapPO;
-import demo.web.pageObjects.PageGenerator;
 import demo.web.pageObjects.SuVuPO;
 import demo.web.pageObjects.TrangChuPO;
 

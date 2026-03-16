@@ -115,15 +115,19 @@
     </classes>
   </test> -->
 
-  <test name="API Test - Chrome">
-    <!-- <test name="API Test - Chrome" parallel="tests" thread-count="2"> -->
-    <parameter name="platform" value="android" />
-    <parameter name="deviceName" value="emulator-5554" />
-    <parameter name="version" value="14.0" />
-    <parameter name="appPath" value="${user.dir}/apps/my-app.apk" />
-    <parameter name="appiumUrl" value="http://127.0.0.1:4723" />
+  <!-- <test name="API Test - Chrome">
+    <test name="API Test - Chrome" parallel="tests" thread-count="2">
     <classes>
       <class name="demo.testSuites.TestApi"/>
+    </classes>
+  </test> -->
+
+  <test name="App - Chrome">
+    <!-- <test name="API Test - Chrome" parallel="tests" thread-count="2"> -->
+    <parameter name="deviceName" value="V350C"/>
+    <parameter name="appiumUrl" value="http://127.0.0.1:4723" />
+    <classes>
+      <class name="demo.mobile.testScripts.DemoApp"/>
     </classes>
   </test>
 

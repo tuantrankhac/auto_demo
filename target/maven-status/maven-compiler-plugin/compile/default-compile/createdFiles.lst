@@ -1,13 +1,10 @@
 utilities\DataUtils.class
 commons\BrowserFactory$BROWSER.class
 constant\GlobalConstants.class
-api\CreateTicketV2.class
 commons\BaseApi.class
 commons\BasePage$1.class
 commons\retry\RetryTransformer.class
-api\LoginApiWithRest.class
-commons\ApiFactory.class
-api\LoginApiWithGraphQL.class
+commons\MobileFactory.class
 utilities\StringUtils.class
 commons\BrowserFactory.class
 commons\retry\RetryTest.class

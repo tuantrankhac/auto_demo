@@ -6,6 +6,7 @@ import io.appium.java_client.android.options.UiAutomator2Options;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.options.XCUITestOptions;
 
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URL;
 
@@ -25,7 +26,8 @@ public class MobileFactory {
         try {
             // 1. Đọc file JSON từ resources
             ObjectMapper mapper = new ObjectMapper();
-            JsonNode devices = mapper.readTree(new InputStream("src/test/resources/devices.json"));
+            InputStream is = new FileInputStream("src/test/resources/devices.json");
+            JsonNode devices = mapper.readTree(is);
             JsonNode deviceConfig = devices.get(deviceName);
 
             if (deviceConfig == null) {
@@ -40,7 +42,7 @@ public class MobileFactory {
                 UiAutomator2Options options = new UiAutomator2Options();
                 options.setDeviceName(deviceConfig.get("udid").asText());
                 options.setPlatformVersion(deviceConfig.get("version").asText());
-                
+
                 String appPath = deviceConfig.get("appPath").asText();
                 if (!appPath.isEmpty()) {
                     options.setApp(appPath);
@@ -49,7 +51,7 @@ public class MobileFactory {
                     options.setAppActivity(deviceConfig.get("appActivity").asText());
                 }
                 driverInstance = new AndroidDriver(new URL(appiumUrl), options);
-                
+
             } else {
                 XCUITestOptions options = new XCUITestOptions();
                 options.setDeviceName(deviceConfig.get("udid").asText());

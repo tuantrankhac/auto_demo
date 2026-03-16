@@ -1,8 +1,8 @@
 package demo.web.testScripts;
 
 import commons.BaseTest;
+import commons.PageGenerator;
 import demo.web.pageObjects.HandleDownloadFilePO;
-import demo.web.pageObjects.PageGenerator;
 
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
