@@ -5,15 +5,12 @@ import java.util.Random;
 
 import constant.GlobalConstants;
 import io.appium.java_client.AppiumDriver;
-import io.qameta.allure.Allure;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.testng.Assert;
 import org.testng.Reporter;
-import org.testng.annotations.BeforeClass;
 
-import utilities.CmdUtils;
 import utilities.VerificationFailures;
 
 public class BaseTest extends BrowserFactory {
