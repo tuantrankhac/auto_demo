@@ -43,7 +43,7 @@ public class MobileFactory {
                 options.setDeviceName(deviceConfig.get("udid").asText());
                 options.setPlatformVersion(deviceConfig.get("version").asText());
                 // Accept/Allow permission
-                options.setAutoGrantPermissions(true);
+                // options.setAutoGrantPermissions(true);
 
 
                 String appPath = deviceConfig.get("appPath").asText();
@@ -60,7 +60,7 @@ public class MobileFactory {
                 options.setDeviceName(deviceConfig.get("udid").asText());
                 options.setBundleId(deviceConfig.get("bundleId").asText());
                 // Accept/Allow permission
-                options.setAutoAcceptAlerts(true);
+                // options.setAutoAcceptAlerts(true);
                 driverInstance = new IOSDriver(new URL(appiumUrl), options);
             }
 

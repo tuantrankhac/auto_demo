@@ -1,0 +1,2 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","36423","LoginKTV","Demo","Tue Mar 17 13:54:37 GMT+07:00 2026","broken","Tue Mar 17 13:55:13 GMT+07:00 2026","demo.mobile.testScripts.DemoApp","App - Chrome","demo.mobile.testScripts.DemoApp","LoginKTV"

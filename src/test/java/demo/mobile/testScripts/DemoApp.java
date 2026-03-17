@@ -26,6 +26,7 @@ public class DemoApp extends BaseTest{
         String ticketID = "1118176";
         dangNhapAppPO.dangNhapApp(userName, password);
         dangNhapAppPO.scrollToTicket(ticketID);
+        dangNhapAppPO.openDetailTicket(ticketID);
     }
 
     

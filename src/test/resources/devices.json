@@ -13,7 +13,7 @@
       "udid": "RF8N123456",
       "appPackage": "com.example.myapp",
       "appActivity": ".MainActivity",
-      "appPath": ""
+      "appPath": "./uploadFiles/video_app_CRM_Stg (2).apk"
     },
     "IPHONE_15": {
       "platform": "ios",

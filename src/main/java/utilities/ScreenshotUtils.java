@@ -1,51 +1,27 @@
 package utilities;
 
 import io.qameta.allure.Allure;
+import io.qameta.allure.Step;
+import java.io.ByteArrayInputStream;
+
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 
-import java.io.ByteArrayInputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 public class ScreenshotUtils {
-    private static final String SCREENSHOT_DIR = "target/screenshots/";
 
-    /**
-     * Chụp screenshot và attach vào Allure
-     */
-    public static void captureAndAttach(WebDriver driver, String name) {
+    // Annotation @Attachment tự động lấy giá trị return (mảng byte) đính vào Allure
+    @Step("Chụp ảnh khi test fail")
+    public static void captureScreenshot(WebDriver driver) {
         try {
-            byte[] screenshot = ((TakesScreenshot) driver)
-                    .getScreenshotAs(OutputType.BYTES);
-
-            Allure.addAttachment(name,
-                    new ByteArrayInputStream(screenshot));
-
+            // Chụp ảnh và lấy mảng byte
+            byte[] bytes = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+            
+            // Ép Allure nhận file trực tiếp
+            Allure.addAttachment("Screenshot on Failure", "image/png", new ByteArrayInputStream(bytes), ".png");
+            Allure.step("Đã đính kèm ảnh chụp màn hình vào Allure thành công!");
         } catch (Exception e) {
-            e.printStackTrace();
+           Allure.step("Lỗi khi chụp màn hình: " + e.getMessage());
         }
     }
-
-    /**
-     * Chụp screenshot và lưu ra file (dùng khi debug local)
-     */
-    // public static String captureAndSave(WebDriver driver, String fileName) {
-    //     try {
-    //         byte[] screenshot = ((TakesScreenshot) driver)
-    //                 .getScreenshotAs(OutputType.BYTES);
-
-    //         Path path = Paths.get(SCREENSHOT_DIR + fileName + ".png");
-    //         Files.createDirectories(path.getParent());
-    //         Files.write(path, screenshot);
-
-    //         return path.toString();
-
-    //     } catch (Exception e) {
-    //         e.printStackTrace();
-    //         return null;
-    //     }
-    // }
 }

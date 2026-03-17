@@ -2,6 +2,9 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <!-- <suite name="CRM" verbose="1" parallel="tests"> -->
 <suite name="Demo" verbose="1" parallel="false">
+  <!-- <listeners>
+    <listener class-name="report.TestListener" />
+  </listeners> -->
 
   <!-- <test name="TaoMoiSuVu - Chrome">
     <parameter name="browser" value="chrome"/>

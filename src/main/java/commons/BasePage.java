@@ -1493,16 +1493,17 @@ public class BasePage {
 		Sequence swipe = new Sequence(finger, 1);
 		// 1. Di chuyển tới điểm bắt đầu
 		swipe.addAction(finger.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), startX, startY));
-    
+
 		// 2. Chạm xuống
 		swipe.addAction(finger.createPointerDown(PointerInput.MouseButton.LEFT.asArg()));
-		
-		// 3. Di chuyển tới điểm kết thúc (trong 700ms để đảm bảo hệ thống nhận diện là swipe)
+
+		// 3. Di chuyển tới điểm kết thúc (trong 700ms để đảm bảo hệ thống nhận diện là
+		// swipe)
 		swipe.addAction(finger.createPointerMove(Duration.ofMillis(700), PointerInput.Origin.viewport(), endX, endY));
-		
+
 		// 4. Nhấc ngón tay
 		swipe.addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
-	
+
 		getAppiumDriver(driver).perform(Collections.singletonList(swipe));
 	}
 

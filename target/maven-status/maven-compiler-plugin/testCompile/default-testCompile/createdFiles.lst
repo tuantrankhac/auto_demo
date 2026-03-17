@@ -1,7 +1,10 @@
+report\TestListener.class
+demo\mobile\pageUIs\SwipeTestPageUI.class
 demo\web\testScripts\ValidataDataOnUIAndDB.class
 demo\web\pageObjects\ReadExcelFilePO.class
 demo\web\pageUIs\SuVuPageUI.class
 demo\mobile\testScripts\DemoApp.class
+demo\mobile\testScripts\SwipeTest.class
 demo\web\testScripts\TaoMoiSuVu.class
 demo\web\pageUIs\TrangChuPageUI.class
 demo\web\testScripts\ActionsPage.class
@@ -27,6 +30,7 @@ demo\web\pageObjects\LoginWithoutAuthPO.class
 demo\mobile\pageObjects\DangNhapAppPO.class
 demo\web\pageObjects\HandleDownloadFilePO.class
 commons\PageGenerator.class
+demo\mobile\pageObjects\SwipeTestPO.class
 demo\web\testScripts\UploadFileTest.class
 demo\web\testScripts\TestApi.class
 demo\web\pageObjects\HandleShadowDOMPO.class
