@@ -14,6 +14,8 @@ import constant.GlobalConstants;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
 import io.qameta.allure.Allure;
+import utilities.ContextUtils;
+import utilities.PlatformUtils;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -1319,13 +1321,6 @@ public class BasePage {
 
 	// ===================================APP=======================================
 
-	private boolean isAndroid(WebDriver driver) {
-		return getAppiumDriver(driver) instanceof io.appium.java_client.android.AndroidDriver;
-	}
-
-	private boolean isIOS(WebDriver driver) {
-		return getAppiumDriver(driver) instanceof io.appium.java_client.ios.IOSDriver;
-	}
 
 	private boolean scrollAndroidNative(WebDriver driver, String uiSelectorCondition) {
 		Allure.step("Android Native Scroll với điều kiện " + uiSelectorCondition);
@@ -1425,9 +1420,9 @@ public class BasePage {
 		boolean isNativeSuccess = false;
 
 		// 1. Thử dùng sức mạnh Native của hệ điều hành
-		if (isAndroid(driver)) {
+		if (PlatformUtils.isAndroid(driver)) {
 			isNativeSuccess = scrollAndroidNative(driver, androidTextToFind);
-		} else if (isIOS(driver)) {
+		} else if (PlatformUtils.isIOS(driver)) {
 			isNativeSuccess = scrollIOSNative(driver, iosPredicate);
 		}
 
@@ -1457,12 +1452,12 @@ public class BasePage {
 		boolean isNativeSuccess = false;
 
 		// 1. Thử dùng sức mạnh Native của hệ điều hành
-		if (isAndroid(driver)) {
+		if (PlatformUtils.isAndroid(driver)) {
 			// Lắp params (ví dụ: mã ticket) vào chuỗi điều kiện SCROLL_CONDITION trước khi
 			// cuộn
 			String finalAndroidCondition = String.format(androidCondition, (Object[]) params);
 			isNativeSuccess = scrollAndroidNative(driver, finalAndroidCondition);
-		} else if (isIOS(driver)) {
+		} else if (PlatformUtils.isIOS(driver)) {
 			// Tương tự cho iOS
 			String finalIosPredicate = String.format(iosPredicate, (Object[]) params);
 			isNativeSuccess = scrollIOSNative(driver, finalIosPredicate);
@@ -1506,5 +1501,18 @@ public class BasePage {
 
 		getAppiumDriver(driver).perform(Collections.singletonList(swipe));
 	}
+
+	protected void switchToWebViewContext(WebDriver driver){
+		boolean isSwitched = ContextUtils.switchToWebView(driver);
+        if (isSwitched) {
+            // Ép hệ thống đợi 2 giây để DOM của Web render hoàn tất 
+            // (Đúng như kinh nghiệm tránh flaky của bạn)
+            sleepInMiliSecond(2000); 
+        }
+    }
+
+    protected void switchToNativeContext(WebDriver driver) {
+        ContextUtils.switchToNative(driver);
+    }
 
 }
