@@ -1,11 +1,11 @@
 -------------------------------------------------------------------------------
 Test set: TestSuite
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 46.59 s <<< FAILURE! -- in TestSuite
-demo.mobile.testScripts.DemoApp.LoginKTV -- Time elapsed: 35.68 s <<< FAILURE!
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 46.83 s <<< FAILURE! -- in TestSuite
+demo.mobile.testScripts.DemoApp.LoginKTV -- Time elapsed: 34.42 s <<< FAILURE!
 java.lang.RuntimeException: Fallback W3C thất bại: Đã vuốt 5 lần nhưng không thấy By.xpath: //*[starts-with(@content-desc, 'YC-1118176')]
-	at commons.BasePage.fallbackScrollW3C(BasePage.java:1407)
-	at commons.BasePage.smartScrollToElement(BasePage.java:1487)
+	at commons.BasePage.fallbackScrollW3C(BasePage.java:1402)
+	at commons.BasePage.smartScrollToElement(BasePage.java:1482)
 	at demo.mobile.pageObjects.DangNhapAppPO.scrollToTicket(DangNhapAppPO.java:29)
 	at demo.mobile.testScripts.DemoApp.LoginKTV(DemoApp.java:28)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)

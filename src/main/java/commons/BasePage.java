@@ -369,7 +369,7 @@ public class BasePage {
 		if (select.isMultiple()) {
 			select.deselectByVisibleText(optionText);
 		} else {
-			System.out.println("Không phải multi-select");
+			Allure.step("Không phải multi-select");
 		}
 	}
 
@@ -379,7 +379,7 @@ public class BasePage {
 		if (select.isMultiple()) {
 			select.deselectAll();
 		} else {
-			System.out.println("Không phải multi-select");
+			Allure.step("Không phải multi-select");
 		}
 	}
 
@@ -470,21 +470,21 @@ public class BasePage {
 	}
 
 	public boolean isElementUndisplayed(WebDriver driver, By locator) {
-		System.out.println("Start time = " + new Date().toString());
+		Allure.step("Start time = " + new Date().toString());
 		overrideGlobalTimeout(driver, shortTimeout);
 		List<WebElement> elements = getListWebElement(driver, locator);
 		overrideGlobalTimeout(driver, longTimeout);
 
 		if (elements.size() == 0) {
-			System.out.println("Element not in DOM");
-			System.out.println("End time = " + new Date().toString());
+			Allure.step("Element not in DOM");
+			Allure.step("End time = " + new Date().toString());
 			return true;
 		} else if (elements.size() > 0 && !elements.get(0).isDisplayed()) {
-			System.out.println("Element in DOM but not visible on UI");
-			System.out.println("End time = " + new Date().toString());
+			Allure.step("Element in DOM but not visible on UI");
+			Allure.step("End time = " + new Date().toString());
 			return true;
 		} else {
-			System.out.println("Element in DOM and visible on UI");
+			Allure.step("Element in DOM and visible on UI");
 			return false;
 		}
 	}
@@ -870,7 +870,7 @@ public class BasePage {
 			explicitWait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 			Allure.step("Element có hiển thị");
 		} catch (Exception e) {
-			System.out.println("Không tìm thấy Element");
+			Allure.step("Không tìm thấy Element");
 			Allure.step("Element không hiển thị");
 		}
 	}
@@ -882,7 +882,7 @@ public class BasePage {
 			explicitWait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 			Allure.step("Element có hiển thị");
 		} catch (Exception e) {
-			System.out.println("Không tìm thấy Element");
+			Allure.step("Không tìm thấy Element");
 			Allure.step("Element không hiển thị");
 		}
 	}
@@ -921,7 +921,7 @@ public class BasePage {
 			explicitWait.until(ExpectedConditions.presenceOfElementLocated(locator));
 			Allure.step("Element có tồn tại trong DOM");
 		} catch (Exception e) {
-			System.out.println("Element không tồn tại trong DOM");
+			Allure.step("Element không tồn tại trong DOM");
 			Allure.step("Element không tồn tại trong DOM");
 		}
 	}
@@ -944,10 +944,10 @@ public class BasePage {
 					.visibilityOfElementLocated(by));
 			Allure.step("Element có hiển thị");
 		} catch (TimeoutException e) {
-			System.out.println("Không tìm thấy Element");
+			Allure.step("Không tìm thấy Element");
 			Allure.step("Element không hiển thị");
 		} catch (Exception e) {
-			System.out.println("Không tìm thấy Element");
+			Allure.step("Không tìm thấy Element");
 			Allure.step("Element không hiển thị");
 		}
 	}
@@ -1434,7 +1434,7 @@ public class BasePage {
 				Allure.step("Smart Scroll thành công bằng Native Engine.");
 				return; // Kết thúc hàm nếu thành công
 			} catch (Exception e) {
-				System.out.println("Native Scroll báo thành công nhưng element chưa visible. Chuyển sang Fallback.");
+				Allure.step("Native Scroll báo thành công nhưng element chưa visible. Chuyển sang Fallback.");
 				isNativeSuccess = false;
 			}
 		}
@@ -1471,7 +1471,7 @@ public class BasePage {
 				Allure.step("Smart Scroll thành công bằng Native Engine.");
 				return; // Kết thúc hàm nếu thành công
 			} catch (Exception e) {
-				System.out.println("Native Scroll báo thành công nhưng element chưa visible. Chuyển sang Fallback.");
+				Allure.step("Native Scroll báo thành công nhưng element chưa visible. Chuyển sang Fallback.");
 				isNativeSuccess = false;
 			}
 		}

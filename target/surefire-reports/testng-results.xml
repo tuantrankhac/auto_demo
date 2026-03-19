@@ -2,12 +2,12 @@
 <testng-results ignored="0" total="1" passed="0" failed="1" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-03-17T14:11:01 GMT+07:00" name="Demo" finished-at="2026-03-17T14:11:46 GMT+07:00" duration-ms="45496">
+  <suite started-at="2026-03-19T18:49:15 GMT+07:00" name="Demo" finished-at="2026-03-19T18:50:01 GMT+07:00" duration-ms="45723">
     <groups>
     </groups>
-    <test started-at="2026-03-17T14:11:01 GMT+07:00" name="App - Chrome" finished-at="2026-03-17T14:11:46 GMT+07:00" duration-ms="45496">
+    <test started-at="2026-03-19T18:49:15 GMT+07:00" name="App - Chrome" finished-at="2026-03-19T18:50:01 GMT+07:00" duration-ms="45723">
       <class name="demo.mobile.testScripts.DemoApp">
-        <test-method is-config="true" signature="beforeMethod(java.lang.String,java.lang.String)[pri:0, instance:demo.mobile.testScripts.DemoApp@2ca9368b]" started-at="2026-03-17T14:11:01 GMT+07:00" name="beforeMethod" finished-at="2026-03-17T14:11:10 GMT+07:00" duration-ms="9233" status="PASS">
+        <test-method is-config="true" signature="beforeMethod(java.lang.String,java.lang.String)[pri:0, instance:demo.mobile.testScripts.DemoApp@5c3e0c92]" started-at="2026-03-19T18:49:16 GMT+07:00" name="beforeMethod" finished-at="2026-03-19T18:49:26 GMT+07:00" duration-ms="10513" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -23,15 +23,15 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- beforeMethod -->
-        <test-method signature="LoginKTV()[pri:1, instance:demo.mobile.testScripts.DemoApp@2ca9368b]" started-at="2026-03-17T14:11:10 GMT+07:00" name="LoginKTV" finished-at="2026-03-17T14:11:42 GMT+07:00" duration-ms="32463" status="FAIL">
+        <test-method signature="LoginKTV()[pri:1, instance:demo.mobile.testScripts.DemoApp@5c3e0c92]" started-at="2026-03-19T18:49:26 GMT+07:00" name="LoginKTV" finished-at="2026-03-19T18:50:01 GMT+07:00" duration-ms="34358" status="FAIL">
           <exception class="java.lang.RuntimeException">
             <message>
               <![CDATA[Fallback W3C thất bại: Đã vuốt 5 lần nhưng không thấy By.xpath: //*[starts-with(@content-desc, 'YC-1118176')]]]>
             </message>
             <full-stacktrace>
               <![CDATA[java.lang.RuntimeException: Fallback W3C thất bại: Đã vuốt 5 lần nhưng không thấy By.xpath: //*[starts-with(@content-desc, 'YC-1118176')]
-at commons.BasePage.fallbackScrollW3C(BasePage.java:1407)
-at commons.BasePage.smartScrollToElement(BasePage.java:1487)
+at commons.BasePage.fallbackScrollW3C(BasePage.java:1402)
+at commons.BasePage.smartScrollToElement(BasePage.java:1482)
 at demo.mobile.pageObjects.DangNhapAppPO.scrollToTicket(DangNhapAppPO.java:29)
 at demo.mobile.testScripts.DemoApp.LoginKTV(DemoApp.java:28)
 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -106,7 +106,7 @@ at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:314)
           <reporter-output>
           </reporter-output>
         </test-method> <!-- LoginKTV -->
-        <test-method is-config="true" signature="afterMethod()[pri:0, instance:demo.mobile.testScripts.DemoApp@2ca9368b]" started-at="2026-03-17T14:11:46 GMT+07:00" name="afterMethod" finished-at="2026-03-17T14:11:46 GMT+07:00" duration-ms="439" status="PASS">
+        <test-method is-config="true" signature="afterMethod()[pri:0, instance:demo.mobile.testScripts.DemoApp@5c3e0c92]" started-at="2026-03-19T18:50:01 GMT+07:00" name="afterMethod" finished-at="2026-03-19T18:50:01 GMT+07:00" duration-ms="552" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- afterMethod -->

@@ -130,8 +130,8 @@
                   </a> <!-- LoginKTV -->
                   <span class="method-name">LoginKTV</span>
                   <div class="stack-trace">java.lang.RuntimeException: Fallback W3C thất bại: Đã vuốt 5 lần nhưng không thấy By.xpath: //*[starts-with(@content-desc, &apos;YC-1118176&apos;)]
-	at commons.BasePage.fallbackScrollW3C(BasePage.java:1407)
-	at commons.BasePage.smartScrollToElement(BasePage.java:1487)
+	at commons.BasePage.fallbackScrollW3C(BasePage.java:1402)
+	at commons.BasePage.smartScrollToElement(BasePage.java:1482)
 	at demo.mobile.pageObjects.DangNhapAppPO.scrollToTicket(DangNhapAppPO.java:29)
 	at demo.mobile.testScripts.DemoApp.LoginKTV(DemoApp.java:28)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
@@ -178,9 +178,6 @@
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;!DOCTYPE suite SYSTEM &quot;https://testng.org/testng-1.0.dtd&quot;&gt;
 &lt;suite name=&quot;Demo&quot; guice-stage=&quot;DEVELOPMENT&quot; verbose=&quot;0&quot;&gt;
-  &lt;listeners&gt;
-    &lt;listener class-name=&quot;report.TestListener&quot;/&gt;
-  &lt;/listeners&gt;
   &lt;test thread-count=&quot;5&quot; name=&quot;App - Chrome&quot; verbose=&quot;0&quot;&gt;
     &lt;parameter name=&quot;appiumUrl&quot; value=&quot;http://127.0.0.1:4723&quot;/&gt;
     &lt;parameter name=&quot;deviceName&quot; value=&quot;V350C&quot;/&gt;
@@ -229,12 +226,12 @@ data.addRows(1);
 data.setCell(0, 0, 0)
 data.setCell(0, 1, 'LoginKTV')
 data.setCell(0, 2, 'demo.mobile.testScripts.DemoApp')
-data.setCell(0, 3, 32463);
+data.setCell(0, 3, 34358);
 window.suiteTableData['Demo']= { tableData: data, tableDiv: 'times-div-Demo'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 32 seconds</span>
+              <span class="suite-total-time">Total running time: 34 seconds</span>
               <div id="times-div-Demo">
               </div> <!-- times-div-Demo -->
             </div> <!-- times-div -->
@@ -269,11 +266,11 @@ return data;
                 <img src="failed.png">
                 </img>
                 <span class="method-name">LoginKTV</span>
-                <span class="method-start">9296 ms</span>
+                <span class="method-start">10627 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">afterMethod</span>
-                <span class="method-start">44982 ms</span>
+                <span class="method-start">45047 ms</span>
               </div> <!-- configuration-method after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

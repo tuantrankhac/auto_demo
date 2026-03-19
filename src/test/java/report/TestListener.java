@@ -20,7 +20,7 @@ public class TestListener implements ITestListener {
             try {
                 WebDriver mobileDriver = ((BaseTest) testClass).getMobileDriver();
                 if (mobileDriver != null) {
-                    System.out.println("Bắt đầu chạy Test: " + result.getName() + " -> Tự động bật máy quay App.");
+                    Allure.step("Bắt đầu chạy Test: " + result.getName() + " -> Tự động bật máy quay App.");
                     VideoRecorderUtils.startRecording(mobileDriver);
                 }
             } catch (Exception e) {

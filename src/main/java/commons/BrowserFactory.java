@@ -421,7 +421,7 @@ public class BrowserFactory {
 
 		// Lưu trữ window handle của từng trình duyệt
 		windowHandles.add(getDriver().getWindowHandle());
-		System.out.println("Đã mở trình duyệt với ID: " + getDriver().getWindowHandle());
+		Allure.step("Đã mở trình duyệt với ID: " + getDriver().getWindowHandle());
 	}
 
 

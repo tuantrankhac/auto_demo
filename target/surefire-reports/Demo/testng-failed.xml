@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Failed suite [Demo]" guice-stage="DEVELOPMENT" verbose="0">
-  <listeners>
-    <listener class-name="report.TestListener"/>
-  </listeners>
   <test thread-count="5" name="App - Chrome(failed)" verbose="0">
     <parameter name="appiumUrl" value="http://127.0.0.1:4723"/>
     <parameter name="deviceName" value="V350C"/>
