@@ -2,16 +2,19 @@
   "V350C": {
     "platform": "android",
     "version": "10.0",
-    "udid": "BNS00000074"
+    "udid": "BNS00000074",
+    "orientation": "PORTRAIT"
   },
   "SAMSUNG_S23": {
     "platform": "android",
     "version": "13.0",
-    "udid": "RF8N123456"
+    "udid": "RF8N123456",
+    "orientation": "PORTRAIT"
   },
   "IPHONE_15": {
     "platform": "ios",
     "version": "17.0",
-    "udid": "uuid-cua-iphone-that"
+    "udid": "uuid-cua-iphone-that",
+    "orientation": "PORTRAIT"
   }
 }

@@ -2,6 +2,7 @@ package demo.mobile.pageObjects;
 
 import commons.BasePage;
 import demo.mobile.pageUIs.DangNhapAppPageUI;
+import utilities.DeviceUtils;
 
 import org.openqa.selenium.WebDriver;
 
@@ -34,6 +35,8 @@ public class DangNhapAppPO extends BasePage {
         waitForElementVisible(driver, DangNhapAppPageUI.DETAIL_DYNAMIC_TICKET, ticketID);
     }
 
-
+    public void rotateScreen(String orientationName){
+        DeviceUtils.rotateScreen(driver, orientationName);
+    }
 
 }   

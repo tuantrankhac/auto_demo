@@ -71,5 +71,4 @@ public class AppNotificationUtils {
         notification.click();
         Allure.step("Đã click vào thông báo để mở app.");
     }
-
 }

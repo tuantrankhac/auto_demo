@@ -24,9 +24,11 @@ public class DemoApp extends BaseTest{
         String userName = "0342992916";
         String password = "123456";
         String ticketID = "1118176";
+        String orientationDevice = "PORTRAIT";
         dangNhapAppPO.dangNhapApp(userName, password);
         dangNhapAppPO.scrollToTicket(ticketID);
         dangNhapAppPO.openDetailTicket(ticketID);
+        dangNhapAppPO.rotateScreen(orientationDevice);
     }
 
     

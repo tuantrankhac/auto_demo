@@ -11,6 +11,8 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URL;
 
+import org.openqa.selenium.ScreenOrientation;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -37,7 +39,7 @@ public class MobileFactory {
 
             // 2. ĐỌC CẤU HÌNH MÔI TRƯỜNG APP (từ stg.json / dev.json / prod.json)
             JsonNode envConfig = utilities.EnvironmentManager.getEnvConfig();
-            
+
             String platform = deviceConfig.get("platform").asText();
             AppiumDriver driverInstance;
 
@@ -46,7 +48,17 @@ public class MobileFactory {
                 UiAutomator2Options options = new UiAutomator2Options();
                 options.setDeviceName(deviceConfig.get("udid").asText());
                 options.setPlatformVersion(deviceConfig.get("version").asText());
-                //Reset/No reset app
+
+                // Đọc giá trị orientation từ file JSON, nếu không có thì mặc định là PORTRAIT
+                String orientationStr = deviceConfig.has("orientation")
+                        ? deviceConfig.get("orientation").asText().toUpperCase()
+                        : "PORTRAIT";
+
+                ScreenOrientation defaultOrientation = ScreenOrientation.valueOf(orientationStr);
+                // Set hướng xoay động theo thiết bị
+                options.setOrientation(defaultOrientation);
+
+                // Reset/No reset app
                 // options.setNoReset(false);
                 // options.setFullReset(false); // true: gỡ app và cài lại, false: không gỡ app
 
@@ -56,7 +68,8 @@ public class MobileFactory {
                 // --- Phần App lấy từ envConfig ---
                 JsonNode androidEnv = envConfig.get("android");
 
-                // Kiểm tra an toàn trước khi get() để tránh NullPointerException nếu prod không có appPath
+                // Kiểm tra an toàn trước khi get() để tránh NullPointerException nếu prod không
+                // có appPath
                 String appPath = androidEnv.has("appPath") ? androidEnv.get("appPath").asText() : "";
 
                 if (!appPath.isEmpty()) {
@@ -69,12 +82,11 @@ public class MobileFactory {
 
             } else {
                 XCUITestOptions options = new XCUITestOptions();
-                
+
                 options.setDeviceName(deviceConfig.get("udid").asText());
 
                 JsonNode iosEnv = envConfig.get("ios");
                 options.setBundleId(iosEnv.get("bundleId").asText());
-
 
                 // options.setNoReset(true);
                 // options.setFullReset(false);
@@ -82,7 +94,7 @@ public class MobileFactory {
                 // options.setAutoAcceptAlerts(true);
                 driverInstance = new IOSDriver(new URL(appiumUrl), options);
             }
-            
+
             CmdUtils.keepScreenOn(driverInstance);
             threadDriver.set(driverInstance);
             return getDriver();
