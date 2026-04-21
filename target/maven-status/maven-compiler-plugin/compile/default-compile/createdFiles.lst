@@ -3,6 +3,7 @@ constant\GlobalConstants.class
 utilities\PlatformUtils.class
 utilities\ContextUtils.class
 utilities\StringUtils.class
+utilities\DeviceUtils.class
 utilities\VerificationFailures.class
 utilities\CmdUtils.class
 utilities\DataUtils.class

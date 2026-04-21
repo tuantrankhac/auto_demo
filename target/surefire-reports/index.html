@@ -25,7 +25,7 @@
       <span class="top-banner-title-font">Test results</span>
       <button id="button" class="button">Switch Retro Theme</button> <!-- button -->
       <br/>
-      <span class="top-banner-font-1">1 suite, 1 failed test</span>
+      <span class="top-banner-font-1">1 suite</span>
     </div> <!-- top-banner-root -->
     <div class="navigator-root">
       <div class="navigator-suite-header">
@@ -39,7 +39,7 @@
         <div class="rounded-window">
           <div class="suite-header light-rounded-window-top">
             <a href="#" panel-name="suite-Demo" class="navigator-link">
-              <span class="suite-name border-failed">Demo</span>
+              <span class="suite-name border-skipped">Demo</span>
             </a> <!-- navigator-link -->
           </div> <!-- suite-header light-rounded-window-top -->
           <div class="navigator-suite-content">
@@ -92,21 +92,21 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">1 method, 1 failed,   </span>
+                    <span class="method-stats">1 method,  1 skipped,  </span>
                   </li>
                   <li>
-                    <span class="method-list-title failed">Failed methods</span>
-                    <span class="show-or-hide-methods failed">
-                      <a href="#" panel-name="suite-Demo" class="hide-methods failed suite-Demo"> (hide)</a> <!-- hide-methods failed suite-Demo -->
-                      <a href="#" panel-name="suite-Demo" class="show-methods failed suite-Demo"> (show)</a> <!-- show-methods failed suite-Demo -->
+                    <span class="method-list-title skipped">Skipped methods</span>
+                    <span class="show-or-hide-methods skipped">
+                      <a href="#" panel-name="suite-Demo" class="hide-methods skipped suite-Demo"> (hide)</a> <!-- hide-methods skipped suite-Demo -->
+                      <a href="#" panel-name="suite-Demo" class="show-methods skipped suite-Demo"> (show)</a> <!-- show-methods skipped suite-Demo -->
                     </span>
-                    <div class="method-list-content failed suite-Demo">
+                    <div class="method-list-content skipped suite-Demo">
                       <span>
-                        <img src="failed.png" width="3%"/>
+                        <img src="skipped.png" width="3%"/>
                         <a href="#" panel-name="suite-Demo" title="demo.mobile.testScripts.DemoApp" class="method navigator-link" hash-for-method="LoginKTV">LoginKTV</a> <!-- method navigator-link -->
                       </span>
                       <br/>
-                    </div> <!-- method-list-content failed suite-Demo -->
+                    </div> <!-- method-list-content skipped suite-Demo -->
                   </li>
                 </ul>
               </div> <!-- suite-section-content -->
@@ -118,9 +118,9 @@
     <div class="wrapper">
       <div class="main-panel-root">
         <div panel-name="suite-Demo" class="panel Demo">
-          <div class="suite-Demo-class-failed">
+          <div class="suite-Demo-class-skipped">
             <div class="main-panel-header rounded-window-top">
-              <img src="failed.png"/>
+              <img src="skipped.png"/>
               <span class="class-name">demo.mobile.testScripts.DemoApp</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
@@ -129,11 +129,16 @@
                   <a name="LoginKTV">
                   </a> <!-- LoginKTV -->
                   <span class="method-name">LoginKTV</span>
-                  <div class="stack-trace">java.lang.RuntimeException: Fallback W3C thất bại: Đã vuốt 5 lần nhưng không thấy By.xpath: //*[starts-with(@content-desc, &apos;YC-1118176&apos;)]
-	at commons.BasePage.fallbackScrollW3C(BasePage.java:1402)
-	at commons.BasePage.smartScrollToElement(BasePage.java:1482)
-	at demo.mobile.pageObjects.DangNhapAppPO.scrollToTicket(DangNhapAppPO.java:29)
-	at demo.mobile.testScripts.DemoApp.LoginKTV(DemoApp.java:28)
+                  <div class="stack-trace">java.lang.RuntimeException: Lỗi khởi tạo driver cho V350C: Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. 
+Host info: host: &apos;ADMIN-PC&apos;, ip: &apos;192.168.2.8&apos;
+Build info: version: &apos;4.24.0&apos;, revision: &apos;748ffc9bc3&apos;
+System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;17.0.12&apos;
+Driver info: io.appium.java_client.android.AndroidDriver
+Command: [null, newSession {capabilities=[Capabilities {appium:appActivity: com.sharitek.lada.MainActivity, appium:appPackage: com.sharitek.lada, appium:automationName: UIAutomator2, appium:deviceName: BNS00000074, appium:orientation: PORTRAIT, appium:platformVersion: 10.0, platformName: ANDROID}]}]
+Capabilities {appium:appActivity: com.sharitek.lada.MainActivity, appium:appPackage: com.sharitek.lada, appium:automationName: UIAutomator2, appium:deviceName: BNS00000074, appium:orientation: PORTRAIT, appium:platformVersion: 10.0, platformName: ANDROID}
+	at commons.MobileFactory.createMobileDriver(MobileFactory.java:103)
+	at commons.BaseTest.getMobileDriver(BaseTest.java:18)
+	at demo.mobile.testScripts.DemoApp.beforeMethod(DemoApp.java:17)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
 	at org.apache.maven.plugin.surefire.InPluginVMSurefireStarter.runSuitesInProcess(InPluginVMSurefireStarter.java:91)
 	at org.apache.maven.plugin.surefire.AbstractSurefireMojo.executeProvider(AbstractSurefireMojo.java:1308)
@@ -162,12 +167,12 @@
 	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:201)
 	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:361)
 	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:314)
-... Removed 38 stack frames
+... Removed 42 stack frames
 </div> <!-- stack-trace -->
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
-          </div> <!-- suite-Demo-class-failed -->
+          </div> <!-- suite-Demo-class-skipped -->
         </div> <!-- panel Demo -->
         <div panel-name="test-xml-Demo" class="panel">
           <div class="main-panel-header rounded-window-top">
@@ -226,12 +231,12 @@ data.addRows(1);
 data.setCell(0, 0, 0)
 data.setCell(0, 1, 'LoginKTV')
 data.setCell(0, 2, 'demo.mobile.testScripts.DemoApp')
-data.setCell(0, 3, 34358);
+data.setCell(0, 3, 0);
 window.suiteTableData['Demo']= { tableData: data, tableDiv: 'times-div-Demo'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 34 seconds</span>
+              <span class="suite-total-time">Total running time: 0 ms</span>
               <div id="times-div-Demo">
               </div> <!-- times-div-Demo -->
             </div> <!-- times-div -->
@@ -259,18 +264,18 @@ return data;
             <div class="chronological-class">
               <div class="chronological-class-name">demo.mobile.testScripts.DemoApp</div> <!-- chronological-class-name -->
               <div class="configuration-method before">
+                <img src="failed.png">
+                </img>
                 <span class="method-name">beforeMethod(V350C, http://127.0.0.1:4723)</span>
                 <span class="method-start">0 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
-                <img src="failed.png">
-                </img>
                 <span class="method-name">LoginKTV</span>
-                <span class="method-start">10627 ms</span>
+                <span class="method-start">1475 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">afterMethod</span>
-                <span class="method-start">45047 ms</span>
+                <span class="method-start">1491 ms</span>
               </div> <!-- configuration-method after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

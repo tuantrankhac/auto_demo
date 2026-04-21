@@ -50,6 +50,18 @@ public class ReadExcelFile extends BaseTest {
         String password = data.get("Password");
         readExcelFilePO.loginPage(userName, password);
     }
+
+
+    @Test
+    public void TC02_testGetAndLockAvailableData() {
+        String fileName = "LoginData.xlsx";
+        String sheetName = "Login Data";
+        Map<String, Object> data = ExcelUtils.getAndLockAvailableData(fileName, sheetName);
+        System.out.println(data.get("username"));
+        System.out.println(data.get("password"));
+        System.out.println(data.get("rowIndex"));
+        System.out.println(data.get("sheetName"));
+    }
     
 
     @AfterMethod(alwaysRun = true)
