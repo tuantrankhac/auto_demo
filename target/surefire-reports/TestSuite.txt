@@ -1,19 +1,29 @@
 -------------------------------------------------------------------------------
 Test set: TestSuite
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 46.59 s <<< FAILURE! -- in TestSuite
-demo.mobile.testScripts.DemoApp.LoginKTV -- Time elapsed: 35.68 s <<< FAILURE!
-java.lang.RuntimeException: Fallback W3C thất bại: Đã vuốt 5 lần nhưng không thấy By.xpath: //*[starts-with(@content-desc, 'YC-1118176')]
-	at commons.BasePage.fallbackScrollW3C(BasePage.java:1407)
-	at commons.BasePage.smartScrollToElement(BasePage.java:1487)
-	at demo.mobile.pageObjects.DangNhapAppPO.scrollToTicket(DangNhapAppPO.java:29)
-	at demo.mobile.testScripts.DemoApp.LoginKTV(DemoApp.java:28)
+Tests run: 2, Failures: 1, Errors: 0, Skipped: 1, Time elapsed: 3.136 s <<< FAILURE! -- in TestSuite
+demo.mobile.testScripts.DemoApp.beforeMethod[V350C, http://127.0.0.1:4723](0) -- Time elapsed: 2.864 s <<< FAILURE!
+java.lang.RuntimeException: 
+Lỗi khởi tạo driver cho V350C: Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure. 
+Host info: host: 'ADMIN-PC', ip: '192.168.2.8'
+Build info: version: '4.24.0', revision: '748ffc9bc3'
+System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.12'
+Driver info: io.appium.java_client.android.AndroidDriver
+Command: [null, newSession {capabilities=[Capabilities {appium:appActivity: com.sharitek.lada.MainActivity, appium:appPackage: com.sharitek.lada, appium:automationName: UIAutomator2, appium:deviceName: BNS00000074, appium:orientation: PORTRAIT, appium:platformVersion: 10.0, platformName: ANDROID}]}]
+Capabilities {appium:appActivity: com.sharitek.lada.MainActivity, appium:appPackage: com.sharitek.lada, appium:automationName: UIAutomator2, appium:deviceName: BNS00000074, appium:orientation: PORTRAIT, appium:platformVersion: 10.0, platformName: ANDROID}
+	at commons.MobileFactory.createMobileDriver(MobileFactory.java:103)
+	at commons.BaseTest.getMobileDriver(BaseTest.java:18)
+	at demo.mobile.testScripts.DemoApp.beforeMethod(DemoApp.java:17)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
 	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
-	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethodConsideringTimeout(MethodInvocationHelper.java:69)
+	at org.testng.internal.invokers.ConfigInvoker.invokeConfigurationMethod(ConfigInvoker.java:393)
+	at org.testng.internal.invokers.ConfigInvoker.invokeConfigurations(ConfigInvoker.java:326)
+	at org.testng.internal.invokers.TestInvoker.runConfigMethods(TestInvoker.java:810)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:578)
 	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:228)
 	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
 	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:961)

@@ -1,25 +1,20 @@
 {
-    "V350C": {
-      "platform": "android",
-      "version": "10.0",
-      "udid": "BNS00000074",
-      "appPackage": "com.sharitek.lada",
-      "appActivity": "com.sharitek.lada.MainActivity",
-      "appPath": ""
-    },
-    "SAMSUNG_S23": {
-      "platform": "android",
-      "version": "13.0",
-      "udid": "RF8N123456",
-      "appPackage": "com.example.myapp",
-      "appActivity": ".MainActivity",
-      "appPath": "./uploadFiles/video_app_CRM_Stg (2).apk"
-    },
-    "IPHONE_15": {
-      "platform": "ios",
-      "version": "17.0",
-      "udid": "uuid-cua-iphone-that",
-      "bundleId": "com.example.bundleid",
-      "appPath": ""
-    }
+  "V350C": {
+    "platform": "android",
+    "version": "10.0",
+    "udid": "BNS00000074",
+    "orientation": "PORTRAIT"
+  },
+  "SAMSUNG_S23": {
+    "platform": "android",
+    "version": "13.0",
+    "udid": "RF8N123456",
+    "orientation": "PORTRAIT"
+  },
+  "IPHONE_15": {
+    "platform": "ios",
+    "version": "17.0",
+    "udid": "uuid-cua-iphone-that",
+    "orientation": "PORTRAIT"
   }
+}

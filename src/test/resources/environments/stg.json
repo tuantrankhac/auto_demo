@@ -1,0 +1,12 @@
+{
+  "android": {
+    "appPath": "",
+    "appPackage": "com.sharitek.lada",
+    "appActivity": "com.sharitek.lada.MainActivity"
+  },
+  "ios": {
+    "appPath": "",
+    "bundleId": "com.sharitek.lada.ios.stg"
+  },
+  "apiUrl": "https://api-staging.sharitek.com/v1"
+}

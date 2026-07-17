@@ -1,0 +1,1 @@
+{"42a7d271a26cd5ef1bf9677f717e1a08":{"statistic":{"failed":0,"broken":1,"skipped":0,"passed":0,"unknown":0,"total":1},"items":[{"uid":"8c582021aea1e7b4","status":"broken","statusDetails":"Fallback W3C thất bại: Đã vuốt 5 lần nhưng không thấy By.xpath: //*[starts-with(@content-desc, 'YC-1118176')]","time":{"start":1773920966761,"stop":1773921001067,"duration":34306}}]}}

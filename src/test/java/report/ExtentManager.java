@@ -8,6 +8,7 @@ import com.aventstack.extentreports.reporter.configuration.Theme;
 import org.openqa.selenium.Platform;
 
 import constant.GlobalConstants ;
+import io.qameta.allure.Allure;
 
 public class ExtentManager {
 	private static ExtentReports extent;
@@ -46,15 +47,15 @@ public class ExtentManager {
 			case MAC:
 				reportFileLocation = macReportFileLoc;
 				createReportPath(reportPath);
-				System.out.println("ExtentReport Path for MAC: " + reportPath + "\n");
+				Allure.step("ExtentReport Path for MAC: " + reportPath + "\n");
 				break;
 			case WINDOWS:
 				reportFileLocation = winReportFileLoc;
 				createReportPath(reportPath);
-				System.out.println("ExtentReport Path for WINDOWS: " + reportPath + "\n");
+				Allure.step("ExtentReport Path for WINDOWS: " + reportPath + "\n");
 				break;
 			default:
-				System.out.println("ExtentReport path has not been set! There is a problem!\n");
+				Allure.step("ExtentReport path has not been set! There is a problem!\n");
 				break;
 		}
 		return reportFileLocation;
@@ -65,12 +66,12 @@ public class ExtentManager {
 		File testDirectory = new File(path);
 		if (!testDirectory.exists()) {
 			if (testDirectory.mkdir()) {
-				System.out.println("Directory: " + path + " is created!");
+				Allure.step("Directory: " + path + " is created!");
 			} else {
-				System.out.println("Failed to create directory: " + path);
+				Allure.step("Failed to create directory: " + path);
 			}
 		} else {
-			System.out.println("Directory already exists: " + path);
+			Allure.step("Directory already exists: " + path);
 		}
 	}
 

@@ -16,7 +16,7 @@ public class AppStateUtils {
 			// Truyền Duration âm (-1) để app nằm yên dưới background
 			((InteractsWithApps) driver).runAppInBackground(Duration.ofSeconds(-1));
 		} else {
-			System.out.println("Cảnh báo: Driver không hỗ trợ Appium InteractsWithApps.");
+			Allure.step("Cảnh báo: Driver không hỗ trợ Appium InteractsWithApps.");
 		}
 	}
 

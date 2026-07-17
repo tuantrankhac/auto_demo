@@ -34,7 +34,7 @@ public class DbConnection {
                 throw new SQLException("Driver không tìm thấy: " + DRIVER_CLASS, e);
             }
             connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            System.out.println("Kết nối DB thành công!");
+            Allure.step("Kết nối DB thành công!");
         }
     }
 
@@ -42,7 +42,7 @@ public class DbConnection {
     public static void disconnect() throws SQLException {
         if (connection != null && !connection.isClosed()) {
             connection.close();
-            System.out.println("Đóng kết nối DB.");
+            Allure.step("Đóng kết nối DB.");
         }
     }
 

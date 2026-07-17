@@ -14,6 +14,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
+import io.qameta.allure.Allure;
 
 public class AppNotificationUtils {
     // ==========================================
@@ -21,11 +22,11 @@ public class AppNotificationUtils {
     // ==========================================
     public static void openNotificationShade(WebDriver driver) {
         if (driver instanceof AndroidDriver) {
-            System.out.println("Mở thanh thông báo trên Android...");
+            Allure.step("Mở thanh thông báo trên Android...");
             ((AndroidDriver) driver).openNotifications();
             
         } else if (driver instanceof IOSDriver) {
-            System.out.println("Vuốt mở Notification Center trên iOS...");
+            Allure.step("Vuốt mở Notification Center trên iOS...");
             // Dùng W3C Actions để vuốt từ mép trên cùng (Top Edge) xuống giữa màn hình
             int screenWidth = driver.manage().window().getSize().getWidth();
             int screenHeight = driver.manage().window().getSize().getHeight();
@@ -64,11 +65,10 @@ public class AppNotificationUtils {
         WebElement notification = wait.until(ExpectedConditions.visibilityOfElementLocated(notiLocator));
         
         // Bạn có thể lấy text ra để ghi log hoặc Assert bổ sung nếu cần
-        System.out.println("Đã tìm thấy thông báo: " + notification.getText());
+        Allure.step("Đã tìm thấy thông báo: " + notification.getText());
         
         // Click vào thông báo để mở App
         notification.click();
-        System.out.println("Đã click vào thông báo để mở app.");
+        Allure.step("Đã click vào thông báo để mở app.");
     }
-
 }

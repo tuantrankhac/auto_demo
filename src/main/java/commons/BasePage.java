@@ -14,6 +14,8 @@ import constant.GlobalConstants;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
 import io.qameta.allure.Allure;
+import utilities.ContextUtils;
+import utilities.PlatformUtils;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -367,7 +369,7 @@ public class BasePage {
 		if (select.isMultiple()) {
 			select.deselectByVisibleText(optionText);
 		} else {
-			System.out.println("Không phải multi-select");
+			Allure.step("Không phải multi-select");
 		}
 	}
 
@@ -377,7 +379,7 @@ public class BasePage {
 		if (select.isMultiple()) {
 			select.deselectAll();
 		} else {
-			System.out.println("Không phải multi-select");
+			Allure.step("Không phải multi-select");
 		}
 	}
 
@@ -468,21 +470,21 @@ public class BasePage {
 	}
 
 	public boolean isElementUndisplayed(WebDriver driver, By locator) {
-		System.out.println("Start time = " + new Date().toString());
+		Allure.step("Start time = " + new Date().toString());
 		overrideGlobalTimeout(driver, shortTimeout);
 		List<WebElement> elements = getListWebElement(driver, locator);
 		overrideGlobalTimeout(driver, longTimeout);
 
 		if (elements.size() == 0) {
-			System.out.println("Element not in DOM");
-			System.out.println("End time = " + new Date().toString());
+			Allure.step("Element not in DOM");
+			Allure.step("End time = " + new Date().toString());
 			return true;
 		} else if (elements.size() > 0 && !elements.get(0).isDisplayed()) {
-			System.out.println("Element in DOM but not visible on UI");
-			System.out.println("End time = " + new Date().toString());
+			Allure.step("Element in DOM but not visible on UI");
+			Allure.step("End time = " + new Date().toString());
 			return true;
 		} else {
-			System.out.println("Element in DOM and visible on UI");
+			Allure.step("Element in DOM and visible on UI");
 			return false;
 		}
 	}
@@ -868,7 +870,7 @@ public class BasePage {
 			explicitWait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 			Allure.step("Element có hiển thị");
 		} catch (Exception e) {
-			System.out.println("Không tìm thấy Element");
+			Allure.step("Không tìm thấy Element");
 			Allure.step("Element không hiển thị");
 		}
 	}
@@ -880,7 +882,7 @@ public class BasePage {
 			explicitWait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 			Allure.step("Element có hiển thị");
 		} catch (Exception e) {
-			System.out.println("Không tìm thấy Element");
+			Allure.step("Không tìm thấy Element");
 			Allure.step("Element không hiển thị");
 		}
 	}
@@ -919,7 +921,7 @@ public class BasePage {
 			explicitWait.until(ExpectedConditions.presenceOfElementLocated(locator));
 			Allure.step("Element có tồn tại trong DOM");
 		} catch (Exception e) {
-			System.out.println("Element không tồn tại trong DOM");
+			Allure.step("Element không tồn tại trong DOM");
 			Allure.step("Element không tồn tại trong DOM");
 		}
 	}
@@ -942,10 +944,10 @@ public class BasePage {
 					.visibilityOfElementLocated(by));
 			Allure.step("Element có hiển thị");
 		} catch (TimeoutException e) {
-			System.out.println("Không tìm thấy Element");
+			Allure.step("Không tìm thấy Element");
 			Allure.step("Element không hiển thị");
 		} catch (Exception e) {
-			System.out.println("Không tìm thấy Element");
+			Allure.step("Không tìm thấy Element");
 			Allure.step("Element không hiển thị");
 		}
 	}
@@ -1319,13 +1321,6 @@ public class BasePage {
 
 	// ===================================APP=======================================
 
-	private boolean isAndroid(WebDriver driver) {
-		return getAppiumDriver(driver) instanceof io.appium.java_client.android.AndroidDriver;
-	}
-
-	private boolean isIOS(WebDriver driver) {
-		return getAppiumDriver(driver) instanceof io.appium.java_client.ios.IOSDriver;
-	}
 
 	private boolean scrollAndroidNative(WebDriver driver, String uiSelectorCondition) {
 		Allure.step("Android Native Scroll với điều kiện " + uiSelectorCondition);
@@ -1425,9 +1420,9 @@ public class BasePage {
 		boolean isNativeSuccess = false;
 
 		// 1. Thử dùng sức mạnh Native của hệ điều hành
-		if (isAndroid(driver)) {
+		if (PlatformUtils.isAndroid(driver)) {
 			isNativeSuccess = scrollAndroidNative(driver, androidTextToFind);
-		} else if (isIOS(driver)) {
+		} else if (PlatformUtils.isIOS(driver)) {
 			isNativeSuccess = scrollIOSNative(driver, iosPredicate);
 		}
 
@@ -1439,7 +1434,7 @@ public class BasePage {
 				Allure.step("Smart Scroll thành công bằng Native Engine.");
 				return; // Kết thúc hàm nếu thành công
 			} catch (Exception e) {
-				System.out.println("Native Scroll báo thành công nhưng element chưa visible. Chuyển sang Fallback.");
+				Allure.step("Native Scroll báo thành công nhưng element chưa visible. Chuyển sang Fallback.");
 				isNativeSuccess = false;
 			}
 		}
@@ -1457,12 +1452,12 @@ public class BasePage {
 		boolean isNativeSuccess = false;
 
 		// 1. Thử dùng sức mạnh Native của hệ điều hành
-		if (isAndroid(driver)) {
+		if (PlatformUtils.isAndroid(driver)) {
 			// Lắp params (ví dụ: mã ticket) vào chuỗi điều kiện SCROLL_CONDITION trước khi
 			// cuộn
 			String finalAndroidCondition = String.format(androidCondition, (Object[]) params);
 			isNativeSuccess = scrollAndroidNative(driver, finalAndroidCondition);
-		} else if (isIOS(driver)) {
+		} else if (PlatformUtils.isIOS(driver)) {
 			// Tương tự cho iOS
 			String finalIosPredicate = String.format(iosPredicate, (Object[]) params);
 			isNativeSuccess = scrollIOSNative(driver, finalIosPredicate);
@@ -1476,7 +1471,7 @@ public class BasePage {
 				Allure.step("Smart Scroll thành công bằng Native Engine.");
 				return; // Kết thúc hàm nếu thành công
 			} catch (Exception e) {
-				System.out.println("Native Scroll báo thành công nhưng element chưa visible. Chuyển sang Fallback.");
+				Allure.step("Native Scroll báo thành công nhưng element chưa visible. Chuyển sang Fallback.");
 				isNativeSuccess = false;
 			}
 		}
@@ -1506,5 +1501,18 @@ public class BasePage {
 
 		getAppiumDriver(driver).perform(Collections.singletonList(swipe));
 	}
+
+	protected void switchToWebViewContext(WebDriver driver){
+		boolean isSwitched = ContextUtils.switchToWebView(driver);
+        if (isSwitched) {
+            // Ép hệ thống đợi 2 giây để DOM của Web render hoàn tất 
+            // (Đúng như kinh nghiệm tránh flaky của bạn)
+            sleepInMiliSecond(2000); 
+        }
+    }
+
+    protected void switchToNativeContext(WebDriver driver) {
+        ContextUtils.switchToNative(driver);
+    }
 
 }

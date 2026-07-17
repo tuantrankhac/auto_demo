@@ -3,6 +3,7 @@ package demo.web.pageObjects;
 import commons.BasePage;
 import commons.PageGenerator;
 import demo.web.pageUIs.TrangChuPageUI;
+import io.qameta.allure.Allure;
 
 import org.openqa.selenium.WebDriver;
 
@@ -19,7 +20,7 @@ public class TrangChuPO extends BasePage {
             clickToElement(driver, TrangChuPageUI.SIDEBAR_MENU);
             sleepInMiliSecond(2000);
         } catch (Exception e) {
-            System.out.println("Không thể click toggle sidebar: " + e.getMessage());
+            Allure.step("Không thể click toggle sidebar: " + e.getMessage());
         }
         // Bước 2: Kiểm tra menu mong muốn có thể click
         try {

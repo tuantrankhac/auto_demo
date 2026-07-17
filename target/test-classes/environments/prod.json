@@ -1,0 +1,12 @@
+{
+  "android": {
+    "appPath": "./uploadFiles/video_app_CRM_Stg (2).apk", 
+    "appPackage": "vn.com.oxii.crm.prod",
+    "appActivity": "vn.com.oxii.crm.MainActivity"
+  },
+  "ios": {
+    "appPath": "",
+    "bundleId": "vn.com.oxii.crm.ios.prod"
+  },
+  "apiUrl": "https://api.oxii.com/v1"
+}

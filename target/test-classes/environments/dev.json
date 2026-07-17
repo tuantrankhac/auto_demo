@@ -1,0 +1,12 @@
+{
+  "android": {
+    "appPath": "src/test/resources/apps/crm-dev-v1.0.apk",
+    "appPackage": "vn.com.oxii.crm.dev",
+    "appActivity": "vn.com.oxii.crm.MainActivity"
+  },
+  "ios": {
+    "appPath": "src/test/resources/apps/crm-dev-v1.0.ipa",
+    "bundleId": "vn.com.oxii.crm.ios.dev"
+  },
+  "apiUrl": "https://api-dev.oxii.com/v1"
+}

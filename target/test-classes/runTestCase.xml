@@ -110,13 +110,13 @@
     </classes>
   </test> -->
 
-  <!-- <test name="Handle Download File - Chrome">
+  <test name="Handle Download File - Chrome">
     <parameter name="browser" value="chrome"/>
     <parameter name="url" value="https://filesamples.com/formats/pdf"/>
     <classes>
-      <class name="demo.testSuites.HandleDownloadFile"/>
+      <class name="demo.web.testScripts.HandleDownloadFile"/>
     </classes>
-  </test> -->
+  </test>
 
   <!-- <test name="API Test - Chrome">
     <test name="API Test - Chrome" parallel="tests" thread-count="2">
@@ -125,13 +125,13 @@
     </classes>
   </test> -->
 
-  <test name="App - Chrome">
+  <!-- <test name="App - Chrome">
     <!-- <test name="API Test - Chrome" parallel="tests" thread-count="2"> -->
     <parameter name="deviceName" value="V350C"/>
     <parameter name="appiumUrl" value="http://127.0.0.1:4723" />
     <classes>
       <class name="demo.mobile.testScripts.DemoApp"/>
     </classes>
-  </test>
+  </test> -->
 
 </suite>
