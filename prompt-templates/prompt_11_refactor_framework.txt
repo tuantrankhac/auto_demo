@@ -1,0 +1,9 @@
+Refactor framework / module {PhạmVi}.
+
+Yêu cầu:
+- Phân tích duplicate locator, duplicate action, dead code, naming lệch convention.
+- Đề xuất kế hoạch refactor trước khi sửa (ưu nhược điểm nếu có nhiều hướng).
+- Không thay đổi business logic sản phẩm.
+- Diff nhỏ nhất có thể — chỉ sửa file liên quan.
+- Không sửa file core (BasePage, BrowserFactory, MobileFactory...) trừ khi được yêu cầu rõ.
+- Sau refactor: tóm tắt thay đổi + rủi ro + checklist verify.

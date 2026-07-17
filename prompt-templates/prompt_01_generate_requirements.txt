@@ -1,0 +1,12 @@
+Generate Requirements từ website.
+
+Yêu cầu:
+- Sử dụng Browser MCP để mở URL: {URL}
+- Đọc DOM / nội dung màn hình hiện tại.
+- Phân tích nghiệp vụ, business rule, điều kiện, thành phần UI, điều hướng.
+- Sinh file Requirement theo format practices/requirements (tham khảo Login.md nếu có).
+- Lưu vào practices/requirements/{Module}.md
+- Không generate Testcase / Automation trong bước này.
+
+Module: {ModuleName}
+URL: {URL}

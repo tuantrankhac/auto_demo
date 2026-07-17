@@ -125,12 +125,19 @@
     </classes>
   </test> -->
 
-  <test name="App - Chrome">
-    <!-- <test name="API Test - Chrome" parallel="tests" thread-count="2"> -->
+  <!-- <test name="App - Chrome">
     <parameter name="deviceName" value="V350C"/>
     <parameter name="appiumUrl" value="http://127.0.0.1:4723" />
     <classes>
       <class name="demo.mobile.testScripts.DemoApp"/>
+    </classes>
+  </test> -->
+
+  <test name="Login Module - Chrome">
+    <parameter name="browser" value="chrome"/>
+    <parameter name="url" value="https://stg-crm.smarthiz.vn/login"/>
+    <classes>
+      <class name="demo.web.testScripts.LoginTest"/>
     </classes>
   </test>
 

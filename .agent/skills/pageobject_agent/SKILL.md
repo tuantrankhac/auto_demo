@@ -80,21 +80,107 @@ Utility
 
 ## 2.
 
-Kiểm tra PageObject đã tồn tại chưa.
+Kiểm tra PageObject / PageUI đã tồn tại hoặc có tên tương đồng.
 
-Nếu đã có.
+**Bắt buộc** trước khi tạo class mới:
+
+### 2.1. Tìm class theo tên chính xác
+
+Tìm trong package tương ứng:
+
+- PageObject: `*PO`, `*Page`, `*Screen`
+- PageUI: `*PageUI`, `*ScreenUI`
+
+Nếu tìm thấy đúng tên yêu cầu (vd: `LoginPage`, `LoginPageUI`).
 
 ↓
 
-Mở rộng.
+Đọc toàn bộ class hiện có.
 
-Không tạo class mới.
+↓
+
+**Mở rộng** (bổ sung method / locator còn thiếu).
+
+↓
+
+**Không** tạo class mới trùng chức năng.
+
+---
+
+### 2.2. Tìm class có tên tương đồng
+
+Nếu chưa có đúng tên, vẫn phải tìm class **tương đồng** (cùng màn hình / cùng nghiệp vụ, khác ngôn ngữ hoặc hậu tố).
+
+Ví dụ tên tương đồng:
+
+| Yêu cầu | Có thể đã tồn tại |
+|---------|-------------------|
+| `LoginPage` / `LoginPO` | `DangNhapPO`, `DangNhapPage` |
+| `LoginPageUI` | `DangNhapPageUI` |
+| `HomePage` / `TrangChuPO` | `HomePO`, `TrangChuPage` |
+| `ForgotPasswordPage` | `QuenMatKhauPO` |
+
+Cách nhận diện tương đồng (một trong các tín hiệu):
+
+- Cùng URL / path màn hình
+- Cùng module / requirement (vd: Login)
+- Cùng bộ locator chính (username, password, login button...)
+- Tên dịch nghĩa EN ↔ VI hoặc khác hậu tố (`Page` / `PO` / `Screen`)
+
+---
+
+### 2.3. So sánh mức độ giống nhau
+
+Khi tìm thấy class tương đồng, **đọc và so sánh** với yêu cầu hiện tại:
+
+| Tiêu chí | Giống nhau (cùng màn hình) | Không giống (khác màn hình) |
+|----------|----------------------------|-----------------------------|
+| Mục đích nghiệp vụ | Cùng flow (vd: đăng nhập) | Khác flow |
+| Locator / control chính | Trùng hoặc gần trùng | Khác hẳn |
+| URL / package app | Cùng | Khác |
+| Method hiện có | Có thể tái sử dụng / mở rộng | Không liên quan |
+
+---
+
+### 2.4. Quyết định: Mở rộng hay Tạo mới
+
+```
+Tìm thấy đúng tên hoặc tên tương đồng
+        │
+        ▼
+So sánh PageObject / PageUI hiện có với yêu cầu
+        │
+        ├── Giống nhau (cùng màn hình / cùng nghiệp vụ)
+        │         │
+        │         ▼
+        │   MỞ RỘNG file hiện có
+        │   - Bổ sung locator còn thiếu vào PageUI hiện có
+        │   - Bổ sung action còn thiếu vào PageObject hiện có
+        │   - Không tạo LoginPage song song với DangNhapPO
+        │   - Không tạo LoginPageUI song song với DangNhapPageUI
+        │
+        └── Không giống nhau
+                  │
+                  ▼
+            TẠO MỚI class theo tên yêu cầu / convention
+```
+
+**Ví dụ áp dụng:**
+
+- Đã có `DangNhapPO` + `DangNhapPageUI` cho cùng màn Login → yêu cầu `LoginPage` / `LoginPageUI` → **mở rộng** `DangNhap*`, không tạo cặp file mới.
+- Đã có `DangNhapPO` nhưng cho app/mobile khác hoặc URL khác hẳn → **tạo mới** `LoginPage` / `LoginPageUI`.
+
+Nếu không chắc giống hay khác.
+
+↓
+
+Hỏi USER trước khi tạo mới.
 
 ---
 
 ## 3.
 
-Đọc PageUI.
+Đọc PageUI (sau khi đã chọn đúng file ở bước 2).
 
 Xác định:
 
@@ -102,7 +188,13 @@ Locator nào đã tồn tại.
 
 Locator nào còn thiếu.
 
-Không generate Locator.
+Không generate Locator trong PageObject.
+
+Nếu thiếu Locator.
+
+↓
+
+Yêu cầu Smart Locator Agent **mở rộng PageUI đã chọn** (không tạo PageUI trùng nghiệp vụ).
 
 ---
 
@@ -391,6 +483,10 @@ Không gọi Selenium trực tiếp trong Test Script.
 Không duplicate code.
 
 Không bypass BasePage.
+
+Không tạo PageObject / PageUI mới khi đã có class đúng tên hoặc tên tương đồng cùng nghiệp vụ — phải mở rộng file hiện có.
+
+Không tạo cặp song song kiểu `LoginPage` + `DangNhapPO` (hoặc `LoginPageUI` + `DangNhapPageUI`) cho cùng một màn hình.
 
 ---
 

@@ -1,0 +1,12 @@
+Generate PageObject cho module {ModuleName}.
+
+Yêu cầu:
+- Sử dụng {ModuleName}PageUI.java (hoặc PageUI tương đồng) hiện có.
+- Tuân thủ BasePage của framework.
+- Kiểm tra PageObject đã tồn tại hoặc tên tương đồng (vd: LoginPage ↔ DangNhapPO).
+  - Giống nhau → mở rộng file hiện có.
+  - Không giống → tạo mới.
+- Sinh đầy đủ các action nghiệp vụ.
+- Không sinh Verify / Assert trong PageObject.
+- Đăng ký PageGenerator nếu thêm class mới.
+- Không sinh Test Script trong bước này.

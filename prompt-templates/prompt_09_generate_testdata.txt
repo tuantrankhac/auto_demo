@@ -1,0 +1,10 @@
+Generate testdata cho module {ModuleName}.
+
+Yêu cầu:
+- Đọc requirement tại practices/requirements/{ModuleName}.md
+- Đọc testcase tại practices/testcases/{ModuleName}.xlsx (nếu có)
+- Ưu tiên tái sử dụng dữ liệu đã có trong practices/testdata hoặc testData/
+- Sinh / cập nhật file JSON hoặc Excel phù hợp (vd: practices/testdata/{name}.json)
+- Bao phủ: valid user, invalid user, locked user (nếu requirement có)
+- Không hardcode credential vào source code test / PageObject
+- Không generate Locator / PageObject / Test Script trong bước này

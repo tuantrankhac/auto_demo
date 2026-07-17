@@ -1,0 +1,12 @@
+Generate automation cho toàn bộ module {ModuleName}.
+
+Yêu cầu:
+- Chỉ thực hiện các testcase có Automation = YES (hoặc Yes, Y).
+- Tự đọc requirement trong practices/requirements.
+- Tự đọc testdata trong practices/testdata.
+- Tự sinh Locator nếu thiếu (kiểm tra tên tương đồng trước khi tạo mới).
+- Tự sinh PageObject nếu thiếu (kiểm tra tên tương đồng trước khi tạo mới).
+- Tự sinh Test Script theo framework.
+- Đăng ký PageGenerator và cập nhật runTestCase.xml nếu cần.
+- Không overwrite các file đã tồn tại nếu không cần.
+- Không sửa code ngoài phạm vi module {ModuleName}.

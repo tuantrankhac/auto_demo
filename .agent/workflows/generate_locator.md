@@ -343,19 +343,32 @@ Nếu Locator chưa tối ưu.
 
 ---
 
-# Bước 7 - Generate PageUI
+# Bước 7 - Generate / Mở rộng PageUI
 
-Sinh Locator theo đúng Framework.
+Trước khi tạo class PageUI mới, **bắt buộc** kiểm tra:
 
-Ví dụ:
+1. PageUI đúng tên đã tồn tại chưa.
+2. PageUI **tên tương đồng** đã tồn tại chưa (vd: `LoginPageUI` ↔ `DangNhapPageUI`).
 
-- LoginPageUI
-- HomePageUI
+### Quyết định
+
+| Kết quả so sánh | Hành động |
+|-----------------|-----------|
+| Giống nhau (cùng màn hình / cùng nghiệp vụ) | **Mở rộng** PageUI hiện có — chỉ bổ sung locator còn thiếu. Không tạo file mới. |
+| Không giống nhau | **Tạo mới** PageUI theo Framework / Coding Convention. |
+| Không chắc | **Hỏi USER** trước khi tạo mới. |
+
+Ví dụ tên:
+
+- LoginPageUI / DangNhapPageUI
+- HomePageUI / TrangChuPageUI
 - CustomerPageUI
 
 Không viết Locator trong Test Script.
 
 Không viết Locator trong PageObject.
+
+Không tạo cặp song song (`LoginPageUI` + `DangNhapPageUI`) cho cùng một màn hình.
 
 ---
 
