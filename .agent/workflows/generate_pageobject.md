@@ -84,48 +84,46 @@ Không generate nếu chưa hiểu Framework.
 
 ---
 
-# Bước 2 - Kiểm tra PageObject
+# Bước 2 - Kiểm tra PageObject / PageUI (tên đúng + tên tương đồng)
 
-Nếu PageObject đã tồn tại.
+Trước khi tạo mới, **bắt buộc** kiểm tra:
 
-↓
+1. Class đúng tên đã tồn tại chưa (`LoginPage`, `LoginPO`, `LoginPageUI`...).
+2. Class **tên tương đồng** đã tồn tại chưa (vd: `LoginPage` ↔ `DangNhapPO`, `LoginPageUI` ↔ `DangNhapPageUI`).
 
-Đọc toàn bộ class.
+Cách nhận diện tương đồng: cùng URL/module, cùng nghiệp vụ, dịch EN↔VI, khác hậu tố `Page`/`PO`/`Screen`.
 
-↓
+### Quyết định
 
-Kiểm tra:
+| Kết quả so sánh | Hành động |
+|-----------------|-----------|
+| Giống nhau (cùng màn hình / cùng nghiệp vụ) | **Mở rộng** file hiện có — bổ sung method/locator còn thiếu. Không tạo class mới. |
+| Không giống nhau | **Tạo mới** theo tên yêu cầu / Coding Convention. |
+| Không chắc | **Hỏi USER** trước khi tạo mới. |
 
-- Method đã có chưa.
-- Có thể tái sử dụng không.
-- Có duplicate không.
+Ví dụ: đã có `DangNhapPO` + `DangNhapPageUI` cho Login → yêu cầu `LoginPage` → mở rộng `DangNhap*`, không sinh `LoginPage` song song.
 
-Nếu chưa có.
-
-↓
-
-Tạo mới.
+Chi tiết: `.agent/skills/pageobject_agent/SKILL.md` mục 2.
 
 ---
 
 # Bước 3 - Đọc PageUI
 
-Đọc Locator từ:
+Đọc Locator từ **PageUI đã chọn ở Bước 2** (file đúng tên hoặc tương đồng đã quyết định mở rộng):
 
-- LoginPageUI.
-- HomePageUI.
-- CustomerPageUI.
+- LoginPageUI / DangNhapPageUI
+- HomePageUI / TrangChuPageUI
 - ...
 
-Không tạo Locator mới.
+Không tạo Locator mới trong workflow này.
 
-Không sửa Locator.
+Không tạo PageUI trùng nghiệp vụ.
 
 Nếu thiếu Locator.
 
 ↓
 
-Chuyển sang Workflow Generate Locator.
+Chuyển sang Workflow Generate Locator — yêu cầu **mở rộng PageUI hiện có**.
 
 ---
 

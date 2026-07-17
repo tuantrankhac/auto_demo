@@ -1,0 +1,16 @@
+Review toàn bộ automation của module {ModuleName}.
+
+Kiểm tra:
+- Locator
+- PageObject
+- Test Script
+- Coding Convention
+- Duplicate locator
+- Duplicate action
+- Dead code
+- Hardcode URL / credential / test data
+- Teardown driver (alwaysRun = true)
+- PageGenerator đã đăng ký đúng chưa
+
+Đề xuất refactor nếu cần.
+Không sửa code trừ khi được yêu cầu rõ.

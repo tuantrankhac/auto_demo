@@ -1,0 +1,14 @@
+Generate automation cho testcase {TestCaseID}.
+
+Yêu cầu:
+- Tự tìm testcase trong thư mục practices/testcases.
+- Đọc requirement tương ứng trong practices/requirements.
+- Lấy URL của module.
+- Mở URL bằng Browser MCP (nếu cần xác nhận DOM).
+- Đọc DOM.
+- Nếu chưa có locator thì sinh locator (ưu tiên mở rộng PageUI tương đồng).
+- Nếu chưa có PageObject thì sinh PageObject (ưu tiên mở rộng PO tương đồng).
+- Sinh Test Script theo framework (extends BaseTest, dùng PageGenerator).
+- Đọc testdata nếu có trong practices/testdata.
+- Cấu hình runTestCase.xml nếu cần.
+- Không sửa code ngoài phạm vi module {ModuleName}.

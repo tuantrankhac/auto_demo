@@ -34,6 +34,7 @@ The agent must:
 3. Generate a reliable locator
 4. Validate locator uniqueness
 5. Provide fallback locator if primary is fragile
+6. Before creating a new PageUI class: search exact name **and similar names** (e.g. `LoginPageUI` ↔ `DangNhapPageUI`). If same screen/business → **extend** existing PageUI; only create new if not the same. If unsure → ask the user.
 
 ---
 

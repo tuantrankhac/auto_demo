@@ -9,6 +9,7 @@ import demo.web.pageObjects.HandleAlertPO;
 import demo.web.pageObjects.HandleDownloadFilePO;
 import demo.web.pageObjects.HandleShadowDOMPO;
 import demo.web.pageObjects.IframePO;
+import demo.web.pageObjects.LoginPage;
 import demo.web.pageObjects.ReadExcelFilePO;
 import demo.web.pageObjects.RetryTestPO;
 import demo.web.pageObjects.SuVuPO;
@@ -19,6 +20,10 @@ import demo.web.pageObjects.TrangChuPO;
 public class PageGenerator {
 	public static DangNhapPO getDangNhapPage(WebDriver driver) {
 		return new DangNhapPO(driver);
+	}
+
+	public static LoginPage getLoginPage(WebDriver driver) {
+		return new LoginPage(driver);
 	}
 
 	public static TrangChuPO getTrangChuPage(WebDriver driver) {

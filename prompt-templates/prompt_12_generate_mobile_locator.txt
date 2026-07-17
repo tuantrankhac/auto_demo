@@ -1,0 +1,14 @@
+Generate locator cho màn hình hiện tại của Android đang kết nối.
+
+Yêu cầu:
+- Kiểm tra thiết bị qua adb (adb devices).
+- Dump UI hierarchy:
+  adb shell uiautomator dump /sdcard/ui.xml
+  adb pull /sdcard/ui.xml
+- Đọc XML, phân tích element tương tác được.
+- Sinh locator theo Coding Convention (Appium).
+- Ưu tiên: accessibilityId → resource-id → content-desc → UiSelector → xpath.
+- Kiểm tra PageUI mobile đã tồn tại hoặc tên tương đồng — giống thì mở rộng, khác thì tạo mới.
+- Tạo / cập nhật class trong demo.mobile.pageUIs.
+- Dọn file tạm (ui.xml) sau khi xong.
+- Nếu đang ở Home Launcher / không phải app cần test → báo USER trước khi ghi file.

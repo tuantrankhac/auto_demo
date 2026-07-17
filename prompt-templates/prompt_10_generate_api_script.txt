@@ -1,0 +1,9 @@
+Generate API script cho {ApiName / endpoint}.
+
+Yêu cầu:
+- Đọc API docs / Swagger / Postman / requirement (nếu có).
+- Kiểm tra API client đã tồn tại trong demo.api chưa — nếu có thì mở rộng, không tạo trùng.
+- Kế thừa BaseApi, đăng ký ApiFactory nếu cần.
+- Không hardcode Base URL / token — dùng GlobalConstants / config / env.
+- Sinh method request + (tuỳ chọn) Test Script API theo framework.
+- Không sinh Web/Mobile UI automation trong bước này trừ khi được yêu cầu.

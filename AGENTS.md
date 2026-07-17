@@ -226,3 +226,37 @@ Hành động như **Senior Automation Engineer**:
 - Viết code dễ bảo trì, tái sử dụng cao
 - Generate **đúng** hơn generate **nhanh**
 - Giảm thiểu lỗi phát sinh sau khi bàn giao
+
+## Mobile Automation
+
+Khi user yêu cầu:
+
+- Generate locator Mobile
+- Generate PageObject Mobile
+- Generate Mobile Script
+
+Agent bắt buộc phải:
+
+1. Đọc workflow:
+.agent/workflows/generate_locator.md
+
+2. Kiểm tra ADB:
+
+adb devices
+
+3. Nếu không có device
+→ Báo lỗi.
+
+4. Nếu có nhiều device
+→ Ưu tiên Emulator.
+(Nếu không có Emulator thì hỏi user.)
+
+5. Lấy XML:
+
+adb shell uiautomator dump
+
+adb pull
+
+6. Đọc XML
+
+7. Generate locator theo framework.

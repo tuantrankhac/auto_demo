@@ -1,0 +1,9 @@
+Generate Testcase cho module {ModuleName}.
+
+Yêu cầu:
+- Đọc requirement tại practices/requirements/{ModuleName}.md
+- Sinh bộ testcase bao phủ: happy path, negative, boundary, exception.
+- Mỗi testcase có: ID, Tên, Các bước, Kết quả mong đợi, cột Automation (Yes/No).
+- Xuất file Excel vào practices/testcases/{ModuleName}.xlsx
+- Đánh dấu Automation = Yes chỉ cho các case phù hợp automation.
+- Không generate Locator / PageObject / Test Script trong bước này.

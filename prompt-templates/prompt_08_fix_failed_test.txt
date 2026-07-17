@@ -1,0 +1,9 @@
+Fix failed test: {TestName hoặc class#method}.
+
+Yêu cầu:
+- Đọc log / stack trace / Allure report (nếu có).
+- Xác định nguyên nhân: Automation / Product / Environment / Test Data.
+- Chỉ sửa automation nếu chắc chắn là lỗi script (locator, wait, PO, data).
+- Không sửa business logic sản phẩm nếu chưa đủ căn cứ.
+- Sau khi sửa: review lại diff và nêu root cause + cách fix.
+- Không commit trừ khi được yêu cầu.

@@ -1,0 +1,16 @@
+{
+    "user": {
+      "username": "tongdai3@gmail.com",
+      "password": "123456"
+    },
+  
+    "lockedUser": {
+      "username": "locked@test.com",
+      "password": "123456"
+    },
+  
+    "invalidUser": {
+      "username": "abc@test.com",
+      "password": "111111"
+    }
+  }
