@@ -5,6 +5,7 @@ skills:
   - automation_script_agent
   - pageobject_agent
   - api_agent
+  - db_verification_agent
   - code_review_agent
 ---
 
@@ -18,6 +19,7 @@ skills:
 > - automation_script_agent
 > - pageobject_agent
 > - api_agent (nếu testcase có API)
+> - db_verification_agent (nếu testcase có verify DB)
 > - code_review_agent
 
 ---
@@ -235,6 +237,28 @@ verifyContains()
 Assert.
 
 Không Verify trong PageObject.
+
+## Bước 7.1 - Verify Database (nếu testcase yêu cầu)
+
+Nếu testcase có bước kiểm tra dữ liệu dưới DB ("Kiểm tra dữ liệu trong DB", "verify bảng ... cột ...", "UI khớp DB"...).
+
+↓
+
+Chuyển sang Workflow `generate_db_verification` (skill `db_verification_agent`).
+
+↓
+
+Tự nhận biết DB / bảng / cột / điều kiện từ testcase.
+
+↓
+
+Dùng `utilities.DbConnection.getValueRecord(...)` — không tạo JDBC mới.
+
+↓
+
+`connect()` ở `@BeforeClass/@BeforeMethod`, `disconnect()` ở teardown (`alwaysRun = true`).
+
+Chi tiết: `.agent/rules/database_verification_rules.md`.
 
 ---
 

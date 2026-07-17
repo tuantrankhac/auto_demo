@@ -7,6 +7,7 @@ skills:
   - pageobject_agent
   - automation_script_agent
   - api_agent
+  - db_verification_agent
   - code_review_agent
 ---
 
@@ -22,6 +23,7 @@ skills:
 > - pageobject_agent
 > - automation_script_agent
 > - api_agent (nếu testcase có API)
+> - db_verification_agent (nếu testcase có verify DB)
 > - code_review_agent
 
 ---

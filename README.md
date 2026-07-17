@@ -80,6 +80,7 @@ USER Prompt / prompt-templates
 | `manual_to_auto.md` | Chuyển Manual TC → Automation cả module |
 | `generate_testdata.md` | Chuẩn bị / sinh test data |
 | `generate_api_script.md` | Sinh API client theo BaseApi + ApiFactory |
+| `generate_db_verification.md` | Sinh bước verify DB (UI/API ↔ DB) từ mô tả testcase |
 | `generate_framework_component.md` | Sinh / cập nhật component framework (không sinh test) |
 | `review_code.md` | Review convention, duplicate, maintainability |
 | `debug_failed_test.md` | Phân tích fail, root cause, sửa an toàn |
@@ -97,6 +98,7 @@ USER Prompt / prompt-templates
 | `manual_to_auto_agent` | Điều phối chuyển Manual → Auto |
 | `mobile_agent` | Automation Mobile (Appium); **không** tự sinh locator |
 | `api_agent` | API client / API test theo BaseApi |
+| `db_verification_agent` | Sinh bước verify DB; tự nhận biết DB/bảng/cột từ testcase, dùng `DbConnection` |
 | `code_review_agent` | Review chất lượng trước khi bàn giao |
 | `ui_debug_agent` | Hỗ trợ debug UI (DOM, screenshot, log) |
 | `jira_integration` | Tích hợp đọc/ghi thông tin Jira (khi được cấu hình) |
@@ -110,13 +112,14 @@ USER Prompt / prompt-templates
 | `appium_rules.md` | Quy tắc locator / gesture cho Appium (Mobile) |
 | `playwright_rules.md` | Quy tắc locator semantic cho Playwright / Browser MCP |
 | `automation_rules.md` | Best practice automation tổng quát |
+| `database_verification_rules.md` | Quy tắc verify DB: nhận diện bảng/cột, an toàn SQL, dùng `DbConnection` |
 
 ### 3. `prompt-templates/` — Prompt mẫu gọi Agent
 
 | Thành phần | Vai trò |
 |------------|---------|
 | [`prompt-templates/`](prompt-templates/) | Prompt sẵn dùng — copy, thay placeholder, gửi cho Agent |
-| [`prompt-templates/README.md`](prompt-templates/README.md) | Danh sách 12 prompt + workflow slash tương ứng |
+| [`prompt-templates/README.md`](prompt-templates/README.md) | Danh sách prompt + workflow slash tương ứng (gồm cả verify DB) |
 
 Ví dụ luồng thường dùng:
 

@@ -27,6 +27,7 @@ Cách dùng:
 | 10 | [`prompt_10_generate_api_script.txt`](prompt_10_generate_api_script.txt) | Sinh API client / API test theo BaseApi | `/generate_api_script` |
 | 11 | [`prompt_11_refactor_framework.txt`](prompt_11_refactor_framework.txt) | Phân tích và refactor framework / module | `/refactor_framework` |
 | 12 | [`prompt_12_generate_mobile_locator.txt`](prompt_12_generate_mobile_locator.txt) | Sinh Locator Mobile từ UI hierarchy Android (adb) | `/generate_locator` |
+| 13 | [`prompt_13_generate_db_verification.txt`](prompt_13_generate_db_verification.txt) | Bổ sung bước verify Database (UI/API ↔ DB) cho testcase | `/generate_db_verification` |
 
 ---
 
@@ -39,6 +40,7 @@ Cách dùng:
 | `{TestCaseID}` | Mã testcase | `TC_Login_01` |
 | `{ApiName}` | Tên API / endpoint | `LoginApiWithRest` |
 | `{PhạmVi}` | Phạm vi refactor | `module Login` / `pageObjects` |
+| `{TestName}` | Class#method test bị fail | `LoginTest#TC_Login_01` |
 
 ---
 
