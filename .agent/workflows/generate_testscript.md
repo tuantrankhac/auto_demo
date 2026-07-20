@@ -2,6 +2,7 @@
 description: Tự động sinh Automation Test Script theo đúng Framework, sử dụng PageObject, API và Utility hiện có. Test Script chỉ đóng vai trò điều phối luồng kiểm thử (orchestration), không chứa Business Logic.
 skills:
   - framework_architect
+  - jira_integration
   - automation_script_agent
   - pageobject_agent
   - api_agent
@@ -16,6 +17,7 @@ skills:
 > Trước khi bắt đầu, AI PHẢI đọc:
 >
 > - framework_architect
+> - jira_integration (khi có Jira Key / lấy TC từ Jira)
 > - automation_script_agent
 > - pageobject_agent
 > - api_agent (nếu testcase có API)
@@ -43,7 +45,7 @@ Test Script phải:
 
 Workflow này được gọi khi:
 
-- Có Manual Testcase.
+- Có Manual Testcase (Jira Key hoặc Excel).
 - Có Requirement mới.
 - PageObject đã hoàn thành.
 - API Script đã hoàn thành.
@@ -55,13 +57,26 @@ Workflow này được gọi khi:
 
 AI có thể nhận:
 
-- Manual Testcase.
-- Requirement.
-- Business Flow.
-- PageObject.
-- API Script.
-- Test Data.
-- Existing Test Script.
+- **Jira / Xray Test Key** (ưu tiên) — vd: `CRM-123`
+- Manual Testcase (Excel / Markdown) — fallback
+- Requirement
+- Business Flow
+- PageObject
+- API Script
+- Test Data
+- Existing Test Script
+
+Thứ tự ưu tiên nguồn testcase:
+
+```
+Jira Key (Jira MCP)
+        │
+        ▼
+Excel / practices/testcases
+        │
+        ▼
+Markdown / text USER cung cấp
+```
 
 Nếu Test Script đã tồn tại.
 
@@ -95,9 +110,48 @@ Không generate nếu chưa hiểu Framework.
 
 ---
 
-# Bước 2 - Phân tích Testcase
+# Bước 2 - Lấy Testcase từ Jira MCP (bắt buộc nếu có Jira Key)
 
-Đọc:
+Khi prompt / USER cung cấp `{JiraKey}` / `{TestCaseID}` dạng Jira key (vd: `CRM-123`), hoặc yêu cầu lấy TC từ Jira:
+
+```
+jira_connect
+        │
+        ▼
+Xác định TestCase ID (Jira Key)
+        │
+        ▼
+jira_get_testcase(testKey)
+        │
+        ▼
+jira_get_test_steps(testKey)
+        │
+        ▼
+(Phân tích steps + expected → sang Bước 3)
+```
+
+### Chi tiết
+
+1. Gọi `jira_connect` (đọc `knowledge/config/jira.yaml` + `knowledge/secrets/.env`).
+2. Nếu USER chỉ đưa module / JQL → dùng `jira_search_issues` (defaultJQL hoặc JQL USER) để lấy danh sách key, **xác nhận / chọn ID** trước khi generate.
+3. Gọi `jira_get_testcase({JiraKey})` và `jira_get_test_steps({JiraKey})`.
+4. Từ steps + expected result → xác định flow automation.
+
+### Fallback
+
+Nếu **không** có Jira / MCP lỗi / USER chỉ định Excel:
+
+↓
+
+Đọc `practices/testcases` như trước.
+
+**Không** generate Test Script khi chưa có nội dung testcase (Jira hoặc local).
+
+---
+
+# Bước 3 - Phân tích Testcase
+
+Đọc (từ Jira steps hoặc Excel):
 
 - Preconditions.
 - Test Steps.
@@ -113,7 +167,7 @@ Xác định:
 
 ---
 
-# Bước 3 - Kiểm tra thành phần đã có
+# Bước 4 - Kiểm tra thành phần đã có
 
 Kiểm tra:
 
@@ -132,7 +186,7 @@ Không generate lại.
 
 ---
 
-# Bước 4 - Generate Test Flow
+# Bước 5 - Generate Test Flow
 
 Test Script chỉ thực hiện:
 
@@ -174,7 +228,7 @@ Không triển khai Business Logic trong Test Script.
 
 ---
 
-# Bước 5 - Gọi PageObject
+# Bước 6 - Gọi PageObject
 
 Chỉ gọi các Business Method.
 
@@ -200,7 +254,7 @@ driver...
 
 ---
 
-# Bước 6 - Gọi API (nếu có)
+# Bước 7 - Gọi API (nếu có)
 
 Nếu testcase yêu cầu API.
 
@@ -220,7 +274,7 @@ Không viết request trực tiếp trong Test Script.
 
 ---
 
-# Bước 7 - Verify
+# Bước 8 - Verify
 
 Verify chỉ thực hiện tại Test Script.
 
@@ -238,7 +292,7 @@ Assert.
 
 Không Verify trong PageObject.
 
-## Bước 7.1 - Verify Database (nếu testcase yêu cầu)
+## Bước 8.1 - Verify Database (nếu testcase yêu cầu)
 
 Nếu testcase có bước kiểm tra dữ liệu dưới DB ("Kiểm tra dữ liệu trong DB", "verify bảng ... cột ...", "UI khớp DB"...).
 
@@ -262,7 +316,7 @@ Chi tiết: `.agent/rules/database_verification_rules.md`.
 
 ---
 
-# Bước 8 - Xử lý Test Data
+# Bước 9 - Xử lý Test Data
 
 Sử dụng:
 
@@ -285,7 +339,7 @@ login(user.getUsername(), user.getPassword())
 
 ---
 
-# Bước 9 - Exception Handling
+# Bước 10 - Exception Handling
 
 Không tự ý try-catch toàn bộ Test Script.
 
@@ -299,7 +353,7 @@ Chỉ xử lý Exception khi:
 
 ---
 
-# Bước 10 - Review
+# Bước 11 - Review
 
 Kiểm tra:
 

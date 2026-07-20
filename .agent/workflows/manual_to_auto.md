@@ -2,6 +2,7 @@
 description: Chuyển đổi Manual Test Case thành Automation Test Script theo đúng Framework, Coding Convention và kiến trúc của dự án.
 skills:
   - framework_architect
+  - jira_integration
   - manual_to_auto_agent
   - smart_locator_agent
   - pageobject_agent
@@ -18,6 +19,7 @@ skills:
 > Trước khi bắt đầu, AI PHẢI đọc lần lượt các Skill sau:
 >
 > - framework_architect
+> - jira_integration (khi lấy TC từ Jira MCP)
 > - manual_to_auto_agent
 > - smart_locator_agent
 > - pageobject_agent
@@ -47,7 +49,7 @@ Automation được sinh ra phải:
 
 Workflow này được gọi khi:
 
-- Có Manual Test Case mới.
+- Có Manual Test Case mới (Jira / Excel).
 - Cần chuyển Manual sang Automation.
 - Cần viết Automation từ Requirement.
 - Cần generate Test Script hàng loạt.
@@ -58,14 +60,21 @@ Workflow này được gọi khi:
 
 AI có thể nhận một hoặc nhiều nguồn dữ liệu:
 
-- Excel Test Case
-- Jira Test Case
-- Xray
-- Confluence
-- Word
-- PDF
-- Markdown
-- Google Sheet
+- **Jira / Xray Test Key** (ưu tiên) — qua Jira MCP
+- Excel Test Case (`practices/testcases`) — fallback
+- Confluence / Word / PDF / Markdown / Google Sheet
+
+Thứ tự ưu tiên nguồn:
+
+```
+Jira MCP (jira_connect → get_testcase → get_test_steps)
+        │
+        ▼
+Excel / practices/testcases
+        │
+        ▼
+Markdown / text USER
+```
 
 Nếu có nhiều Test Case.
 
@@ -78,6 +87,7 @@ Chỉ xử lý những Test Case được đánh dấu:
 - Candidate
 - Regression
 - Smoke
+- (Jira) label / field tương đương Automation=Yes
 
 Không tự động generate cho toàn bộ Manual Test Case nếu chưa có yêu cầu.
 
@@ -108,9 +118,32 @@ Không generate code nếu chưa hiểu Framework.
 
 ---
 
-# Bước 2 - Phân tích Test Case
+# Bước 2 - Lấy Testcase ID & nội dung từ Jira MCP
 
-Đọc:
+**Bắt buộc** khi USER / prompt cung cấp Jira Key, module trên Jira, hoặc yêu cầu lấy TC từ Jira.
+
+```
+1. jira_connect
+2. Xác định danh sách TestCase ID
+   - USER đưa sẵn {JiraKey} → dùng trực tiếp
+   - USER đưa module / JQL → jira_search_issues (defaultJQL trong jira.yaml)
+3. Với mỗi ID (Automation=Yes / label phù hợp):
+   - jira_get_testcase(testKey)
+   - jira_get_test_steps(testKey)
+4. Mới được sang bước phân tích & generate
+```
+
+Nếu không có Jira Key và USER chỉ định Excel → đọc `practices/testcases`.
+
+**Không** bỏ qua bước lấy ID khi nguồn là Jira.
+
+**Không** generate khi chưa có steps/expected từ Jira hoặc file local.
+
+---
+
+# Bước 3 - Phân tích Test Case
+
+Đọc (từ Jira steps hoặc Excel):
 
 - Preconditions
 - Steps
@@ -128,7 +161,7 @@ Tách từng Step thành từng Business Action.
 
 ---
 
-# Bước 3 - Xác định Locator
+# Bước 4 - Xác định Locator
 
 Nếu là Web.
 
@@ -168,7 +201,7 @@ Theo đúng Rule của project.
 
 ---
 
-# Bước 4 - Generate PageUI
+# Bước 5 - Generate PageUI
 
 Sinh Locator vào:
 
@@ -180,7 +213,7 @@ Không viết Locator trong PageObject.
 
 ---
 
-# Bước 5 - Generate PageObject
+# Bước 6 - Generate PageObject
 
 Sinh:
 
@@ -204,7 +237,7 @@ Không generate Assert.
 
 ---
 
-# Bước 6 - Generate API
+# Bước 7 - Generate API
 
 Nếu testcase có API.
 
@@ -226,7 +259,7 @@ Bỏ qua bước này.
 
 ---
 
-# Bước 7 - Generate Test Script
+# Bước 8 - Generate Test Script
 
 Test Script chỉ chứa:
 
@@ -249,7 +282,7 @@ Hardcode.
 
 ---
 
-# Bước 8 - Sinh Test Data
+# Bước 9 - Sinh Test Data
 
 Nếu cần.
 
@@ -273,7 +306,7 @@ Không hardcode.
 
 ---
 
-# Bước 9 - Review Code
+# Bước 10 - Review Code
 
 Sau khi generate.
 

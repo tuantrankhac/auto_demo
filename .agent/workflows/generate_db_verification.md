@@ -2,6 +2,7 @@
 description: Sinh bước verify Database cho Automation Test khi testcase yêu cầu so sánh dữ liệu UI/API với DB. AI tự nhận biết DB, bảng, cột, điều kiện từ mô tả testcase và tái sử dụng DbConnection.
 skills:
   - framework_architect
+  - jira_integration
   - db_verification_agent
   - automation_script_agent
   - code_review_agent
@@ -14,6 +15,7 @@ skills:
 > Trước khi bắt đầu, AI PHẢI đọc:
 >
 > - framework_architect
+> - jira_integration (khi lấy TC từ Jira)
 > - db_verification_agent
 > - automation_script_agent
 > - code_review_agent
@@ -51,11 +53,26 @@ Workflow này thường được gọi **bên trong** `generate_testscript` / `m
 
 # Input
 
-- Manual Testcase (Excel / Jira / Markdown).
-- Requirement.
-- Test Data.
-- Source code hiện có (schema đã dùng: bảng, cột).
-- `utilities.DbConnection`.
+- **Jira Key** (ưu tiên) — lấy steps qua Jira MCP
+- Manual Testcase (Excel / Markdown) — fallback
+- Requirement
+- Test Data
+- Source code hiện có (schema đã dùng: bảng, cột)
+- `utilities.DbConnection`
+
+---
+
+# Bước 0 - Lấy Testcase từ Jira (nếu có Jira Key)
+
+Nếu prompt/USER có `{JiraKey}`:
+
+```
+jira_connect → jira_get_testcase → jira_get_test_steps
+```
+
+Dùng steps/expected từ Jira để nhận biết bước verify DB.
+
+Nếu không có Jira → đọc `practices/testcases` / nội dung USER cung cấp.
 
 ---
 

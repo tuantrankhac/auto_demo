@@ -1,0 +1,7 @@
+# Ignore secrets & local env at repo root
+knowledge/secrets/.env
+.env
+.env.local
+*.pem
+mcp/**/node_modules/
+mcp/**/dist/

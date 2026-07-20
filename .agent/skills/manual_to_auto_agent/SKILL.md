@@ -71,7 +71,30 @@ Hiểu nơi generate code.
 
 ## Bước 2
 
-Đọc Manual Testcase.
+Lấy Testcase từ nguồn (ưu tiên Jira MCP).
+
+### Nếu có Jira Key / yêu cầu lấy từ Jira
+
+```
+jira_connect
+        │
+        ▼
+Xác định TestCase ID ({JiraKey} hoặc jira_search_issues)
+        │
+        ▼
+jira_get_testcase(testKey)
+        │
+        ▼
+jira_get_test_steps(testKey)
+```
+
+Đọc `knowledge/config/jira.yaml` + secrets trong `knowledge/secrets/.env`.
+
+**Không** generate khi chưa lấy được ID và steps từ Jira (trừ khi USER chỉ định fallback Excel).
+
+### Nếu nguồn Excel / local
+
+Đọc Manual Testcase trong `practices/testcases`.
 
 Xác định:
 

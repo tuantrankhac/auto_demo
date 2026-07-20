@@ -1,6 +1,5 @@
 {
   "mcpServers": {
-
     "filesystem": {
       "command": "npx",
       "args": [
@@ -9,14 +8,29 @@
         "."
       ]
     },
-
     "playwright": {
       "command": "npx",
       "args": [
         "-y",
         "@playwright/mcp"
       ]
+    },
+    "appium": {
+      "command": "npx",
+      "args": [
+        "tsx",
+        "mcp/appium-mcp/index.ts"
+      ],
+      "env": {
+        "APPIUM_URL": "http://127.0.0.1:4723"
+      }
+    },
+    "jira": {
+      "command": "npx",
+      "args": [
+        "tsx",
+        "mcp/jira-mcp/index.ts"
+      ]
     }
-
   }
 }

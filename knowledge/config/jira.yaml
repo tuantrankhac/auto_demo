@@ -1,0 +1,12 @@
+jira:
+  url: https://company.atlassian.net
+  email: automation@company.com
+  apiToken: ${JIRA_API_TOKEN}
+
+  projectKey: CRM
+
+  testManagement: xray      # xray | zephyr | jira
+
+  defaultJQL: >
+    project = CRM
+    AND labels = Automation
