@@ -76,8 +76,8 @@ USER Prompt / prompt-templates
 | `analyze_requirement.md` | Phân tích requirement / website → phạm vi test, business rule |
 | `generate_locator.md` | Đọc DOM / UI hierarchy → sinh / mở rộng PageUI |
 | `generate_pageobject.md` | Sinh / mở rộng PageObject từ PageUI (không Verify) |
-| `generate_testscript.md` | Sinh Test Script orchestration theo BaseTest |
-| `manual_to_auto.md` | Chuyển Manual TC → Automation cả module |
+| `generate_testscript.md` | Sinh Test Script — **lấy TC từ Jira MCP trước** |
+| `manual_to_auto.md` | Chuyển Manual → Auto cả module — **search/lấy ID từ Jira trước** |
 | `generate_testdata.md` | Chuẩn bị / sinh test data |
 | `generate_api_script.md` | Sinh API client theo BaseApi + ApiFactory |
 | `generate_db_verification.md` | Sinh bước verify DB (UI/API ↔ DB) từ mô tả testcase |
@@ -101,7 +101,7 @@ USER Prompt / prompt-templates
 | `db_verification_agent` | Sinh bước verify DB; tự nhận biết DB/bảng/cột từ testcase, dùng `DbConnection` |
 | `code_review_agent` | Review chất lượng trước khi bàn giao |
 | `ui_debug_agent` | Hỗ trợ debug UI (DOM, screenshot, log) |
-| `jira_integration` | Tích hợp đọc/ghi thông tin Jira (khi được cấu hình) |
+| `jira_integration` | Lấy Test Case/Steps từ **Jira MCP** (ưu tiên), requirement, Xray |
 
 #### Rules (`.agent/rules/`)
 
@@ -124,8 +124,8 @@ USER Prompt / prompt-templates
 Ví dụ luồng thường dùng:
 
 ```
-Requirements → Testcases → Locator → PageObject → Test Script → Review
-     (01)         (02)       (03)        (04)          (05/06)     (07)
+Jira Key → connect/get_testcase/get_test_steps → Locator → PageObject → Test Script → Review
+              (Jira MCP)                              (03)      (04)        (05/06)      (07)
 ```
 
 Chi tiết từng file: xem [prompt-templates/README.md](prompt-templates/README.md).
@@ -140,31 +140,35 @@ Chi tiết từng file: xem [prompt-templates/README.md](prompt-templates/README
 | [`docs/AutomationProcess.md`](docs/AutomationProcess.md) | Quy trình tạo test, checklist |
 | [`docs/Environment.md`](docs/Environment.md) | JDK, Maven, Appium, troubleshooting |
 
-### 5. `practices/` — Đầu vào nghiệp vụ cho AI
+### 5. Đầu vào nghiệp vụ cho AI
 
-| Thư mục | Vai trò |
-|---------|---------|
-| `practices/requirements/` | Requirement module (vd: `Login.md`) |
-| `practices/testcases/` | Manual testcase Excel (cột Automation = Yes/No) |
+| Nguồn | Vai trò |
+|-------|---------|
+| **Jira MCP** (`mcp/jira-mcp`) | **Ưu tiên** — lấy TestCase ID + steps (`jira_connect` → `jira_get_testcase` → `jira_get_test_steps`) |
+| `knowledge/config/jira.yaml` | URL, projectKey, testManagement, defaultJQL |
+| `knowledge/secrets/.env` | `JIRA_API_TOKEN` (không commit) |
+| `practices/browsers/browser.md` | **Bắt buộc đọc** trước khi mở Web — browser + URL mặc định |
+| `practices/mobile/android.md` | **Bắt buộc đọc** trước khi mở Android — device + package/activity |
+| `practices/mobile/ios.md` | **Bắt buộc đọc** trước khi mở iOS — device + bundleId |
+| `practices/requirements/` | Requirement local (bổ sung / fallback) |
+| `practices/testcases/` | Manual Excel — **fallback** khi không dùng Jira |
 | `practices/testdata/` | Dữ liệu test (vd: `user.json`) |
 
-AI ưu tiên đọc từ đây khi generate module / testcase / testdata.
-
-### 6. MCP / Browser Agent (tuỳ cấu hình)
+### 6. MCP / Browser / Mobile Agent (tuỳ cấu hình)
 
 | Thành phần | Vai trò |
 |------------|---------|
-| [`.cursor/mcp.json`](.cursor/mcp.json) | Cấu hình MCP (Filesystem, Playwright…) để Agent mở URL, đọc DOM |
-| ADB + uiautomator | Dump UI hierarchy Android khi generate mobile locator |
+| [`.cursor/mcp.json`](.cursor/mcp.json) | Cấu hình MCP: Filesystem, Playwright, Appium, **Jira** |
+| ADB + uiautomator / Appium MCP | Dump UI hierarchy Android khi generate mobile locator |
 
 ---
 
 ## Cách dùng nhanh
 
 1. Chọn prompt trong [`prompt-templates/`](prompt-templates/).
-2. Thay `{URL}`, `{ModuleName}`, `{TestCaseID}`…
+2. Thay `{URL}`, `{ModuleName}`, `{JiraKey}`…
 3. Gửi vào chat Cursor Agent.
-4. Agent đọc `RULE_GLOBAL` → `AGENTS` → workflow/skill → `docs/` → source → generate.
+4. Agent: `jira_connect` → lấy ID/steps → đọc `RULE_GLOBAL` / workflow / skill → generate.
 
 Hoặc mô tả tự do; Agent vẫn phải tuân thủ cùng thứ tự ưu tiên ở trên.
 

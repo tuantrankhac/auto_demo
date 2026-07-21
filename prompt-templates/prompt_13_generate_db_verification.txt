@@ -1,8 +1,11 @@
-Bổ sung bước verify Database cho testcase {TestCaseID} (module {ModuleName}).
+Bổ sung bước verify Database cho testcase {JiraKey} (module {ModuleName}).
 
 Yêu cầu:
-- Đọc testcase trong practices/testcases và requirement tương ứng.
-- Tự nhận biết từ mô tả testcase: DB loại gì, bảng nào, cột nào, điều kiện lọc, bản ghi nào (mới nhất/theo mã), giá trị mong đợi.
+- Bước 1 (bắt buộc nếu có Jira Key): Lấy testcase từ Jira MCP
+  - jira_connect
+  - jira_get_testcase({JiraKey})
+  - jira_get_test_steps({JiraKey})
+- Từ steps/expected: nhận biết DB loại, bảng, cột, điều kiện lọc, giá trị mong đợi.
 - Tái sử dụng utilities.DbConnection (KHÔNG tạo kết nối JDBC mới).
   - connect() ở @BeforeClass/@BeforeMethod
   - build params + DbConnection.getValueRecord(...) + verifyEquals(...) trong @Test
@@ -11,5 +14,6 @@ Yêu cầu:
 - Verify đặt trong Test Script, không trong PageObject.
 - Nếu chưa chắc tên bảng/cột thật (không có trong code/requirement) → HỎI trước, không bịa.
 - Không thao tác ghi/xoá DB khi verify. SQL ghi (nếu cần) chỉ trên staging và phải xác nhận.
+- Fallback: đọc practices/testcases chỉ khi USER chỉ định hoặc Jira không khả dụng.
 
 Tham khảo: .agent/workflows/generate_db_verification.md, .agent/rules/database_verification_rules.md, test mẫu ValidataDataOnUIAndDB.

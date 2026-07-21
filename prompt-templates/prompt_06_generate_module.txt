@@ -1,12 +1,19 @@
 Generate automation cho toàn bộ module {ModuleName}.
 
 Yêu cầu:
-- Chỉ thực hiện các testcase có Automation = YES (hoặc Yes, Y).
-- Tự đọc requirement trong practices/requirements.
+- Đọc practice môi trường trước khi mở UI:
+  - Web → practices/browsers/browser.md
+  - Android → practices/mobile/android.md
+  - iOS → practices/mobile/ios.md
+- Bước tiếp (bắt buộc): Lấy danh sách testcase từ Jira MCP
+  - jira_connect
+  - jira_search_issues (dùng defaultJQL trong knowledge/config/jira.yaml hoặc JQL theo module {ModuleName})
+  - Với mỗi issue/test phù hợp: lấy TestCase ID → jira_get_testcase → jira_get_test_steps
+- Chỉ thực hiện các testcase gắn Automation (label/field tương đương Automation = YES; hoặc Yes, Y).
+- Tự đọc requirement (Jira linked / practices/requirements) nếu cần.
 - Tự đọc testdata trong practices/testdata.
-- Tự sinh Locator nếu thiếu (kiểm tra tên tương đồng trước khi tạo mới).
-- Tự sinh PageObject nếu thiếu (kiểm tra tên tương đồng trước khi tạo mới).
-- Tự sinh Test Script theo framework.
+- Mở browser/app theo practice rồi sinh Locator / PageObject / Test Script nếu thiếu.
 - Đăng ký PageGenerator và cập nhật runTestCase.xml nếu cần.
 - Không overwrite các file đã tồn tại nếu không cần.
+- Fallback Excel (practices/testcases) chỉ khi USER chỉ định hoặc Jira MCP không khả dụng.
 - Không sửa code ngoài phạm vi module {ModuleName}.

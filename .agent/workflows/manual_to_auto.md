@@ -118,6 +118,18 @@ Không generate code nếu chưa hiểu Framework.
 
 ---
 
+# Bước 1.1 - Đọc Practice môi trường (Web / Mobile)
+
+| Kênh | Đọc file |
+|------|----------|
+| Web | `practices/browsers/browser.md` |
+| Android | `practices/mobile/android.md` |
+| iOS | `practices/mobile/ios.md` |
+
+Mở đúng browser/URL hoặc app theo practice trước khi thu thập DOM/XML.
+
+---
+
 # Bước 2 - Lấy Testcase ID & nội dung từ Jira MCP
 
 **Bắt buộc** khi USER / prompt cung cấp Jira Key, module trên Jira, hoặc yêu cầu lấy TC từ Jira.

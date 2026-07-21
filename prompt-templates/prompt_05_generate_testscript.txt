@@ -1,14 +1,23 @@
-Generate automation cho testcase {TestCaseID}.
+Generate automation cho testcase {JiraKey}.
 
 Yêu cầu:
-- Tự tìm testcase trong thư mục practices/testcases.
-- Đọc requirement tương ứng trong practices/requirements.
-- Lấy URL của module.
-- Mở URL bằng Browser MCP (nếu cần xác nhận DOM).
-- Đọc DOM.
+- Đọc practice môi trường trước khi mở UI:
+  - Web → practices/browsers/browser.md
+  - Android → practices/mobile/android.md
+  - iOS → practices/mobile/ios.md
+- Bước tiếp (bắt buộc): Lấy testcase từ Jira MCP
+  - jira_connect
+  - Xác định TestCase ID = {JiraKey} (vd: CRM-123)
+  - jira_get_testcase({JiraKey})
+  - jira_get_test_steps({JiraKey})
+- Chỉ tiếp tục generate sau khi đã có steps + expected từ Jira.
+- Đọc requirement tương ứng (Jira linked story hoặc practices/requirements) nếu cần.
+- Mở browser/app + URL theo practice (USER được override).
+- Đọc DOM / UI hierarchy.
 - Nếu chưa có locator thì sinh locator (ưu tiên mở rộng PageUI tương đồng).
 - Nếu chưa có PageObject thì sinh PageObject (ưu tiên mở rộng PO tương đồng).
 - Sinh Test Script theo framework (extends BaseTest, dùng PageGenerator).
 - Đọc testdata nếu có trong practices/testdata.
 - Cấu hình runTestCase.xml nếu cần.
+- Fallback Excel (practices/testcases) chỉ khi USER chỉ định hoặc Jira MCP không khả dụng.
 - Không sửa code ngoài phạm vi module {ModuleName}.

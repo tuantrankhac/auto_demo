@@ -79,6 +79,30 @@ Không generate Locator nếu chưa hiểu Framework.
 
 ---
 
+# Bước 1.1 - Đọc Practice môi trường (bắt buộc)
+
+Xác định nền tảng rồi **đọc file practice tương ứng** trước khi mở browser/app:
+
+| Nền tảng | File bắt buộc đọc |
+|----------|-------------------|
+| Web | `practices/browsers/browser.md` |
+| Android | `practices/mobile/android.md` |
+| iOS | `practices/mobile/ios.md` |
+
+Từ file practice lấy:
+
+- Browser / device mặc định
+- URL / appPackage / appActivity / bundleId
+- Cách mở (Playwright MCP / Appium MCP / ADB)
+- Appium URL, ưu tiên Emulator…
+
+USER override trong prompt → ưu tiên USER.
+Không có override → dùng đúng giá trị trong practice.
+
+**Không** mở URL/app tự ý khi chưa đọc practice.
+
+---
+
 # Bước 2 - Xác định nền tảng
 
 AI xác định:
@@ -97,13 +121,17 @@ Sau đó chuyển sang workflow tương ứng.
 
 Ưu tiên theo thứ tự:
 
+### Cách 0 (Bắt buộc trước khi mở)
+
+Đọc `practices/browsers/browser.md` → lấy browser + URL mặc định.
+
 ### Cách 1 (Khuyến nghị)
 
-AI Agent / Browser Agent
+AI Agent / Browser Agent (Playwright MCP)
 
 ↓
 
-Mở URL
+Mở URL (theo practice hoặc USER)
 
 ↓
 
@@ -165,7 +193,33 @@ AI generate Locator
 
 Ưu tiên theo thứ tự:
 
+### Cách 0 (Bắt buộc trước khi mở)
+
+Đọc `practices/mobile/android.md` → package, activity, device, appiumUrl.
+
 ### Cách 1 (Khuyến nghị)
+
+Appium MCP: `appium_launch_app` → `appium_page_source`
+
+↓
+
+Đọc XML
+
+↓
+
+Phân tích XML
+
+↓
+
+Generate Locator
+
+↓
+
+Sinh PageUI
+
+---
+
+### Cách 2 (Fallback ADB)
 
 AI gọi ADB để dump UI Hierarchy
 
@@ -224,9 +278,13 @@ Generate Locator
 
 Ưu tiên theo thứ tự:
 
+### Cách 0 (Bắt buộc trước khi mở)
+
+Đọc `practices/mobile/ios.md` → bundleId, device, appiumUrl. (Chỉ macOS.)
+
 ### Cách 1 (Khuyến nghị)
 
-AI sử dụng Xcode Accessibility Inspector hoặc công cụ dump UI Hierarchy
+Appium MCP: `appium_launch_app` (ios) → `appium_page_source`
 
 ↓
 

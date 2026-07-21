@@ -50,11 +50,16 @@ Trước khi generate hoặc sửa code, **bắt buộc**:
 
 1. Đọc tài liệu liên quan trong `docs/` (xem mục 5)
 2. Đọc `AGENTS.md`
-3. Đọc source code module tương ứng (Page Object, test script, API client đã có)
-4. Kiểm tra project **đã có** chức năng/locator/method tương tự chưa
-5. Chỉ tạo phần còn thiếu — **không tạo lại** những gì framework đã hỗ trợ
+3. **Đọc practice môi trường theo kênh:**
+   - Web → `practices/browsers/browser.md`
+   - Android → `practices/mobile/android.md`
+   - iOS → `practices/mobile/ios.md`
+4. Đọc source code module tương ứng (Page Object, test script, API client đã có)
+5. Kiểm tra project **đã có** chức năng/locator/method tương tự chưa
+6. Chỉ tạo phần còn thiếu — **không tạo lại** những gì framework đã hỗ trợ
 
 Không generate code khi chưa hiểu cấu trúc project.
+Không mở browser / app / URL trái với practice (trừ khi USER override).
 
 ---
 
@@ -67,6 +72,9 @@ Không generate code khi chưa hiểu cấu trúc project.
 | `docs/CodingConvention.md` | Đặt tên, POM, locator, import |
 | `docs/AutomationProcess.md` | Quy trình tạo test mới, template, checklist |
 | `docs/Environment.md` | Cấu hình môi trường, chạy test, troubleshooting |
+| `practices/browsers/browser.md` | Trước khi mở browser / đọc DOM Web |
+| `practices/mobile/android.md` | Trước khi mở app Android / dump UI |
+| `practices/mobile/ios.md` | Trước khi mở app iOS / dump UI |
 
 Nếu có thêm tài liệu trong `knowledge/` → đọc trước khi generate.
 

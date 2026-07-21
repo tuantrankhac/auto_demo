@@ -1,7 +1,9 @@
 Generate Requirements từ website.
 
 Yêu cầu:
-- Sử dụng Browser MCP để mở URL: {URL}
+- Đọc practices/browsers/browser.md trước (browser + URL mặc định).
+- Nếu {URL} được cung cấp → dùng {URL}; không thì dùng URL trong browser.md.
+- Sử dụng Browser MCP để mở đúng trình duyệt / URL theo practice.
 - Đọc DOM / nội dung màn hình hiện tại.
 - Phân tích nghiệp vụ, business rule, điều kiện, thành phần UI, điều hướng.
 - Sinh file Requirement theo format practices/requirements (tham khảo Login.md nếu có).

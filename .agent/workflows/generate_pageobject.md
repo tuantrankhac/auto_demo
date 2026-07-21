@@ -84,6 +84,18 @@ Không generate nếu chưa hiểu Framework.
 
 ---
 
+# Bước 1.1 - Đọc Practice môi trường (nếu Web/Mobile)
+
+Trước khi mở browser/app để thu thập locator:
+
+| Kênh | Đọc file |
+|------|----------|
+| Web | `practices/browsers/browser.md` |
+| Android | `practices/mobile/android.md` |
+| iOS | `practices/mobile/ios.md` |
+
+---
+
 # Bước 2 - Kiểm tra PageObject / PageUI (tên đúng + tên tương đồng)
 
 Trước khi tạo mới, **bắt buộc** kiểm tra:

@@ -36,11 +36,16 @@ Thực hiện theo thứ tự:
 
 1. Đọc `RULE_GLOBAL.md` (quy tắc bắt buộc)
 2. Đọc tài liệu liên quan trong `docs/`
-3. Đọc source code module tương ứng
-4. Kiểm tra project **đã có** chức năng tương tự chưa
-5. Tái sử dụng code hiện có — chỉ generate phần còn thiếu
+3. **Xác định kênh (Web / Mobile Android / Mobile iOS) → đọc practice tương ứng:**
+   - Web → `practices/browsers/browser.md` (browser, URL mặc định, cách mở MCP)
+   - Android → `practices/mobile/android.md` (device, package, activity, Appium)
+   - iOS → `practices/mobile/ios.md` (device, bundleId, Appium)
+4. Đọc source code module tương ứng
+5. Kiểm tra project **đã có** chức năng tương tự chưa
+6. Tái sử dụng code hiện có — chỉ generate phần còn thiếu
 
 **Không** tự tạo class/method mới nếu framework hoặc module đã có.
+**Không** mở browser/app/URL tự ý khi đã có hướng dẫn trong `practices/browsers` hoặc `practices/mobile`.
 
 ---
 
@@ -53,6 +58,9 @@ Thực hiện theo thứ tự:
 | `docs/CodingConvention.md` | Đặt tên, POM, locator, import |
 | `docs/AutomationProcess.md` | Quy trình tạo test, template, checklist |
 | `docs/Environment.md` | JDK, Maven, Appium, config, troubleshooting |
+| `practices/browsers/browser.md` | Browser + URL mặc định khi làm Web |
+| `practices/mobile/android.md` | Device + app Android khi làm Mobile |
+| `practices/mobile/ios.md` | Device + app iOS khi làm Mobile |
 
 Nếu có thêm tài liệu trong `knowledge/` → đọc trước khi generate.
 
@@ -210,11 +218,15 @@ AI có thể sử dụng:
 
 - Source code project
 - Tài liệu `docs/` và `knowledge/` (nếu có)
-- Manual testcase, Jira, Confluence (nếu được cung cấp/tích hợp)
-- Browser Agent / Mobile Agent (nếu được cấu hình)
+- **Jira MCP** — nguồn **ưu tiên** cho Test Case ID + steps (`jira_connect` → `jira_get_testcase` → `jira_get_test_steps`)
+- Manual testcase Excel (`practices/testcases`) — fallback khi không dùng Jira
+- Confluence (nếu được cung cấp/tích hợp)
+- Browser Agent / Mobile Agent / Appium MCP (nếu được cấu hình)
 - Rule và Skill của AI Agent (`.agent/` nếu tồn tại)
 
-Luôn ưu tiên thông tin **mới nhất** từ source code và docs trước khi generate.
+Luôn ưu tiên thông tin **mới nhất** từ Jira (khi có key) / source code / docs trước khi generate.
+
+Khi generate automation từ prompt: **phải lấy được TestCase ID** (Jira Key) rồi mới đọc steps và generate tiếp.
 
 ---
 
@@ -237,26 +249,13 @@ Khi user yêu cầu:
 
 Agent bắt buộc phải:
 
-1. Đọc workflow:
-.agent/workflows/generate_locator.md
-
-2. Kiểm tra ADB:
-
-adb devices
-
-3. Nếu không có device
-→ Báo lỗi.
-
-4. Nếu có nhiều device
-→ Ưu tiên Emulator.
-(Nếu không có Emulator thì hỏi user.)
-
-5. Lấy XML:
-
-adb shell uiautomator dump
-
-adb pull
-
-6. Đọc XML
-
-7. Generate locator theo framework.
+1. Đọc practice tương ứng:
+   - Android → `practices/mobile/android.md`
+   - iOS → `practices/mobile/ios.md`
+2. Đọc workflow: `.agent/workflows/generate_locator.md`
+3. Kiểm tra device (`adb devices` với Android).
+4. Nếu không có device → Báo lỗi.
+5. Nếu có nhiều device → Ưu tiên Emulator (Android). Không có Emulator → hỏi USER.
+6. Mở đúng app theo practice (Appium MCP ưu tiên; ADB dump là fallback).
+7. Lấy UI hierarchy (`appium_page_source` hoặc `uiautomator dump`).
+8. Generate locator theo framework (kiểm tra PageUI tên tương đồng trước khi tạo mới).

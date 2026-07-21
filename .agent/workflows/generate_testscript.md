@@ -110,6 +110,20 @@ Không generate nếu chưa hiểu Framework.
 
 ---
 
+# Bước 1.1 - Đọc Practice môi trường (Web / Mobile)
+
+Trước khi mở browser hoặc app:
+
+| Kênh | Đọc file |
+|------|----------|
+| Web | `practices/browsers/browser.md` |
+| Android | `practices/mobile/android.md` |
+| iOS | `practices/mobile/ios.md` |
+
+Lấy browser/URL hoặc device/app/package/bundleId theo practice (USER được override).
+
+---
+
 # Bước 2 - Lấy Testcase từ Jira MCP (bắt buộc nếu có Jira Key)
 
 Khi prompt / USER cung cấp `{JiraKey}` / `{TestCaseID}` dạng Jira key (vd: `CRM-123`), hoặc yêu cầu lấy TC từ Jira:

@@ -1,7 +1,9 @@
 Generate locator cho module {ModuleName}.
 
 Yêu cầu:
-- Sử dụng Browser MCP để mở URL: {URL}
+- Đọc practices/browsers/browser.md trước (browser + URL mặc định).
+- Nếu {URL} được cung cấp → dùng {URL}; không thì dùng URL trong browser.md.
+- Sử dụng Browser MCP để mở đúng trình duyệt / URL theo practice.
 - Đọc DOM hiện tại.
 - Sinh locator theo Coding Convention.
 - Ưu tiên id → name → css → xpath.

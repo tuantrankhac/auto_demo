@@ -7,11 +7,61 @@ description: Skill tích hợp Jira/Xray — lấy requirements từ Jira, xác 
 
 ## Mô tả
 
-Skill này cung cấp khả năng tích hợp giữa Antigravity Testing Kit với hệ thống Jira và Xray để:
+Skill này cung cấp khả năng tích hợp giữa Demo Framework với hệ thống Jira và Xray để:
 
-1. **Lấy Requirements/User Stories** từ Jira → chuyển thành tài liệu yêu cầu chuẩn
-2. **Xác thực Xray** (Cloud hoặc Server/Data Center)
-3. **Đẩy kết quả test** (Playwright, JUnit, Allure) lên Xray Test Management
+1. **Lấy Test Case / Steps** từ Jira qua **Jira MCP** (ưu tiên) — đầu vào cho generate automation
+2. **Lấy Requirements/User Stories** từ Jira → chuyển thành tài liệu yêu cầu chuẩn
+3. **Xác thực Xray** (Cloud hoặc Server/Data Center)
+4. **Đẩy kết quả test** lên Xray Test Management
+
+---
+
+## Jira MCP (ưu tiên khi generate automation)
+
+Server: `mcp/jira-mcp` (đăng ký trong `.cursor/mcp.json` với tên `jira`).
+
+Config: `knowledge/config/jira.yaml`  
+Secrets: `knowledge/secrets/.env` (`JIRA_API_TOKEN`)
+
+### Tools bắt buộc khi lấy testcase đầu vào
+
+| Tool | Khi nào dùng |
+|------|----------------|
+| `jira_connect` | Luôn gọi trước |
+| `jira_search_issues` | Khi chưa có key — search theo defaultJQL / module |
+| `jira_get_issue` | Lấy thông tin issue / story |
+| `jira_get_testcase` | Lấy Test Case theo key |
+| `jira_get_test_steps` | Lấy steps + expected (nguồn chính cho automation) |
+| `jira_update_field` | Cập nhật field (khi được yêu cầu) |
+| `jira_add_comment` | Comment kết quả / ghi chú |
+| `jira_transition_issue` | Đổi status (khi được yêu cầu) |
+
+### Luồng chuẩn trước khi generate
+
+```
+Prompt có {JiraKey} hoặc module trên Jira
+        │
+        ▼
+jira_connect
+        │
+        ▼
+Xác định TestCase ID
+  - Có key sẵn → dùng luôn
+  - Chưa có → jira_search_issues → chọn ID
+        │
+        ▼
+jira_get_testcase(ID)
+        │
+        ▼
+jira_get_test_steps(ID)
+        │
+        ▼
+Mới generate Locator / PageObject / Test Script
+```
+
+**Không** bỏ qua bước lấy ID + steps khi nguồn là Jira.
+
+**Fallback:** Excel `practices/testcases` chỉ khi USER chỉ định hoặc Jira MCP không khả dụng.
 
 ---
 
@@ -19,17 +69,17 @@ Skill này cung cấp khả năng tích hợp giữa Antigravity Testing Kit v�
 
 Agent sử dụng skill này khi user yêu cầu:
 
+- Generate automation từ Jira Test Case / Xray
 - Lấy requirement / user story từ Jira
 - Kết nối / test connection đến Jira API
 - Đẩy kết quả test lên Xray
 - Import test results lên Jira
-- Xác thực Xray token
-- Tích hợp CI/CD với Jira
 
 Trigger keywords:
-- "fetch jira", "lấy requirement từ jira", "get jira ticket"
-- "import xray", "đẩy kết quả lên xray", "push test results"
-- "test jira connection", "kiểm tra kết nối jira"
+- "fetch jira", "lấy testcase từ jira", "JiraKey", "CRM-123"
+- "get jira ticket", "xray steps"
+- "import xray", "đẩy kết quả lên xray"
+- "test jira connection"
 
 ---
 
@@ -149,6 +199,9 @@ node scripts/integrations/jira/xray_importer.js --format junit --file ./junit-re
 
 | Workflow | Mô tả |
 |----------|--------|
+| `/generate_testscript` | Lấy TC từ Jira MCP rồi sinh Test Script |
+| `/manual_to_auto` | Module automation — bắt đầu bằng Jira Key / search |
+| `/generate_db_verification` | Lấy steps từ Jira rồi sinh verify DB |
 | `/fetch_jira_requirements` | Lấy requirements từ Jira ticket và lưu thành file |
 | `/import_test_results_xray` | Đẩy kết quả test lên Xray |
 
